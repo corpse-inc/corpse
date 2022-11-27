@@ -42,12 +42,20 @@ class WorldInitializer:
     def _create_stats_ui(self):
         pass
 
+    def _create_craft_ui(self):
+        pass
+
+    def _create_dialog_ui(self):
+        pass
+
     def _create_ui_entities(self):
         return utils.flatten_list(
             (
                 self._create_inventory_ui(),
                 self._create_bag_ui(),
                 self._create_stats_ui(),
+                self._create_craft_ui(),
+                self._create_dialog_ui()
             )
         )
 
