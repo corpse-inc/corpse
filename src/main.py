@@ -22,6 +22,7 @@ PROCESSORS = (
 def fill_world(world: esper.World):
     location = world.create_entity(Location())
     player = world.create_entity(
+        PlayerMarker(),
         Creature(),
         Animation(
             state=(AnimationState.Stands,),
@@ -36,7 +37,6 @@ def fill_world(world: esper.World):
         Velocity(pygame.Vector2(0, 0)),
         Position(location, "summer_island", pygame.Vector2(320, 320)),
         Renderable(),
-        PlayerMarker(),
     )
 
 
