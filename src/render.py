@@ -6,7 +6,7 @@ from dataclasses import dataclass as component
 from animation import Animation
 
 from creature import PlayerMarker
-from location import Location, Position
+from location import Layer, Location, Position
 
 
 class Sprite(pygame.sprite.Sprite):
@@ -27,6 +27,7 @@ class RenderProcessor(esper.Processor):
     def process(self, dt, screen, running):
         for _, (_, position) in self.world.get_components(PlayerMarker, Position):
             location = self.world.component_for_entity(position.location, Location)
+            location.sprites.empty()
 
             for _, (render, ani, pos) in self.world.get_components(
                 Renderable, Animation, Position
@@ -37,7 +38,7 @@ class RenderProcessor(esper.Processor):
                 sprite.rect.x = pos.coords.x
                 sprite.rect.y = pos.coords.y
                 if sprite not in location.sprites:
-                    location.sprites.add(sprite, layer=1)
+                    location.sprites.add(sprite, layer=pos.layer.value)
 
             location.sprites.draw(screen)
             pygame.display.flip()
