@@ -9,6 +9,7 @@ from location import *
 from animation import *
 from utils import FPS, RESOLUTION, ResourcePath
 
+
 PROCESSORS = (
     InputProcessor,
     InitLocationProcessor,
@@ -32,6 +33,7 @@ def fill_world(world: esper.World):
                 ),
             },
         ),
+        Velocity(pygame.Vector2(0, 0)),
         Position(location, "summer_island", pygame.Vector2(320, 320)),
         Renderable(),
         PlayerMarker(),
