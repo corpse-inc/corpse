@@ -1,34 +1,58 @@
 import esper
 import pygame
 
-from input import InputProcessor
-from movement import MovementProcessor
-from location import LocationProcessor, PositionProcessor
-
-FPS = 60
-RESOLUTION = 720, 480
+from input import *
+from render import *
+from creature import *
+from movement import *
+from location import *
+from animation import *
+from utils import FPS, RESOLUTION, ResourcePath
 
 PROCESSORS = (
     InputProcessor,
-    LocationProcessor,
+    InitLocationProcessor,
     MovementProcessor,
-    PositionProcessor,
+    RenderProcessor,
+    FrameCyclingProcessor,
 )
+
+
+def fill_world(world: esper.World):
+    location = world.create_entity(Location())
+    player = world.create_entity(
+        Creature(),
+        Animation(
+            state=(AnimationState.Stands,),
+            frames={
+                (AnimationState.Stands,): (
+                    pygame.image.load(
+                        ResourcePath.creature_frame("player", AnimationState.Stands, 1)
+                    ).convert(),
+                ),
+            },
+        ),
+        Position(location, "summer_island", pygame.Vector2(320, 320)),
+        Renderable(),
+        PlayerMarker(),
+    )
 
 
 if __name__ == "__main__":
     pygame.init()
-    window = pygame.display.set_mode(RESOLUTION)
+    screen = pygame.display.set_mode(RESOLUTION)
     pygame.display.set_caption("Corpse inc.")
     clock = pygame.time.Clock()
 
     world = esper.World()
+
+    fill_world(world)
 
     for processor in PROCESSORS:
         world.add_processor(processor())
 
     running = [True]
     while running[0]:
-        world.process(clock.tick(FPS), running)
+        world.process(clock.tick(FPS), screen, running)
 
     pygame.quit()
