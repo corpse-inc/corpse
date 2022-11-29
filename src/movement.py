@@ -7,6 +7,11 @@ from location import Position
 
 
 @component
+class Direction:
+    vector: pygame.Vector2
+
+
+@component
 class Velocity:
     vector: pygame.Vector2
 

@@ -4,9 +4,12 @@ from animation import Animation, AnimationState
 
 FPS = 60
 
-RESOLUTION = 640, 640
+RESOLUTION = 320, 320
 CAMERA_SIZE = RESOLUTION
-CAMERA_ZOOM = 1.2
+
+# TODO: Баг: при изменении данной константы система rotation.RotationProcessor
+# неправильно вращает спрайты.
+CAMERA_ZOOM = 1
 
 PLAYER_SPEED = 3
 

@@ -9,8 +9,9 @@ class CameraProcessor(esper.Processor):
     """Центрирует камеру на игрока."""
 
     def process(self, dt, screen, running):
-        for player, (_, position) in self.world.get_components(PlayerMarker, Position):
+        for player, (_, position, render) in self.world.get_components(
+            PlayerMarker, Position, Renderable
+        ):
             location = self.world.component_for_entity(position.location, Location)
-            location.sprites.center(
-                self.world.component_for_entity(player, Renderable).sprite.rect.center
-            )
+            if render.sprite is not None:
+                location.sprites.center(render.sprite.rect.center)

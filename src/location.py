@@ -25,13 +25,14 @@ class Layer(Enum):
 class Location:
     map: pytmx.TiledMap | None = None
     sprites: pyscroll.PyscrollGroup | None = None
+    renderer: pyscroll.BufferedRenderer | None = None
 
 
 @component
 class Position:
     location: int
     location_id: str
-    coords: pygame.math.Vector2
+    coords: pygame.Vector2
     layer: Layer = Layer.Objects
 
 
@@ -44,7 +45,7 @@ class SkipLocationInitMarker:
 class InitLocationProcessor(esper.Processor):
     """Инициализирует локацию, на которой в данный момент находится игрок."""
 
-    def _make_map_and_scroll_group(self, location_id: str):
+    def _make_location_data(self, location_id: str):
         tmx_data = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))
 
         map_layer = pyscroll.BufferedRenderer(
@@ -53,7 +54,9 @@ class InitLocationProcessor(esper.Processor):
             zoom=utils.CAMERA_ZOOM,
         )
 
-        return tmx_data, pyscroll.PyscrollGroup(map_layer=map_layer)
+        group = pyscroll.PyscrollGroup(map_layer=map_layer)
+
+        return tmx_data, group, map_layer
 
     def process(self, dt, screen, running):
         if len(self.world.get_component(SkipLocationInitMarker)) != 0:
@@ -61,7 +64,9 @@ class InitLocationProcessor(esper.Processor):
 
         for _, (_, position) in self.world.get_components(PlayerMarker, Position):
             location = self.world.component_for_entity(position.location, Location)
-            location.map, location.sprites = self._make_map_and_scroll_group(
-                position.location_id
-            )
+            (
+                location.map,
+                location.sprites,
+                location.renderer,
+            ) = self._make_location_data(position.location_id)
             self.world.create_entity(SkipLocationInitMarker())
