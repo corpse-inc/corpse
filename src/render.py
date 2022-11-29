@@ -39,6 +39,7 @@ class RenderProcessor(esper.Processor):
                 sprite.rect.y = pos.coords.y
                 if sprite not in location.sprites:
                     location.sprites.add(sprite, layer=pos.layer.value)
+                render.sprite = sprite
 
             location.sprites.draw(screen)
             pygame.display.flip()

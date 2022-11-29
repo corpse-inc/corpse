@@ -1,5 +1,6 @@
 import esper
 import pygame
+from camera import CameraProcessor
 
 from input import *
 from render import *
@@ -16,6 +17,7 @@ PROCESSORS = (
     MovementProcessor,
     RenderProcessor,
     FrameCyclingProcessor,
+    CameraProcessor,
 )
 
 
