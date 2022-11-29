@@ -35,10 +35,11 @@ class RenderProcessor(esper.Processor):
                 sprite = pygame.sprite.Sprite()
                 sprite.image = utils.surface_from_animation(ani)
                 sprite.rect = sprite.image.get_rect()
-                sprite.rect.x = pos.coords.x
-                sprite.rect.y = pos.coords.y
+                sprite.rect.move_ip(*pos.coords)
+
                 if sprite not in location.sprites:
                     location.sprites.add(sprite, layer=pos.layer.value)
+
                 render.sprite = sprite
 
             location.sprites.draw(screen)
