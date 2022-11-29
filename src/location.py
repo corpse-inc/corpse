@@ -23,10 +23,13 @@ class Position:
 
 @component
 class SkipLocationInitMarker:
-    pass
+    """Если в мире игры есть сущность с данным компонентом, значит нужно
+    пропустить инициализацию локаций."""
 
 
 class InitLocationProcessor(esper.Processor):
+    """Инициализирует локацию, на которой в данный момент находится игрок."""
+
     def _make_scroll_group(self, location_id: str):
         tmx_data = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))
 

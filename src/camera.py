@@ -6,6 +6,8 @@ from location import Location, Position
 
 
 class CameraProcessor(esper.Processor):
+    """Центрирует камеру на игрока."""
+
     def process(self, dt, screen, running):
         for player, (_, position) in self.world.get_components(PlayerMarker, Position):
             location = self.world.component_for_entity(position.location, Location)
