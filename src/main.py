@@ -1,12 +1,13 @@
 import esper
 import pygame
-from camera import CameraProcessor
 
 from input import *
+from camera import *
 from render import *
 from creature import *
 from movement import *
 from location import *
+from rotation import *
 from animation import *
 from utils import FPS, RESOLUTION, ResourcePath
 
@@ -15,9 +16,10 @@ PROCESSORS = (
     InputProcessor,
     InitLocationProcessor,
     MovementProcessor,
-    RenderProcessor,
+    RotationProcessor,
     FrameCyclingProcessor,
     CameraProcessor,
+    RenderProcessor,
 )
 
 

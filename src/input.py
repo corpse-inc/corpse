@@ -1,8 +1,10 @@
 import pygame
 import esper
-from creature import PlayerMarker
 
-from movement import Velocity
+from creature import PlayerMarker
+from location import Position
+from movement import Direction, Velocity
+from render import Renderable
 from utils import PLAYER_SPEED
 
 
