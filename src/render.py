@@ -21,6 +21,9 @@ class Renderable:
 
 
 class RenderProcessor(esper.Processor):
+    """Добавляет все недобавленные в локацию анимированные сущности с
+    координатами и отрисовывает все спрайты на локации."""
+
     def process(self, dt, screen, running):
         for _, (_, position) in self.world.get_components(PlayerMarker, Position):
             location = self.world.component_for_entity(position.location, Location)

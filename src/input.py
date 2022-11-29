@@ -7,6 +7,8 @@ from utils import PLAYER_SPEED
 
 
 class InputProcessor(esper.Processor):
+    """Обрабатывает события ввода с клавиатуры, мыши и т. п."""
+
     def _handle_key_press(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
             match event.key:
