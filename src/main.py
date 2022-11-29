@@ -29,7 +29,7 @@ def fill_world(world: esper.World):
                 (AnimationState.Stands,): (
                     pygame.image.load(
                         ResourcePath.creature_frame("player", AnimationState.Stands, 1)
-                    ).convert(),
+                    ).convert_alpha(),
                 ),
             },
         ),
