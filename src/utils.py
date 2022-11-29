@@ -3,9 +3,13 @@ from animation import Animation, AnimationState
 
 
 FPS = 60
+
 RESOLUTION = 640, 640
-CAMERA_SIZE = 320, 320
+CAMERA_SIZE = RESOLUTION
+CAMERA_ZOOM = 1.2
+
 PLAYER_SPEED = 3
+
 RESOURCES = "/".join(__file__.split("/")[:-2]) + "/resources"
 
 

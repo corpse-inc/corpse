@@ -50,6 +50,7 @@ class InitLocationProcessor(esper.Processor):
         map_layer = pyscroll.BufferedRenderer(
             data=pyscroll.TiledMapData(tmx_data),
             size=utils.CAMERA_SIZE,
+            zoom=utils.CAMERA_ZOOM,
         )
 
         return tmx_data, pyscroll.PyscrollGroup(map_layer=map_layer)
