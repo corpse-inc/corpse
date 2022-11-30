@@ -9,7 +9,7 @@ from movement import Direction
 class RotationProcessor(esper.Processor):
     """Вращает объекты при необходимости."""
 
-    def process(self, dt, screen, running):
+    def process(self, **_):
         # Повернуть игрока так, чтобы он смотрел на курсор мыши
         for player, (_, pos) in self.world.get_components(PlayerMarker, Position):
             location = self.world.component_for_entity(pos.location, Location)
