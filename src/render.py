@@ -27,7 +27,7 @@ class RenderProcessor(esper.Processor):
     координатами и отрисовывает все спрайты на локации, повернув их на нужное
     количество градусов при наличии компонента Direction."""
 
-    def process(self, dt, screen, running):
+    def process(self, screen=None, **_):
         for _, (_, position) in self.world.get_components(PlayerMarker, Position):
             location = self.world.component_for_entity(position.location, Location)
             location.sprites.empty()
@@ -53,5 +53,7 @@ class RenderProcessor(esper.Processor):
 
                 render.sprite = sprite
 
-            location.sprites.draw(screen)
+            if screen is not None:
+                location.sprites.draw(screen)
+
             pygame.display.flip()

@@ -19,7 +19,7 @@ class Velocity:
 class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
-    def process(self, dt, screen, running):
+    def process(self, **_):
         for _, (pos, vel) in self.world.get_components(Position, Velocity):
             vec = vel.vector
             if (vec.x, vec.y) == (0, 0):

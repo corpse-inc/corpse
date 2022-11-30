@@ -59,6 +59,6 @@ if __name__ == "__main__":
 
     running = [True]
     while running[0]:
-        world.process(clock.tick(FPS), screen, running)
+        world.process(dt=clock.tick(FPS), screen=screen, running=running)
 
     pygame.quit()

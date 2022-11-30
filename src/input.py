@@ -1,5 +1,6 @@
 import pygame
 import esper
+import sys
 
 from creature import PlayerMarker
 from location import Position
@@ -30,11 +31,15 @@ class InputProcessor(esper.Processor):
             elif event.key in {pygame.K_a, pygame.K_d}:
                 vel.vector.x = 0
 
-    def process(self, dt, screen, running):
+    def process(self, running=None, **_):
         for event in pygame.event.get():
             match event.type:
                 case pygame.QUIT:
-                    running[0] = False
+                    if running is not None:
+                        running[0] = False
+                    else:
+                        pygame.quit()
+                        sys.exit()
                 case pygame.KEYDOWN:
                     self._handle_key_press(event)
                 case pygame.KEYUP:

@@ -23,7 +23,7 @@ class Animation:
 class FrameCyclingProcessor(esper.Processor):
     """Изменяет текущий кадр каждой анимируемой сущности."""
 
-    def process(self, dt, screen, running):
+    def process(self, **_):
         for _, ani in self.world.get_component(Animation):
             ani.frame_idx += 1
             if ani.frame_idx >= len(ani.frames[ani.state]):

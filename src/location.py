@@ -58,7 +58,7 @@ class InitLocationProcessor(esper.Processor):
 
         return tmx_data, group, map_layer
 
-    def process(self, dt, screen, running):
+    def process(self, **_):
         if len(self.world.get_component(SkipLocationInitMarker)) != 0:
             return
 
