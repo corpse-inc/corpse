@@ -36,8 +36,7 @@ class RenderProcessor(esper.Processor):
                 Renderable, Animation, Position
             ):
                 img = utils.surface_from_animation(ani)
-                rect = img.get_rect()
-                rect.center = pos.coords
+                rect = img.get_rect(center=pos.coords)
 
                 if (dir := self.world.try_component(entity, Direction)) is not None:
                     angle = dir.vector.as_polar()[1]
