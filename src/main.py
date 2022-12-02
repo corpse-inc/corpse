@@ -1,6 +1,7 @@
 import esper
 import pygame
 
+from roof import *
 from input import *
 from camera import *
 from render import *
@@ -19,6 +20,7 @@ PROCESSORS = (
     RotationProcessor,
     FrameCyclingProcessor,
     CameraProcessor,
+    RoofTogglingProcessor,
     RenderProcessor,
 )
 
