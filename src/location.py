@@ -5,12 +5,12 @@ import pyscroll
 import utils
 
 from dataclasses import dataclass as component
-from enum import Enum
+from enum import IntEnum
 
 from creature import PlayerMarker
 
 
-class Layer(Enum):
+class Layer(IntEnum):
     """Каждая локация имеет три слоя: земля, объекты и крыши. На земле
     расположены тайлы травы, дорог и т. п. На слое объектов расположены все
     существа, объекты и предметы. На слое с крышами расположены крыши строений."""
