@@ -3,8 +3,9 @@ import esper
 
 from dataclasses import dataclass as component
 
-from location import Position
+from location import Location, Position
 
+import utils
 
 @component
 class Direction:
@@ -25,10 +26,13 @@ class MovementProcessor(esper.Processor):
             if (vec.x, vec.y) == (0, 0):
                 continue
             
-            new_coords = pos + vec
-            if new_coords.x >= screen_x or new_coords.x <= 0:
+            location = self.world.component_for_entity(pos.location, Location)
+            map_x, map_y = utils.location_map_size(location)
+
+            new_coords = pos.coords + vec
+            if new_coords.x >= map_x or new_coords.x <= 0:
                 new_coords.x = pos.coords.x
-            if new_coords.y >= screen_y or new_coords.y <= 0:
+            if new_coords.y >= map_y or new_coords.y <= 0:
                 new_coords.y = pos.coords.y
 
             pos.coords = new_coords
