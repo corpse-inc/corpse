@@ -2,6 +2,7 @@ import sys
 
 from pyscroll.data import pygame
 from animation import Animation, AnimationState
+from location import Location
 
 
 FPS = 60
@@ -38,3 +39,9 @@ class ResourcePath:
 
 def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
     return animation.frames[animation.state][animation.frame_idx]
+
+
+def location_map_size(location: Location) -> tuple[int, int]:
+    map = location.map
+    w, h, tile = map.width, map.height, map.tilewidth
+    return w * tile, h * tile
