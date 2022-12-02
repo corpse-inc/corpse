@@ -42,7 +42,7 @@ def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
 
 def location_map_size(location) -> tuple[int, int]:
     if location.__class__.__name__ != "Location":
-        raise TypeError
+        raise TypeError("Object of type Location expected")
 
     map = location.map
     w, h, tile = map.width, map.height, map.tilewidth
