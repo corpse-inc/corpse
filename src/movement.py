@@ -24,4 +24,11 @@ class MovementProcessor(esper.Processor):
             vec = vel.vector
             if (vec.x, vec.y) == (0, 0):
                 continue
-            pos.coords += vec
+            
+            new_coords = pos + vec
+            if new_coords.x >= screen_x or new_coords.x <= 0:
+                new_coords.x = pos.coords.x
+            if new_coords.y >= screen_y or new_coords.y <= 0:
+                new_coords.y = pos.coords.y
+
+            pos.coords = new_coords
