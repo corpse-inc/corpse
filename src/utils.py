@@ -15,13 +15,22 @@ CAMERA_ZOOM = 1
 
 PLAYER_SPEED = 3
 
-RESOURCES = "/".join(__file__.split("/")[:-2]) + "/resources"
+
+def init_resources_path() -> str:
+    res = "/".join(__file__.split("/")[:-2]) + "/resources"
+    if res.startswith("/"):
+        return res[1:]
+    return res
+
+
+RESOURCES = init_resources_path()
 
 
 def crossplatform_path(path: str) -> str:
-    if sys.platform == "posix" or not sys.platform.startswith("win"):
-        return path
-    return path.replace("/", "\\")
+    return path
+    # if sys.platform == "posix" or not sys.platform.startswith("win"):
+    # return path
+    # return path.replace("/", "\\")
 
 
 class ResourcePath:
