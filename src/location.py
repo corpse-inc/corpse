@@ -3,6 +3,7 @@ import esper
 import pytmx
 import pyscroll
 from movement import Direction
+from object import Solid
 from size import Size
 import utils
 
@@ -90,6 +91,9 @@ class InitLocationProcessor(esper.Processor):
                     self.world.add_component(
                         entity, utils.animation_from_surface(object.image)
                     )
+
+                if object.properties.get("is_solid", False):
+                    self.world.add_component(entity, Solid)
 
     def _make_location_data(self, location: int, location_id: str):
         tilemap = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))
