@@ -1,14 +1,14 @@
-import math
 import pygame
 import esper
 import utils
 
 from dataclasses import dataclass as component
 
-from movement import Direction
+from rotation import Direction
 from animation import Animation
 from creature import PlayerMarker
-from location import Layer, Location, Position
+
+import location as loc
 
 
 class Sprite(pygame.sprite.Sprite):
@@ -28,12 +28,12 @@ class RenderProcessor(esper.Processor):
     количество градусов при наличии компонента Direction."""
 
     def process(self, screen=None, **_):
-        for _, (_, position) in self.world.get_components(PlayerMarker, Position):
-            location = self.world.component_for_entity(position.location, Location)
+        for _, (_, position) in self.world.get_components(PlayerMarker, loc.Position):
+            location = self.world.component_for_entity(position.location, loc.Location)
             location.sprites.empty()
 
             for entity, (render, ani, pos) in self.world.get_components(
-                Renderable, Animation, Position
+                Renderable, Animation, loc.Position
             ):
                 img = utils.surface_from_animation(ani)
                 rect = img.get_rect(center=pos.coords)

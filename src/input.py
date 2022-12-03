@@ -3,9 +3,7 @@ import esper
 import sys
 
 from creature import PlayerMarker
-from location import Position
-from movement import Direction, Velocity
-from render import Renderable
+from movement import Velocity
 from utils import PLAYER_SPEED
 
 

@@ -7,10 +7,6 @@ from location import Location, Position
 
 import utils
 
-@component
-class Direction:
-    vector: pygame.Vector2
-
 
 @component
 class Velocity:
@@ -25,7 +21,7 @@ class MovementProcessor(esper.Processor):
             vec = vel.vector
             if (vec.x, vec.y) == (0, 0):
                 continue
-            
+
             location = self.world.component_for_entity(pos.location, Location)
             map_x, map_y = utils.location_map_size(location)
 
