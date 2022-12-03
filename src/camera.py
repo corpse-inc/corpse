@@ -1,10 +1,10 @@
 import esper
 
 from render import Renderable
-from position import Position
+from location import Position
+from render import Renderable
 
 import utils
-import location as loc
 
 
 class CameraProcessor(esper.Processor):
@@ -12,6 +12,6 @@ class CameraProcessor(esper.Processor):
 
     def process(self, **_):
         pos, render = utils.player(self, Position, Renderable)
-        location = loc.current(self, pos)
+        location = utils.location(self, pos)
         if render.sprite is not None:
             location.sprites.center(render.sprite.rect.center)

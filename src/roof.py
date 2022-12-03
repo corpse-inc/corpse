@@ -1,18 +1,16 @@
 import pygame
 import esper
 
-import location as loc
-
 import utils
 
-# from location import Layer, Location, Position
+from location import Position
 
 
 class RoofTogglingProcessor(esper.Processor):
     def process(self, **_):
-        pos = utils.player(self, loc.Position)
-        location = loc.current(self, pos)
         return
+        pos = utils.player(self, Position)
+        location = utils.location(self, pos)
 
         roofs = map(
             lambda object: (object, map(pygame.Vector2, object.as_points)),
