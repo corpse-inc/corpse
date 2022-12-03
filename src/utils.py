@@ -2,10 +2,8 @@ import sys
 import esper
 import pygame
 
-from typing import Any, Tuple
-
-import animation as ani
-import creature
+from animation import Animation, AnimationState
+from creature import PlayerMarker
 
 
 FPS = 60
@@ -18,6 +16,8 @@ CAMERA_SIZE = RESOLUTION
 CAMERA_ZOOM = 1
 
 PLAYER_SPEED = 3
+
+_cache = {}
 
 
 def init_resources_path() -> str:
@@ -36,20 +36,20 @@ class ResourcePath:
         return f"{RESOURCES}/locations/tilemaps/{location_id}/tilemap.tmx"
 
     @classmethod
-    def creature_frame(cls, creature: str, state: ani.AnimationState, idx: int) -> str:
+    def creature_frame(cls, creature: str, state: AnimationState, idx: int) -> str:
         return f"{RESOURCES}/creatures/{creature}/{state.name}/{idx}.png"
 
 
-def animation_from_surface(surface: pygame.surface.Surface) -> ani.Animation:
-    return ani.Animation(
-        state=(ani.AnimationState.Stands,),
+def animation_from_surface(surface: pygame.surface.Surface) -> Animation:
+    return Animation(
+        state=(AnimationState.Stands,),
         frames={
-            (ani.AnimationState.Stands,): (surface,),
+            (AnimationState.Stands,): (surface,),
         },
     )
 
 
-def surface_from_animation(animation: ani.Animation) -> pygame.surface.Surface:
+def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
     return animation.frames[animation.state][animation.frame_idx]
 
 
@@ -71,11 +71,51 @@ def sprite(
     return sprite
 
 
-def player(processor, *components) -> Tuple[Any] | Any | int:
+def player(
+    processor,
+    *components,
+    id=False,
+):
     world: esper.World = processor.world
+
+    if id:
+        key = "player_entity_id"
+
     if len(components) == 1:
-        return world.get_components(creature.PlayerMarker, *components)[0][1][1]
+        comps = world.get_components(PlayerMarker, *components)[0]
+
+        if id and _cache.get(key, None) is None:
+            _cache[key] = comps[0]
+
+        return (comps[0], comps[1][1]) if id else comps[1][1]
     elif len(components) != 0:
-        return world.get_components(creature.PlayerMarker, *components)[0][1][1:]
+        comps = world.get_components(PlayerMarker, *components)[0]
+
+        if id and _cache.get(key, None) is None:
+            _cache[key] = comps[0]
+
+        return (comps[0], comps[1][1:]) if id else comps[1][1:]
     else:
-        return world.get_component(creature.PlayerMarker)[0][0]
+        if _cache.get(key, None) is None:
+            _cache[key] = world.get_component(PlayerMarker)[0][0]
+
+        return _cache[key]
+
+
+def location(processor, player_position=None):
+    from location import Location, Position
+
+    world: esper.World = processor.world
+
+    if player_position is not None:
+        return world.component_for_entity(player_position.location, Location)
+
+    return world.component_for_entity(player(processor, Position).location, Location)
+
+
+def vector_angle(vector: pygame.Vector2) -> float:
+    return -vector.as_polar()[1]
+
+
+def snake_to_camel_case(snake_case_string: str) -> str:
+    return "".join(c.title() for c in snake_case_string.split("_"))

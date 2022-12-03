@@ -1,14 +1,14 @@
 import esper
 import pygame
 
-from roof import *
-from input import *
-from camera import *
-from render import *
-from creature import *
-from movement import *
-from location import *
-from animation import *
+from roof import RoofTogglingProcessor
+from input import InputProcessor
+from camera import CameraProcessor
+from render import RenderProcessor, Renderable
+from creature import Creature, PlayerMarker
+from movement import MovementProcessor, RotationProcessor, Velocity
+from location import Location, InitLocationProcessor, Position
+from animation import Animation, AnimationState, FrameCyclingProcessor
 from utils import FPS, RESOLUTION, ResourcePath
 
 
