@@ -4,22 +4,16 @@ import utils
 
 from dataclasses import dataclass as component
 
-from rotation import Direction
+import movement as mov
+
 from animation import Animation
-from creature import PlayerMarker
 
 import location as loc
 
 
-class Sprite(pygame.sprite.Sprite):
-    def __init__(self, surface):
-        self.image = surface
-        self.rect = surface.get_rect()
-
-
 @component
 class Renderable:
-    sprite: Sprite | None = None
+    sprite: pygame.sprite.Sprite | None = None
 
 
 class RenderProcessor(esper.Processor):
@@ -28,31 +22,33 @@ class RenderProcessor(esper.Processor):
     количество градусов при наличии компонента Direction."""
 
     def process(self, screen=None, **_):
-        for _, (_, position) in self.world.get_components(PlayerMarker, loc.Position):
-            location = self.world.component_for_entity(position.location, loc.Location)
-            location.sprites.empty()
+        location = loc.current(self)
+        location.sprites.empty()
 
-            for entity, (render, ani, pos) in self.world.get_components(
-                Renderable, Animation, loc.Position
-            ):
-                img = utils.surface_from_animation(ani)
-                rect = img.get_rect(center=pos.coords)
+        for entity, (render, ani, pos) in self.world.get_components(
+            Renderable, Animation, loc.Position
+        ):
+            img = utils.surface_from_animation(ani)
+            rect = img.get_rect(center=pos.coords)
 
-                if (dir := self.world.try_component(entity, Direction)) is not None:
-                    angle = dir.vector.as_polar()[1]
-                    img = pygame.transform.rotozoom(img, -angle, 1)
-                    rect = img.get_rect(center=rect.center)
+            if render.sprite is not None:
+                pass
 
-                sprite = pygame.sprite.Sprite()
-                sprite.image = img
-                sprite.rect = rect
+            if (dir := self.world.try_component(entity, mov.Direction)) is not None:
+                angle = dir.vector.as_polar()[1]
+                img = pygame.transform.rotozoom(img, -angle, 1)
+                rect = img.get_rect(center=rect.center)
 
-                if sprite not in location.sprites:
-                    location.sprites.add(sprite, layer=pos.layer.value)
+            sprite = pygame.sprite.Sprite()
+            sprite.image = img
+            sprite.rect = rect
 
-                render.sprite = sprite
+            if sprite not in location.sprites:
+                location.sprites.add(sprite, layer=pos.layer.value)
 
-            if screen is not None:
-                location.sprites.draw(screen)
+            render.sprite = sprite
 
-            pygame.display.flip()
+        if screen is not None:
+            location.sprites.draw(screen)
+
+        pygame.display.flip()

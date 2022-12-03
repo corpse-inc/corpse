@@ -1,7 +1,11 @@
 import sys
+import esper
+import pygame
 
-from pyscroll.data import pygame
-from animation import Animation, AnimationState
+from typing import Any, Tuple
+
+import animation as ani
+import creature
 
 
 FPS = 60
@@ -32,20 +36,20 @@ class ResourcePath:
         return f"{RESOURCES}/locations/tilemaps/{location_id}/tilemap.tmx"
 
     @classmethod
-    def creature_frame(cls, creature: str, state: AnimationState, idx: int) -> str:
+    def creature_frame(cls, creature: str, state: ani.AnimationState, idx: int) -> str:
         return f"{RESOURCES}/creatures/{creature}/{state.name}/{idx}.png"
 
 
-def animation_from_surface(surface: pygame.surface.Surface) -> Animation:
-    return Animation(
-        state=(AnimationState.Stands,),
+def animation_from_surface(surface: pygame.surface.Surface) -> ani.Animation:
+    return ani.Animation(
+        state=(ani.AnimationState.Stands,),
         frames={
-            (AnimationState.Stands,): (surface,),
+            (ani.AnimationState.Stands,): (surface,),
         },
     )
 
 
-def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
+def surface_from_animation(animation: ani.Animation) -> pygame.surface.Surface:
     return animation.frames[animation.state][animation.frame_idx]
 
 
@@ -56,3 +60,22 @@ def location_map_size(location) -> tuple[int, int]:
     map = location.map
     w, h, tile = map.width, map.height, map.tilewidth
     return w * tile, h * tile
+
+
+def sprite(
+    image: pygame.surface.Surface, rect: pygame.rect.Rect
+) -> pygame.sprite.Sprite:
+    sprite = pygame.sprite.Sprite()
+    sprite.image = image
+    sprite.rect = rect
+    return sprite
+
+
+def player(processor, *components) -> Tuple[Any] | Any | int:
+    world: esper.World = processor.world
+    if len(components) == 1:
+        return world.get_components(creature.PlayerMarker, *components)[0][1][1]
+    elif len(components) != 0:
+        return world.get_components(creature.PlayerMarker, *components)[0][1][1:]
+    else:
+        return world.get_component(creature.PlayerMarker)[0][0]
