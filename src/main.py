@@ -8,7 +8,6 @@ from render import *
 from creature import *
 from movement import *
 from location import *
-from rotation import *
 from animation import *
 from utils import FPS, RESOLUTION, ResourcePath
 

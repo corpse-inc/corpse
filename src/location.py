@@ -2,40 +2,15 @@ import pygame
 import esper
 import pytmx
 import pyscroll
-
-from render import Renderable
 import utils
 
 from dataclasses import dataclass as component
-from enum import IntEnum
+
+import render
 
 from creature import PlayerMarker
 
-
-class Layer(IntEnum):
-    """Каждая локация имеет три слоя: земля, объекты и крыши. На земле
-    расположены тайлы травы, дорог и т. п. На слое объектов расположены все
-    существа, объекты и предметы. На слое с крышами расположены крыши строений."""
-
-    # Порядок имеет значение!
-    Ground = 0
-    Objects = 1
-    Roofs = 2
-
-
-@component
-class Location:
-    map: pytmx.TiledMap | None = None
-    sprites: pyscroll.PyscrollGroup | None = None
-    renderer: pyscroll.BufferedRenderer | None = None
-
-
-@component
-class Position:
-    location: int
-    location_id: str
-    coords: pygame.Vector2
-    layer: Layer = Layer.Objects
+from position import *
 
 
 @component
@@ -58,7 +33,7 @@ class InitLocationProcessor(esper.Processor):
 
         sprites = pyscroll.PyscrollGroup(map_layer=renderer)
 
-        for object in tilemap.layers[Layer.Roofs]:
+        for object in tilemap.objects:
             object: pytmx.TiledObject
 
             points = object.as_points
@@ -69,12 +44,17 @@ class InitLocationProcessor(esper.Processor):
 
             entity = self.world.create_entity(
                 Position(location, location_id, pygame.Vector2(point)),
-                Renderable(),
             )
 
             if object.image is not None:
                 image = pygame.transform.rotate(object.image, -object.rotation)
+                rect = image.get_rect()
+                rect.width = object.width
+                rect.height = object.height
                 self.world.add_component(entity, utils.animation_from_surface(image))
+                self.world.add_component(
+                    entity, render.Renderable(sprite=utils.sprite(image, rect))
+                )
 
         return tilemap, sprites, renderer
 
@@ -90,3 +70,14 @@ class InitLocationProcessor(esper.Processor):
                 location.renderer,
             ) = self._make_location_data(position.location, position.location_id)
             self.world.create_entity(SkipLocationInitMarker())
+
+
+def current(processor, player_position: Position | None = None) -> Location:
+    world: esper.World = processor.world
+
+    if player_position is not None:
+        return world.component_for_entity(player_position.location, Location)
+
+    return world.component_for_entity(
+        utils.player(processor, Position).location, Location
+    )
