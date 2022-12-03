@@ -11,25 +11,11 @@ class RoofTogglingProcessor(esper.Processor):
             location = self.world.component_for_entity(pos.location, Location)
             coords = pos.coords
 
-            tile_width = location.map.tilewidth
-            tiles = map(
-                lambda t: (
-                    t,
-                    pygame.Vector2(t[0] * tile_width, t[1] * tile_width),
-                    pygame.Vector2(
-                        t[0] * tile_width + tile_width - 1,
-                        t[1] * tile_width + tile_width - 1,
-                    ),
-                ),
-                location.map.layers[Layer.Roofs].tiles(),
+            roofs = map(
+                lambda object: (object, map(pygame.Vector2, object.as_points)),
+                location.map.layers[Layer.Roofs],
             )
 
-            for tile, start_coords, end_coords in tiles:
-                surface = tile[-1]
-                if (
-                    start_coords.x <= coords.x <= end_coords.x
-                    and start_coords.y <= coords.y <= end_coords.y
-                ):
-                    surface.set_alpha(0)
-                else:
-                    surface.set_alpha(1000)
+            for roof, (p1, p2, p3, p4) in roofs:
+                if p1.x <= coords.x <= p4.x and p1.y <= coords.x <= p4.y:
+                    pass

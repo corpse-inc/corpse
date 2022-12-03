@@ -2,6 +2,8 @@ import pygame
 import esper
 import pytmx
 import pyscroll
+
+from render import Renderable
 import utils
 
 from dataclasses import dataclass as component
@@ -45,18 +47,36 @@ class SkipLocationInitMarker:
 class InitLocationProcessor(esper.Processor):
     """Инициализирует локацию, на которой в данный момент находится игрок."""
 
-    def _make_location_data(self, location_id: str):
-        tmx_data = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))
+    def _make_location_data(self, location: int, location_id: str):
+        tilemap = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))
 
-        map_layer = pyscroll.BufferedRenderer(
-            data=pyscroll.TiledMapData(tmx_data),
+        renderer = pyscroll.BufferedRenderer(
+            data=pyscroll.TiledMapData(tilemap),
             size=utils.CAMERA_SIZE,
             zoom=utils.CAMERA_ZOOM,
         )
 
-        group = pyscroll.PyscrollGroup(map_layer=map_layer)
+        sprites = pyscroll.PyscrollGroup(map_layer=renderer)
 
-        return tmx_data, group, map_layer
+        for object in tilemap.layers[Layer.Roofs]:
+            object: pytmx.TiledObject
+
+            points = object.as_points
+            point = (
+                sum(map(lambda p: p.x, points)) / len(points),
+                sum(map(lambda p: p.y, points)) / len(points),
+            )
+
+            entity = self.world.create_entity(
+                Position(location, location_id, pygame.Vector2(point)),
+                Renderable(),
+            )
+
+            if object.image is not None:
+                image = pygame.transform.rotate(object.image, -object.rotation)
+                self.world.add_component(entity, utils.animation_from_surface(image))
+
+        return tilemap, sprites, renderer
 
     def process(self, **_):
         if len(self.world.get_component(SkipLocationInitMarker)) != 0:
@@ -68,5 +88,5 @@ class InitLocationProcessor(esper.Processor):
                 location.map,
                 location.sprites,
                 location.renderer,
-            ) = self._make_location_data(position.location_id)
+            ) = self._make_location_data(position.location, position.location_id)
             self.world.create_entity(SkipLocationInitMarker())

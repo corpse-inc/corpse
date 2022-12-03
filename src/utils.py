@@ -36,6 +36,15 @@ class ResourcePath:
         return f"{RESOURCES}/creatures/{creature}/{state.name}/{idx}.png"
 
 
+def animation_from_surface(surface: pygame.surface.Surface) -> Animation:
+    return Animation(
+        state=(AnimationState.Stands,),
+        frames={
+            (AnimationState.Stands,): (surface,),
+        },
+    )
+
+
 def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
     return animation.frames[animation.state][animation.frame_idx]
 
