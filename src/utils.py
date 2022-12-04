@@ -1,4 +1,5 @@
 import sys
+import math
 import esper
 import pygame
 
@@ -114,8 +115,21 @@ def location(processor, player_position=None):
 
 
 def vector_angle(vector: pygame.Vector2) -> float:
-    return -vector.as_polar()[1]
+    return vector.as_polar()[1]
 
 
 def snake_to_camel_case(snake_case_string: str) -> str:
     return "".join(c.title() for c in snake_case_string.split("_"))
+
+
+def rotate_point(origin, point, angle):
+    """Поворачивает точку (point) против часовой стрелки на заданный в градусах
+    угол (angle) вокруг заданной точки (origin)."""
+
+    ox, oy = origin
+    px, py = point
+
+    qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
+    qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
+
+    return qx, qy

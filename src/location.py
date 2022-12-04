@@ -2,9 +2,6 @@ import pygame
 import esper
 import pytmx
 import pyscroll
-from movement import Direction
-from object import Solid
-from size import Size
 import utils
 
 from enum import Enum, IntEnum, auto
@@ -12,6 +9,7 @@ from dataclasses import dataclass as component
 
 from creature import PlayerMarker
 from render import Renderable
+from object import Size, Solid
 
 
 class Layer(IntEnum):
@@ -64,25 +62,20 @@ class InitLocationProcessor(esper.Processor):
     """Инициализирует локацию, на которой в данный момент находится игрок."""
 
     def _fill_objects(self, tilemap: pytmx.TiledMap, location: int, location_id: str):
+        from movement import Direction
+
         for group in tilemap.objectgroups:
             for object in group:
                 object: pytmx.TiledObject
-
-                points = object.as_points
-                point = (
-                    sum(map(lambda p: p.x, points)) / len(points),
-                    sum(map(lambda p: p.y, points)) / len(points),
-                )
 
                 entity = self.world.create_entity(
                     Position(
                         location,
                         location_id,
-                        pygame.Vector2(point),
+                        pygame.Vector2(object.as_points[0]),
                         Layer.from_str(group.name),
                         PointAnchor.TopLeft,
                     ),
-                    Direction(angle=-object.rotation),
                     Size(object.width, object.height),
                     Renderable(),
                 )
@@ -90,6 +83,12 @@ class InitLocationProcessor(esper.Processor):
                 if object.image is not None:
                     self.world.add_component(
                         entity, utils.animation_from_surface(object.image)
+                    )
+
+                if object.rotation != 0:
+                    self.world.add_component(
+                        entity,
+                        Direction(angle=object.rotation),
                     )
 
                 if object.properties.get("is_solid", False):

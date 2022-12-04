@@ -20,7 +20,7 @@ class RenderProcessor(esper.Processor):
         from location import Position
         from animation import Animation
         from movement import Direction
-        from size import Size
+        from object import Size, Invisible
 
         location = utils.location(self)
         location.sprites.empty()
@@ -28,15 +28,20 @@ class RenderProcessor(esper.Processor):
         for entity, (render, ani, pos) in self.world.get_components(
             Renderable, Animation, Position
         ):
+            if self.world.try_component(entity, Invisible):
+                continue
+
             img = utils.surface_from_animation(ani)
 
             if (size := self.world.try_component(entity, Size)) is not None:
                 img = pygame.transform.scale(img, (size.w, size.h))
 
-            if (dir := self.world.try_component(entity, Direction)) is not None:
+            if (
+                dir := self.world.try_component(entity, Direction)
+            ) is not None and dir.angle != 0:
                 if dir.angle is None:
                     dir.angle = utils.vector_angle(dir.vector)
-                img = pygame.transform.rotozoom(img, dir.angle, 1)
+                img = pygame.transform.rotozoom(img, -dir.angle, 1)
 
             sprite = pygame.sprite.Sprite()
             sprite.image = img

@@ -1,22 +1,25 @@
+import math
 import pygame
 import esper
 
 import utils
 
-from location import Position
+from location import Layer, Position
+from object import Invisible, Size
 
 
 class RoofTogglingProcessor(esper.Processor):
     def process(self, **_):
-        return
-        pos = utils.player(self, Position)
-        location = utils.location(self, pos)
+        px, py = utils.player(self, Position).coords
 
-        roofs = map(
-            lambda object: (object, map(pygame.Vector2, object.as_points)),
-            location.map.layers[loc.Layer.Roofs],
-        )
+        for roof, (pos, size) in self.world.get_components(Position, Size):
+            if pos.layer != Layer.Roofs:
+                continue
 
-        for roof, (p1, p2, p3, p4) in roofs:
-            if p1.x <= coords.x <= p4.x and p1.y <= coords.x <= p4.y:
-                pass
+            x1, y1 = pos.coords
+            x2, y2 = x1 + size.w, y1 + size.h
+
+            if x1 <= px <= x2 and y1 <= py <= y2:
+                self.world.add_component(roof, Invisible())
+            elif self.world.try_component(roof, Invisible) is not None:
+                self.world.remove_component(roof, Invisible)
