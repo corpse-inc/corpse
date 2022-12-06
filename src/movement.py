@@ -3,6 +3,9 @@ import esper
 
 from dataclasses import dataclass as component
 
+from pygame.transform import laplacian
+from object import Solid
+
 import utils
 
 
@@ -15,7 +18,7 @@ class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
     def process(self, **_):
-        from location import Location, Position
+        from location import Location, Position, Layer
 
         for _, (pos, vel) in self.world.get_components(Position, Velocity):
             vec = vel.vector
@@ -30,6 +33,10 @@ class MovementProcessor(esper.Processor):
                 new_coords.x = pos.coords.x
             if new_coords.y >= map_y or new_coords.y <= 0:
                 new_coords.y = pos.coords.y
+
+            for _, (_, obj_pos) in self.world.get_components(Solid, Position):
+                if obj_pos.coords[0] < new_coords.x <= obj_pos.coords[0]:
+                    new_coords.x = pos.coords.x 
 
             pos.coords = new_coords
 
