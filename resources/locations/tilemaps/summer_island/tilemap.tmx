@@ -26,8 +26,11 @@
 </data>
  </layer>
  <objectgroup id="11" name="objects">
-  <object id="9" gid="1926" x="93.7362" y="568.695" width="49.9887" height="109.046"/>
-  <object id="12" gid="1838" x="354.083" y="461.847" width="181.587" height="32"/>
+  <object id="9" gid="1926" x="93.7362" y="568.695" width="49.9887" height="109.046">
+   <properties>
+    <property name="is_solid" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="13" name="creatures"/>
  <objectgroup id="12" name="roofs"/>

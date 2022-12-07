@@ -19,6 +19,7 @@ class MovementProcessor(esper.Processor):
 
     def process(self, **_):
         from location import Location, Position, Layer
+        from size import Size
 
         for _, (pos, vel) in self.world.get_components(Position, Velocity):
             vec = vel.vector
@@ -34,9 +35,19 @@ class MovementProcessor(esper.Processor):
             if new_coords.y >= map_y or new_coords.y <= 0:
                 new_coords.y = pos.coords.y
 
-            for _, (_, obj_pos) in self.world.get_components(Solid, Position):
-                if obj_pos.coords[0] < new_coords.x <= obj_pos.coords[0]:
+            for _, (_, obj_pos, obj_size) in self.world.get_components(Solid, Position, Size):
+                right_obj_x = obj_pos.coords[0] + obj_size.w
+                left_obj_x = obj_pos.coords[0] # - (obj_size.w / 4)
+                down_obj_y = obj_pos.coords[1] + obj_size.h
+                top_obj_y = obj_pos.coords[1] # - (obj_size.h / 4)
+                
+                if left_obj_x < new_coords.x < right_obj_x and\
+                top_obj_y < new_coords.y < down_obj_y:
                     new_coords.x = pos.coords.x 
+
+                if top_obj_y < new_coords.y < down_obj_y and\
+                left_obj_x < new_coords.x < right_obj_x:
+                    new_coords.y = pos.coords.y 
 
             pos.coords = new_coords
 
