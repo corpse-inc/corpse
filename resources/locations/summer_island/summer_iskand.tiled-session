@@ -1,0 +1,27 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "Background.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/resources/assets/herose/Hero_Pistol/Shot",
+    "map.height": 250,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 250,
+    "openFiles": [
+    ],
+    "project": "summer_iskand.tiled-project",
+    "recentFiles": [
+        "Background.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
