@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="vehicles" tilewidth="128" tileheight="128" tilecount="9" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="vehicles" tilewidth="128" tileheight="128" tilecount="9" columns="0" objectalignment="center">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="128" height="128" source="../assets/tds_modern_pixel_game_kit/soldiers_and_vehicles1/Humvee/Humvee.png"/>

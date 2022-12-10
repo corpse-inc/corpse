@@ -9,7 +9,7 @@ from dataclasses import dataclass as component
 
 from creature import PlayerMarker
 from render import Renderable
-from object import Size, Solid
+from object import Invisible, Size, Solid
 
 
 class Layer(IntEnum):
@@ -38,18 +38,12 @@ class Location:
     renderer: pyscroll.BufferedRenderer | None = None
 
 
-class PointAnchor(Enum):
-    TopLeft = auto()
-    Center = auto()
-
-
 @component
 class Position:
     location: int
     location_id: str
     coords: pygame.Vector2
     layer: Layer = Layer.Objects
-    anchor: PointAnchor = PointAnchor.Center
 
 
 @component
@@ -72,13 +66,15 @@ class InitLocationProcessor(esper.Processor):
                     Position(
                         location,
                         location_id,
-                        pygame.Vector2(object.as_points[0]),
+                        pygame.Vector2(object.as_points[1]),
                         Layer.from_str(group.name),
-                        PointAnchor.TopLeft,
                     ),
                     Size(object.width, object.height),
                     Renderable(),
                 )
+
+                if not object.visible:
+                    self.world.add_component(entity, Invisible())
 
                 if object.image is not None:
                     self.world.add_component(

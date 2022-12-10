@@ -16,7 +16,6 @@ class RenderProcessor(esper.Processor):
     количество градусов при наличии компонента Direction."""
 
     def process(self, screen=None, **_):
-        from location import PointAnchor
         from location import Position
         from animation import Animation
         from movement import Direction
@@ -41,18 +40,12 @@ class RenderProcessor(esper.Processor):
             ) is not None and dir.angle != 0:
                 if dir.angle is None:
                     dir.angle = utils.vector_angle(dir.vector)
-                img = pygame.transform.rotozoom(img, -dir.angle, 1)
+                img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
 
             sprite = pygame.sprite.Sprite()
             sprite.image = img
 
-            match pos.anchor:
-                case PointAnchor.TopLeft:
-                    anchor = {"topleft": pos.coords}
-                case PointAnchor.Center:
-                    anchor = {"center": pos.coords}
-
-            sprite.rect = img.get_rect(**anchor)
+            sprite.rect = img.get_rect(center=pos.coords)
 
             if sprite not in location.sprites:
                 location.sprites.add(sprite, layer=pos.layer.value)

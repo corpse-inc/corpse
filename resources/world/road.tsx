@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="road" tilewidth="320" tileheight="320" tilecount="10" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="road" tilewidth="320" tileheight="320" tilecount="10" columns="0" objectalignment="center">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="320" height="320" source="../assets/tds_modern_pixel_game_kit/tilesets/PNG/Tiles/_0000_WTiles.png"/>

@@ -33,14 +33,21 @@ def fill_world(world: esper.World):
             state=(AnimationState.Stands,),
             frames={
                 (AnimationState.Stands,): (
-                    pygame.image.load(
-                        ResourcePath.creature_frame("player", AnimationState.Stands, 1)
-                    ).convert_alpha(),
+                    pygame.transform.rotate(
+                        pygame.transform.scale2x(
+                            pygame.image.load(
+                                ResourcePath.creature_frame(
+                                    "player", AnimationState.Stands, 1
+                                )
+                            ).convert_alpha()
+                        ),
+                        90,
+                    ),
                 ),
             },
         ),
         Velocity(pygame.Vector2(0, 0)),
-        Position(location, "summer_island", pygame.Vector2(320, 320)),
+        Position(location, "test", pygame.Vector2(320, 320)),
         Renderable(),
     )
 

@@ -1,4 +1,3 @@
-import math
 import pygame
 import esper
 
@@ -16,7 +15,7 @@ class RoofTogglingProcessor(esper.Processor):
             if pos.layer != Layer.Roofs:
                 continue
 
-            x1, y1 = pos.coords
+            x1, y1 = pos.coords - pygame.Vector2(size.w, size.h) / 2
             x2, y2 = x1 + size.w, y1 + size.h
 
             if x1 <= px <= x2 and y1 <= py <= y2:

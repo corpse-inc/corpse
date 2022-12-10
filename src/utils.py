@@ -9,7 +9,7 @@ from creature import PlayerMarker
 
 FPS = 60
 
-RESOLUTION = 320, 320
+RESOLUTION = 640, 640
 CAMERA_SIZE = RESOLUTION
 
 # TODO: Баг: при изменении данной константы система rotation.RotationProcessor
@@ -34,7 +34,7 @@ RESOURCES = init_resources_path()
 class ResourcePath:
     @classmethod
     def location_tilemap(cls, location_id: str) -> str:
-        return f"{RESOURCES}/locations/tilemaps/{location_id}/tilemap.tmx"
+        return f"{RESOURCES}/world/{location_id}.tmx"
 
     @classmethod
     def creature_frame(cls, creature: str, state: AnimationState, idx: int) -> str:
@@ -126,6 +126,7 @@ def rotate_point(origin, point, angle):
     """Поворачивает точку (point) против часовой стрелки на заданный в градусах
     угол (angle) вокруг заданной точки (origin)."""
 
+    angle = math.radians(angle)
     ox, oy = origin
     px, py = point
 
