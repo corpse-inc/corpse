@@ -22,6 +22,6 @@
  </objectgroup>
  <objectgroup id="3" name="creatures"/>
  <objectgroup id="4" name="roofs">
-  <object id="4" gid="13" x="448" y="128" width="256" height="128"/>
+  <object id="4" gid="13" x="448" y="128" width="256" height="128" rotation="343.319"/>
  </objectgroup>
 </map>
