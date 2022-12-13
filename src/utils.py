@@ -72,31 +72,27 @@ def sprite(
     return sprite
 
 
-def player(
-    processor,
-    *components,
-    id=False,
-):
+def player(processor, *components, id=False, cache=True):
     world: esper.World = processor.world
 
-    if id:
+    if id and cache:
         key = "player_entity_id"
 
     if len(components) == 1:
         comps = world.get_components(PlayerMarker, *components)[0]
 
-        if id and _cache.get(key, None) is None:
+        if cache and id and _cache.get(key, None) is None:
             _cache[key] = comps[0]
 
         return (comps[0], comps[1][1]) if id else comps[1][1]
     elif len(components) != 0:
         comps = world.get_components(PlayerMarker, *components)[0]
 
-        if id and _cache.get(key, None) is None:
+        if cache and id and _cache.get(key, None) is None:
             _cache[key] = comps[0]
 
         return (comps[0], comps[1][1:]) if id else comps[1][1:]
-    else:
+    elif cache:
         if _cache.get(key, None) is None:
             _cache[key] = world.get_component(PlayerMarker)[0][0]
 
@@ -106,7 +102,7 @@ def player(
 def player_from_world(world, *components, id=False):
     fake_processor = esper.Processor()
     fake_processor.world = world
-    return player(fake_processor, *components, id)
+    return player(fake_processor, *components, id=id, cache=False)
 
 
 def location(processor, player_position=None):
