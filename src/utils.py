@@ -103,6 +103,12 @@ def player(
         return _cache[key]
 
 
+def player_from_world(world, *components, id=False):
+    fake_processor = esper.Processor()
+    fake_processor.world = world
+    return player(fake_processor, *components, id)
+
+
 def location(processor, player_position=None):
     from location import Location, Position
 
