@@ -1,6 +1,7 @@
 import esper
 import pygame
 
+from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from roof import RoofTogglingProcessor
 from input import InputProcessor
 from camera import CameraProcessor
@@ -21,6 +22,11 @@ PROCESSORS = (
     CameraProcessor,
     RoofTogglingProcessor,
     RenderProcessor,
+)
+
+CHUNK_LOADER_PROCESSORS = (
+    ChunkUnloadingProcessor,
+    ChunkLoadingProcessor,
 )
 
 
@@ -65,8 +71,14 @@ if __name__ == "__main__":
     for processor in PROCESSORS:
         world.add_processor(processor())
 
+    chunkloader = esper.World()
+
+    for processor in CHUNK_LOADER_PROCESSORS:
+        chunkloader.add_processor(processor())
+
     running = [True]
     while running[0]:
+        chunkloader.process(RESOLUTION, world)
         world.process(dt=clock.tick(FPS), screen=screen, running=running)
 
     pygame.quit()
