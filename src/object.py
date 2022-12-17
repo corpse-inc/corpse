@@ -17,10 +17,5 @@ class Solid:
 
 
 @component
-class MakeInvisibleRequest:
-    pass
-
-
-@component
 class Invisible:
     pass
