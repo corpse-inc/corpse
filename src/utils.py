@@ -3,7 +3,7 @@ import math
 import esper
 import pygame
 
-from animation import Animation, AnimationState
+from animation import Animation
 from creature import PlayerMarker
 
 
@@ -37,21 +37,30 @@ class ResourcePath:
         return f"{RESOURCES}/world/{location_id}.tmx"
 
     @classmethod
-    def creature_frame(cls, creature: str, state: AnimationState, idx: int) -> str:
-        return f"{RESOURCES}/creatures/{creature}/{state.name}/{idx}.png"
+    def frame(
+        cls,
+        object_id: str,
+        idx: int,
+        part_type: str | None = None,
+        part_state: str | None = None,
+    ) -> str:
+        s = f"{RESOURCES}/frames/{object_id}"
+
+        if part_type:
+            s += f"/{part_type}"
+
+        if part_state:
+            s += f"/{part_state}"
+
+        return f"{s}/{idx}.png"
 
 
 def animation_from_surface(surface: pygame.surface.Surface) -> Animation:
-    return Animation(
-        state=(AnimationState.Stands,),
-        frames={
-            (AnimationState.Stands,): (surface,),
-        },
-    )
+    return Animation(frames=(surface,))
 
 
 def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
-    return animation.frames[animation.state][animation.frame_idx]
+    return animation.frames[animation._frame]
 
 
 def location_map_size(location) -> tuple[int, int]:
