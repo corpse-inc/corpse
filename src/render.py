@@ -42,10 +42,11 @@ class RenderProcessor(esper.Processor):
                     dir.angle = utils.vector_angle(dir.vector)
                 img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
 
-            sprite = pygame.sprite.Sprite()
-            sprite.image = img
-
-            sprite.rect = img.get_rect(center=pos.coords)
+            sprite = utils.sprite(
+                img,
+                img.get_rect(center=pos.coords),
+                pygame.mask.from_surface(img),
+            )
 
             if sprite not in location.sprites:
                 location.sprites.add(sprite, layer=pos.layer.value)
