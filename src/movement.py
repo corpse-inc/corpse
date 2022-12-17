@@ -1,15 +1,11 @@
-from creature import Creature
-from object import Solid
 import pygame
 import esper
+import utils
 
 from dataclasses import dataclass as component
 
-from pygame.transform import laplacian
+from creature import Creature
 from object import Solid
-
-import utils
-
 
 @component
 class Velocity:
@@ -48,7 +44,7 @@ class MovementProcessor(esper.Processor):
                         new_coords = pos.coords
 
                     creature_sprite.rect.center = pos.coords
-                pos.coords = new_coords 
+                pos.coords = new_coords
 
 
 @component
@@ -82,4 +78,4 @@ class RotationProcessor(esper.Processor):
 
     def process(self, **_):
         self._rotate_player()
-
+        

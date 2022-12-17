@@ -1,15 +1,26 @@
 import esper
 import pygame
 
-from roof import RoofTogglingProcessor
+from animation import (
+    Part,
+    States,
+    PartType,
+    StateType,
+    Animation,
+    FrameCyclingProcessor,
+    StateChangingProcessor,
+    StateHandlingProcessor,
+)
 from input import InputProcessor
 from camera import CameraProcessor
-from render import RenderProcessor, Renderable
+from roof import RoofTogglingProcessor
 from creature import Creature, PlayerMarker
-from movement import MovementProcessor, RotationProcessor, Velocity
-from location import Location, InitLocationProcessor, Position
-from animation import Animation, AnimationState, FrameCyclingProcessor
+from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
+from location import Location, InitLocationProcessor, Position
+from chrono import Time, TimeMovingProcessor, DayNightCyclingProcessor
+from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
+from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
 
 PROCESSORS = (
@@ -18,31 +29,60 @@ PROCESSORS = (
     MovementProcessor,
     RotationProcessor,
     FrameCyclingProcessor,
+    StateChangingProcessor,
+    StateHandlingProcessor,
     CameraProcessor,
     RoofTogglingProcessor,
     RenderProcessor,
+    DayNightCyclingProcessor,
+    TimeMovingProcessor,
+)
+
+CHUNK_LOADER_PROCESSORS = (
+    ChunkUnloadingProcessor,
+    ChunkLoadingProcessor,
 )
 
 
 def fill_world(world: esper.World):
+    world.create_entity(Time())
     location = world.create_entity(Location())
+    player_surface = pygame.transform.rotate(
+        pygame.transform.scale2x(
+            pygame.image.load(ResourcePath.frame("player", 1, "body")).convert_alpha()
+        ),
+        90,
+    )
+    legs_frames = []
+    for i in range(1, 8):
+        img = pygame.transform.rotate(
+            pygame.transform.scale2x(
+                pygame.image.load(
+                    ResourcePath.frame("player", i, "legs")
+                ).convert_alpha()
+            ),
+            90,
+        )
+        legs_frames.append(img)
+
     player = world.create_entity(
         PlayerMarker(),
         Creature(),
-        Animation(
-            state=(AnimationState.Stands,),
-            frames={
-                (AnimationState.Stands,): (
-                    pygame.image.load(
-                        ResourcePath.creature_frame("player", AnimationState.Stands, 1)
-                    ).convert_alpha(),
-                ),
-            },
-        ),
+        States({StateType.Stands}),
+        Animation((player_surface,)),
         Velocity(pygame.Vector2(0, 0)),
-        Position(location, "summer_island", pygame.Vector2(320, 320)),
+        Position(location, "test", pygame.Vector2(320, 320)),
+        Direction(),
         Renderable(),
     )
+    player_legs = world.create_entity(
+        world.component_for_entity(player, Position),
+        world.component_for_entity(player, Direction),
+        Animation(tuple(legs_frames), 50),
+        Renderable(),
+        Part(player, PartType.Legs),
+    )
+    world.component_for_entity(player, Animation).children = (player_legs,)
 
 
 if __name__ == "__main__":
@@ -58,8 +98,15 @@ if __name__ == "__main__":
     for processor in PROCESSORS:
         world.add_processor(processor())
 
+    chunkloader = esper.World()
+
+    for processor in CHUNK_LOADER_PROCESSORS:
+        chunkloader.add_processor(processor())
+
     running = [True]
     while running[0]:
+        chunkloader.process(RESOLUTION, world)
         world.process(dt=clock.tick(FPS), screen=screen, running=running)
+        pygame.display.flip()
 
     pygame.quit()
