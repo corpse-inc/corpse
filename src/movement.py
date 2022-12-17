@@ -1,3 +1,5 @@
+from creature import Creature
+from object import Solid
 import pygame
 import esper
 
@@ -18,38 +20,35 @@ class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
     def process(self, **_):
-        from location import Location, Position, Layer
-        from size import Size
+        from location import Location, Position
+        from render import Renderable
+        for _, (_, render) in self.world.get_components(Creature, Renderable):
+            creature_sprite = render.sprite
+                    
+            for _, (pos, vel) in self.world.get_components(Position, Velocity):
+                vec = vel.vector
+                if (vec.x, vec.y) == (0, 0):
+                    continue
 
-        for _, (pos, vel) in self.world.get_components(Position, Velocity):
-            vec = vel.vector
-            if (vec.x, vec.y) == (0, 0):
-                continue
+                location = self.world.component_for_entity(pos.location, Location)
+                map_x, map_y = utils.location_map_size(location)
 
-            location = self.world.component_for_entity(pos.location, Location)
-            map_x, map_y = utils.location_map_size(location)
+                new_coords = pos.coords + vec
+                if new_coords.x >= map_x or new_coords.x <= 0:
+                    new_coords.x = pos.coords.x
+                if new_coords.y >= map_y or new_coords.y <= 0:
+                    new_coords.y = pos.coords.y
+                    
+                for object, (_, render) in self.world.get_components(Solid, Renderable):
+                    object_sprite = render.sprite
 
-            new_coords = pos.coords + vec
-            if new_coords.x >= map_x or new_coords.x <= 0:
-                new_coords.x = pos.coords.x
-            if new_coords.y >= map_y or new_coords.y <= 0:
-                new_coords.y = pos.coords.y
+                    creature_sprite.rect.center = new_coords
 
-            for _, (_, obj_pos, obj_size) in self.world.get_components(Solid, Position, Size):
-                right_obj_x = obj_pos.coords[0] + obj_size.w
-                left_obj_x = obj_pos.coords[0] # - (obj_size.w / 4)
-                down_obj_y = obj_pos.coords[1] + obj_size.h
-                top_obj_y = obj_pos.coords[1] # - (obj_size.h / 4)
-                
-                if left_obj_x < new_coords.x < right_obj_x and\
-                top_obj_y < new_coords.y < down_obj_y:
-                    new_coords.x = pos.coords.x 
+                   if  object_sprite is not None and pygame.sprite.collide_mask(creature_sprite, object_sprite):
+                        new_coords = pos.coords
 
-                if top_obj_y < new_coords.y < down_obj_y and\
-                left_obj_x < new_coords.x < right_obj_x:
-                    new_coords.y = pos.coords.y 
-
-            pos.coords = new_coords
+                    creature_sprite.rect.center = pos.coords
+                pos.coords = new_coords 
 
 
 @component
@@ -83,3 +82,4 @@ class RotationProcessor(esper.Processor):
 
     def process(self, **_):
         self._rotate_player()
+
