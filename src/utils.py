@@ -73,11 +73,19 @@ def location_map_size(location) -> tuple[int, int]:
 
 
 def sprite(
-    image: pygame.surface.Surface, rect: pygame.rect.Rect
+    image: pygame.surface.Surface | None = None,
+    rect: pygame.rect.Rect | None = None,
+    mask: pygame.mask.Mask | None = None,
 ) -> pygame.sprite.Sprite:
     sprite = pygame.sprite.Sprite()
-    sprite.image = image
-    sprite.rect = rect
+
+    if image:
+        sprite.image = image
+    if rect:
+        sprite.rect = rect
+    if mask:
+        sprite.mask = mask
+
     return sprite
 
 
