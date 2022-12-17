@@ -1,25 +1,26 @@
 import esper
 import pygame
 
-from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-from roof import RoofTogglingProcessor
-from input import InputProcessor
-from camera import CameraProcessor
-from render import RenderProcessor, Renderable
-from creature import Creature, PlayerMarker
-from movement import Direction, MovementProcessor, RotationProcessor, Velocity
-from location import Location, InitLocationProcessor, Position
 from animation import (
+    Part,
+    States,
+    PartType,
+    StateType,
     Animation,
     FrameCyclingProcessor,
     StateChangingProcessor,
     StateHandlingProcessor,
-    PartType,
-    States,
-    Part,
-    StateType,
 )
+from input import InputProcessor
+from camera import CameraProcessor
+from roof import RoofTogglingProcessor
+from creature import Creature, PlayerMarker
+from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
+from location import Location, InitLocationProcessor, Position
+from chrono import Time, TimeMovingProcessor, DayNightCyclingProcessor
+from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
+from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
 
 PROCESSORS = (
@@ -33,6 +34,8 @@ PROCESSORS = (
     CameraProcessor,
     RoofTogglingProcessor,
     RenderProcessor,
+    DayNightCyclingProcessor,
+    TimeMovingProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -42,6 +45,7 @@ CHUNK_LOADER_PROCESSORS = (
 
 
 def fill_world(world: esper.World):
+    world.create_entity(Time())
     location = world.create_entity(Location())
     player_surface = pygame.transform.rotate(
         pygame.transform.scale2x(
@@ -103,5 +107,6 @@ if __name__ == "__main__":
     while running[0]:
         chunkloader.process(RESOLUTION, world)
         world.process(dt=clock.tick(FPS), screen=screen, running=running)
+        pygame.display.flip()
 
     pygame.quit()

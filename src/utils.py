@@ -3,10 +3,6 @@ import math
 import esper
 import pygame
 
-from animation import Animation
-from creature import PlayerMarker
-
-
 FPS = 60
 
 RESOLUTION = 640, 640
@@ -55,11 +51,13 @@ class ResourcePath:
         return f"{s}/{idx}.png"
 
 
-def animation_from_surface(surface: pygame.surface.Surface) -> Animation:
+def animation_from_surface(surface: pygame.surface.Surface):
+    from animation import Animation
+
     return Animation(frames=(surface,))
 
 
-def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
+def surface_from_animation(animation) -> pygame.surface.Surface:
     return animation.frames[animation._frame]
 
 
@@ -90,6 +88,8 @@ def sprite(
 
 
 def player(processor, *components, id=False, cache=True):
+    from creature import PlayerMarker
+
     world: esper.World = processor.world
 
     if id and cache:
@@ -133,6 +133,24 @@ def location(processor, player_position=None):
     return world.component_for_entity(player(processor, Position).location, Location)
 
 
+def time(processor, cache=True):
+    from chrono import Time
+
+    world: esper.World = processor.world
+
+    if cache:
+        key = "time_entity_id"
+
+        if time := _cache.get(key, None):
+            return world.component_for_entity(time, Time)
+
+        comp = world.get_component(Time)
+        _cache[key] = comp[0][0]
+        return comp[0][1]
+
+    return world.get_component(Time)[0]
+
+
 def vector_angle(vector: pygame.Vector2) -> float:
     return vector.as_polar()[1]
 
@@ -153,3 +171,9 @@ def rotate_point(origin, point, angle):
     qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
 
     return qx, qy
+
+
+# clamp(x) = max(a,min(x,b)) ∈ [a,b]
+def clamp(x, a, b):
+    """Сжимает число x в промежуток [a, b]."""
+    return max(a, min(x, b))
