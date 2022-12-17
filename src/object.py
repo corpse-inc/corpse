@@ -1,5 +1,5 @@
 from dataclasses import dataclass as component
-
+import pygame
 import esper
 
 from render import Renderable
