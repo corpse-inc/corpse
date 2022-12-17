@@ -1,9 +1,5 @@
 from dataclasses import dataclass as component
 
-import esper
-
-from render import Renderable
-
 
 @component
 class Size:
@@ -13,11 +9,6 @@ class Size:
 
 @component
 class Solid:
-    pass
-
-
-@component
-class MakeInvisibleRequest:
     pass
 
 
