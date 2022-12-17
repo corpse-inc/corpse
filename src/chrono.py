@@ -36,7 +36,6 @@ class DayNightCyclingProcessor(esper.Processor):
     def process(self, screen=None, **_):
         starttime = utils.time(self).ms
         daytime = starttime % DAY
-        print(f"{daytime/1000:.2f}")
 
         if daytime < (DAY / 2):
             return
