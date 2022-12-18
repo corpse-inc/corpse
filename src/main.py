@@ -12,6 +12,7 @@ from animation import (
     StateHandlingProcessor,
 )
 from input import InputProcessor
+from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from roof import RoofTogglingProcessor
 from creature import Creature, PlayerMarker
@@ -35,6 +36,7 @@ PROCESSORS = (
     RoofTogglingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
+    UiDrawingProcessor,
     TimeMovingProcessor,
 )
 
