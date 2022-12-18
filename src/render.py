@@ -16,11 +16,10 @@ class RenderProcessor(esper.Processor):
     количество градусов при наличии компонента Direction."""
 
     def process(self, screen=None, **_):
-        from location import PointAnchor
         from location import Position
         from animation import Animation
         from movement import Direction
-        from size import Size
+        from object import Size, Invisible
 
         location = utils.location(self)
         location.sprites.empty()
@@ -28,26 +27,26 @@ class RenderProcessor(esper.Processor):
         for entity, (render, ani, pos) in self.world.get_components(
             Renderable, Animation, Position
         ):
+            if self.world.try_component(entity, Invisible):
+                continue
+
             img = utils.surface_from_animation(ani)
 
             if (size := self.world.try_component(entity, Size)) is not None:
                 img = pygame.transform.scale(img, (size.w, size.h))
 
-            if (dir := self.world.try_component(entity, Direction)) is not None:
+            if (
+                dir := self.world.try_component(entity, Direction)
+            ) is not None and dir.angle != 0:
                 if dir.angle is None:
                     dir.angle = utils.vector_angle(dir.vector)
-                img = pygame.transform.rotozoom(img, dir.angle, 1)
+                img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
 
-            sprite = pygame.sprite.Sprite()
-            sprite.image = img
-
-            match pos.anchor:
-                case PointAnchor.TopLeft:
-                    anchor = {"topleft": pos.coords}
-                case PointAnchor.Center:
-                    anchor = {"center": pos.coords}
-
-            sprite.rect = img.get_rect(**anchor)
+            sprite = utils.sprite(
+                img,
+                img.get_rect(center=pos.coords),
+                pygame.mask.from_surface(img),
+            )
 
             if sprite not in location.sprites:
                 location.sprites.add(sprite, layer=pos.layer.value)
@@ -56,5 +55,3 @@ class RenderProcessor(esper.Processor):
 
         if screen is not None:
             location.sprites.draw(screen)
-
-        pygame.display.flip()
