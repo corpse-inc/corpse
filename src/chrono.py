@@ -59,4 +59,4 @@ class DayNightCyclingProcessor(esper.Processor):
         darken = pygame.Surface(screen.get_size())
         darken.fill((0, 0, 0))
         darken.set_alpha(alpha)
-        pygame.display.get_surface().blit(darken, (0, 0))
+        screen.blit(darken, (0, 0))
