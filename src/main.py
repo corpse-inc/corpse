@@ -14,11 +14,11 @@ from animation import (
 from input import InputProcessor
 from camera import CameraProcessor
 from roof import RoofTogglingProcessor
+from chrono import DayNightCyclingProcessor
 from creature import Creature, PlayerMarker
 from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
 from location import Location, InitLocationProcessor, Position
-from chrono import Time, TimeMovingProcessor, DayNightCyclingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
@@ -35,7 +35,6 @@ PROCESSORS = (
     RoofTogglingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
-    TimeMovingProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -45,7 +44,6 @@ CHUNK_LOADER_PROCESSORS = (
 
 
 def fill_world(world: esper.World):
-    world.create_entity(Time())
     location = world.create_entity(Location())
     player_surface = pygame.transform.rotate(
         pygame.transform.scale2x(
