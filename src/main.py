@@ -20,6 +20,7 @@ from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
 from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
+from ui import HintMakingProcessor, HintRequest, UiDrawingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
 
@@ -35,6 +36,11 @@ PROCESSORS = (
     RoofTogglingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
+<<<<<<< Updated upstream
+=======
+    HintMakingProcessor,
+    UiDrawingProcessor,
+>>>>>>> Stashed changes
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -81,6 +87,7 @@ def fill_world(world: esper.World):
         Part(player, PartType.Legs),
     )
     world.component_for_entity(player, Animation).children = (player_legs,)
+    world.create_entity(HintRequest("Привет, это тест\nвсплывающей подсказки!"))
 
 
 if __name__ == "__main__":
