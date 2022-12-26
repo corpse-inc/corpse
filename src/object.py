@@ -10,7 +10,7 @@ class SilidGroupingProcessor:
         for entity, (render, _) in self.world.get_components(
                 Renderable, Solid
                 ):
-            if render.sprite not in solid_group:
+            if render.sprite is not None and render.sprite not in solid_group:
                 solid_group.add(render.sprite)
 
 
