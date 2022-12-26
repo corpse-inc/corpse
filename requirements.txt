@@ -2,4 +2,4 @@ esper==2.4.1
 pygame==2.1.2
 pyscroll==2.29
 PyTMX==3.31
-glyph==2.6.5b0
+pygame-gui==0.6.6
