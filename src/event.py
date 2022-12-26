@@ -2,13 +2,15 @@ import pygame
 import esper
 import sys
 
+import pygame_gui
+
 from creature import PlayerMarker
 from movement import Velocity
 from utils import PLAYER_SPEED
 
 
-class InputProcessor(esper.Processor):
-    """Обрабатывает события ввода с клавиатуры, мыши и т. п."""
+class EventProcessor(esper.Processor):
+    """Обрабатывает события."""
 
     def _handle_key_press(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
@@ -29,8 +31,12 @@ class InputProcessor(esper.Processor):
             elif event.key in {pygame.K_a, pygame.K_d}:
                 vel.vector.x = 0
 
-    def process(self, running=None, **_):
+    def process(self, running=None, uimanager=None, **_):
+        ui: pygame_gui.UIManager = uimanager
+
         for event in pygame.event.get():
+            ui.process_events(event)
+
             match event.type:
                 case pygame.QUIT:
                     if running is not None:
