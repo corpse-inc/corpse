@@ -1,5 +1,6 @@
 import esper
 import pygame
+import pygame_gui
 
 from animation import (
     Part,
@@ -20,7 +21,7 @@ from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
 from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-from ui import HintMakingProcessor, HintRequest, UiDrawingProcessor
+from ui import UiDrawingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
 
@@ -36,11 +37,7 @@ PROCESSORS = (
     RoofTogglingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
-<<<<<<< Updated upstream
-=======
-    HintMakingProcessor,
     UiDrawingProcessor,
->>>>>>> Stashed changes
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -87,7 +84,6 @@ def fill_world(world: esper.World):
         Part(player, PartType.Legs),
     )
     world.component_for_entity(player, Animation).children = (player_legs,)
-    world.create_entity(HintRequest("Привет, это тест\nвсплывающей подсказки!"))
 
 
 if __name__ == "__main__":
@@ -95,6 +91,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(RESOLUTION)
     pygame.display.set_caption("Corpse inc.")
     clock = pygame.time.Clock()
+    uimanager = pygame_gui.UIManager(screen.get_size())
 
     world = esper.World()
 
@@ -111,7 +108,9 @@ if __name__ == "__main__":
     running = [True]
     while running[0]:
         chunkloader.process(RESOLUTION, world)
-        world.process(dt=clock.tick(FPS), screen=screen, running=running)
+        world.process(
+            dt=clock.tick(FPS), screen=screen, uimanager=uimanager, running=running
+        )
         pygame.display.flip()
 
     pygame.quit()
