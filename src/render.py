@@ -55,3 +55,4 @@ class RenderProcessor(esper.Processor):
 
         if screen is not None:
             location.sprites.draw(screen)
+

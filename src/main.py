@@ -1,4 +1,5 @@
 import esper
+from object import SolidGroup
 import pygame
 
 from animation import (
@@ -21,6 +22,7 @@ from location import Location, InitLocationProcessor, Position
 from chrono import Time, TimeMovingProcessor, DayNightCyclingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
+from object import SolidGroup
 
 
 PROCESSORS = (
@@ -47,6 +49,7 @@ CHUNK_LOADER_PROCESSORS = (
 def fill_world(world: esper.World):
     world.create_entity(Time())
     location = world.create_entity(Location())
+    solid_group = world.create_entity(SolidGroup())
     player_surface = pygame.transform.rotate(
         pygame.transform.scale2x(
             pygame.image.load(ResourcePath.frame("player", 1, "body")).convert_alpha()
