@@ -9,6 +9,7 @@ from dataclasses import dataclass as component
 @component
 class Renderable:
     sprite: pygame.sprite.Sprite | None = None
+    _old_sprite: pygame.sprite.Sprite | None = None
 
 
 class RenderProcessor(esper.Processor):
@@ -55,6 +56,8 @@ class RenderProcessor(esper.Processor):
                 solid_group:pygame.sprite.Group = utils.solid_group(self).group
                 if not pygame.sprite.spritecollideany(sprite, solid_group, collided=pygame.sprite.collide_mask):
                     img = rotate_img
+                elif render._old_sprite is not None:
+                    img = render._old_sprite.image
 
             sprite = utils.sprite(
                 img,
@@ -66,6 +69,7 @@ class RenderProcessor(esper.Processor):
                 location.sprites.add(sprite, layer=pos.layer.value)
 
             render.sprite = sprite
+            render._old_sprite = sprite
 
         if screen is not None:
             location.sprites.draw(screen)
