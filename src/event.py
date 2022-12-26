@@ -12,17 +12,18 @@ from utils import PLAYER_SPEED
 class EventProcessor(esper.Processor):
     """Обрабатывает события."""
 
-    def _handle_key_press(self, event: pygame.event.Event):
+    def _handle_key_press(self):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
-            match event.key:
-                case pygame.K_w:
-                    vel.vector.y = -PLAYER_SPEED
-                case pygame.K_a:
-                    vel.vector.x = -PLAYER_SPEED
-                case pygame.K_s:
-                    vel.vector.y = PLAYER_SPEED
-                case pygame.K_d:
-                    vel.vector.x = PLAYER_SPEED
+            pressed = pygame.key.get_pressed()
+
+            if pressed[pygame.K_w]:
+                vel.vector.y = -PLAYER_SPEED
+            if pressed[pygame.K_a]:
+                vel.vector.x = -PLAYER_SPEED
+            if pressed[pygame.K_s]:
+                vel.vector.y = PLAYER_SPEED
+            if pressed[pygame.K_d]:
+                vel.vector.x = PLAYER_SPEED
 
     def _handle_key_release(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
@@ -34,6 +35,8 @@ class EventProcessor(esper.Processor):
     def process(self, running=None, uimanager=None, **_):
         ui: pygame_gui.UIManager = uimanager
 
+        self._handle_key_press()
+
         for event in pygame.event.get():
             ui.process_events(event)
 
@@ -44,7 +47,5 @@ class EventProcessor(esper.Processor):
                     else:
                         pygame.quit()
                         sys.exit()
-                case pygame.KEYDOWN:
-                    self._handle_key_press(event)
                 case pygame.KEYUP:
                     self._handle_key_release(event)
