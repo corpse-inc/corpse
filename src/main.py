@@ -22,12 +22,13 @@ from location import Location, InitLocationProcessor, Position
 from chrono import Time, TimeMovingProcessor, DayNightCyclingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
-from object import SolidGroup
+from object import SolidGroup, SolidGroupingProcessor
 
 
 PROCESSORS = (
     InputProcessor,
     InitLocationProcessor,
+    SolidGroupingProcessor,
     MovementProcessor,
     RotationProcessor,
     FrameCyclingProcessor,

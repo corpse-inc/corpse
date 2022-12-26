@@ -1,5 +1,6 @@
 import pygame
 import esper
+from pygame.sprite import collide_mask
 import utils
 
 from dataclasses import dataclass as component
@@ -35,12 +36,25 @@ class RenderProcessor(esper.Processor):
             if (size := self.world.try_component(entity, Size)) is not None:
                 img = pygame.transform.scale(img, (size.w, size.h))
 
+
+
             if (
                 dir := self.world.try_component(entity, Direction)
             ) is not None and dir.angle != 0:
                 if dir.angle is None:
                     dir.angle = utils.vector_angle(dir.vector)
-                img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
+
+                rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
+     
+                sprite = utils.sprite(
+                    rotate_img,
+                    rotate_img.get_rect(center=pos.coords),
+                    pygame.mask.from_surface(rotate_img),
+                )
+
+                solid_group:pygame.sprite.Group = utils.solid_group(self).group
+                if not pygame.sprite.spritecollideany(sprite, solid_group, collided=pygame.sprite.collide_mask):
+                    img = rotate_img
 
             sprite = utils.sprite(
                 img,

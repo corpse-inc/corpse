@@ -131,34 +131,14 @@ def location(processor, player_position=None):
         return world.component_for_entity(player_position.location, Location)
 
     return world.component_for_entity(player(processor, Position).location, Location)
- 
-def solid_group(processor, *components, id=False, cache=True):
+
+
+def solid_group(processor):
     from object import SolidGroup
 
     world: esper.World = processor.world
-
-    if id and cache:
-        key = "solid_group_entity_id"
-
-    if len(components) == 1:
-        comps = world.get_components(SolidGroup, *components)[0]
-
-        if cache and id and _cache.get(key, None) is None:
-            _cache[key] = comps[0]
-
-        return (comps[0], comps[1][1]) if id else comps[1][1]
-    elif len(components) != 0:
-        comps = world.get_components(SolidGroup, *components)[0]
-
-        if cache and id and _cache.get(key, None) is None:
-            _cache[key] = comps[0]
-
-        return (comps[0], comps[1][1:]) if id else comps[1][1:]
-    elif cache:
-        if _cache.get(key, None) is None:
-            _cache[key] = world.get_component(SolidGroup)[0][0]
-
-        return _cache[key]
+    for _, group in world.get_component(SolidGroup):
+        return group
 
 
 def time(processor, cache=True):
