@@ -26,6 +26,8 @@ class RenderProcessor(esper.Processor):
         location = utils.location(self)
         location.sprites.empty()
 
+        solid_sprites = utils.solid_group(self).group
+
         for entity, (render, ani, pos) in self.world.get_components(
             Renderable, Animation, Position
         ):
@@ -37,8 +39,6 @@ class RenderProcessor(esper.Processor):
             if (size := self.world.try_component(entity, Size)) is not None:
                 img = pygame.transform.scale(img, (size.w, size.h))
 
-
-
             if (
                 dir := self.world.try_component(entity, Direction)
             ) is not None and dir.angle != 0:
@@ -46,15 +46,16 @@ class RenderProcessor(esper.Processor):
                     dir.angle = utils.vector_angle(dir.vector)
 
                 rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
-     
+
                 sprite = utils.sprite(
                     rotate_img,
                     rotate_img.get_rect(center=pos.coords),
                     pygame.mask.from_surface(rotate_img),
                 )
 
-                solid_group:pygame.sprite.Group = utils.solid_group(self).group
-                if not pygame.sprite.spritecollideany(sprite, solid_group, collided=pygame.sprite.collide_mask):
+                if not pygame.sprite.spritecollideany(
+                    sprite, solid_sprites, collided=pygame.sprite.collide_mask
+                ):
                     img = rotate_img
                 elif render._old_sprite is not None:
                     img = render._old_sprite.image
@@ -71,6 +72,7 @@ class RenderProcessor(esper.Processor):
             render.sprite = sprite
             render._old_sprite = sprite
 
+        solid_sprites.empty()
+
         if screen is not None:
             location.sprites.draw(screen)
-
