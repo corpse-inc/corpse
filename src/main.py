@@ -1,29 +1,25 @@
 import esper
+import utils
 import pygame
 import pygame_gui
 
 from animation import (
-    Part,
-    States,
-    PartType,
-    StateType,
-    Animation,
     FrameCyclingProcessor,
     StateChangingProcessor,
     StateHandlingProcessor,
 )
 from event import EventProcessor
+from utils import FPS, RESOLUTION
 from ui import UiDrawingProcessor
+from creature import PlayerMarker
 from camera import CameraProcessor
+from render import RenderProcessor
 from roof import RoofTogglingProcessor
 from chrono import DayNightCyclingProcessor
-from creature import Creature, PlayerMarker
-from render import RenderProcessor, Renderable
-from utils import FPS, RESOLUTION, ResourcePath
 from object import SolidGroup, SolidGroupingProcessor
+from movement import MovementProcessor, RotationProcessor
 from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
 
 PROCESSORS = (
@@ -51,42 +47,16 @@ CHUNK_LOADER_PROCESSORS = (
 def fill_world(world: esper.World):
     location = world.create_entity(Location())
     solid_group = world.create_entity(SolidGroup())
-    player_surface = pygame.transform.rotate(
-        pygame.transform.scale2x(
-            pygame.image.load(ResourcePath.frame("player", 1, "body")).convert_alpha()
-        ),
-        90,
-    )
-    legs_frames = []
-    for i in range(1, 8):
-        img = pygame.transform.rotate(
-            pygame.transform.scale2x(
-                pygame.image.load(
-                    ResourcePath.frame("player", i, "legs")
-                ).convert_alpha()
-            ),
-            90,
-        )
-        legs_frames.append(img)
-
-    player = world.create_entity(
-        PlayerMarker(),
-        Creature(),
-        States({StateType.Stands}),
-        Animation((player_surface,)),
-        Velocity(pygame.Vector2(0, 0)),
+    player = utils.creature(
+        world,
+        "player",
         Position(location, "test", pygame.Vector2(320, 320)),
-        Direction(),
-        Renderable(),
+        PlayerMarker(),
+        extra_parts={"legs"},
+        surface_preprocessor=lambda s: pygame.transform.rotate(
+            pygame.transform.scale2x(s), 90
+        ),
     )
-    player_legs = world.create_entity(
-        world.component_for_entity(player, Position),
-        world.component_for_entity(player, Direction),
-        Animation(tuple(legs_frames), 50),
-        Renderable(),
-        Part(player, PartType.Legs),
-    )
-    world.component_for_entity(player, Animation).children = (player_legs,)
 
 
 if __name__ == "__main__":

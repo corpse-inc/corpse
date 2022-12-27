@@ -1,3 +1,4 @@
+import utils
 import esper
 import pygame
 
@@ -34,6 +35,13 @@ class Animation:
 
 class PartType(Enum):
     Legs = auto()
+
+    def __str__(self):
+        return self.name.lower()
+
+    @classmethod
+    def from_str(cls, s: str):
+        return cls[utils.snake_to_camel_case(s)]
 
 
 @component

@@ -1,7 +1,11 @@
+import os
 import sys
 import math
 import esper
 import pygame
+
+from typing import Callable, Tuple
+from animation import StateType
 
 FPS = 60
 
@@ -36,9 +40,9 @@ class ResourcePath:
     def frame(
         cls,
         object_id: str,
-        idx: int,
         part_type: str | None = None,
         part_state: str | None = None,
+        idx: int | None = None,
     ) -> str:
         s = f"{RESOURCES}/frames/{object_id}"
 
@@ -48,7 +52,10 @@ class ResourcePath:
         if part_state:
             s += f"/{part_state}"
 
-        return f"{s}/{idx}.png"
+        if idx:
+            return f"{s}/{idx}.png"
+
+        return s
 
 
 def animation_from_surface(surface: pygame.surface.Surface):
@@ -185,3 +192,96 @@ def rotate_point(origin, point, angle):
 def clamp(x, a, b):
     """Сжимает число x в промежуток [a, b]."""
     return max(a, min(x, b))
+
+
+def dir_count(dir: str) -> int:
+    """Возвращает количество файлов в директории."""
+    return len(next(os.walk(dir))[2])
+
+
+def creature(
+    world: esper.World,
+    id: str,
+    position,
+    *extra_comps,
+    extra_parts: Tuple[str] = (),
+    states={StateType.Stands},
+    surface_preprocessor: Callable[[pygame.surface.Surface], None] | None = None,
+):
+    """Создаёт существо и возвращает id его сущности в базе данных сущностей.
+
+    Аргументы:
+    *world*: бд сущностей
+    *id*: строковый уникальный идентификатор существа
+    *position*: местоположение существа (location.Position)
+    **extra_comps*: дополнительные компоненты для применения к сущности
+    *extra_parts*: части тела существа помимо тела (body)
+    *states*: текущие состояния существа
+    *surface_preprocessor*: функция, переданная в качестве данного аргумента будет
+    использована на каждом pygame.Surface в данной функции. Полезно, если прежде
+    чем загружать картинку анимации, её нужно как-то обработать
+
+    Пример использования:
+    ```python
+    player = utils.creature(
+        world,
+        "player",
+        Position(location, "test", pygame.Vector2(320, 320)),
+        PlayerMarker(),
+        extra_parts={"legs"},
+        surface_preprocessor=lambda s: pygame.transform.rotate(
+            pygame.transform.scale2x(s), 90
+        ),
+    )
+    ```"""
+
+    from render import Renderable
+    from creature import Creature
+    from location import Position
+    from movement import Direction, Velocity
+    from animation import States, Animation, Part, PartType
+
+    def load_surface(path):
+        prep = surface_preprocessor
+        surf = pygame.image.load(path).convert_alpha()
+
+        if prep:
+            return prep(surf)
+
+        return surf
+
+    frames = []
+    for i in range(dir_count(ResourcePath.frame(id, "body"))):
+        frames.append(load_surface(ResourcePath.frame(id, "body", idx=i + 1)))
+
+    creature = world.create_entity(
+        Creature(),
+        Direction(),
+        Renderable(),
+        Velocity(pygame.Vector2(0)),
+        States(states),
+        Animation(tuple(frames)),
+        position,
+        *extra_comps,
+    )
+
+    parts = []
+    for part in extra_parts:
+        part_frames = []
+        frame_number = dir_count(ResourcePath.frame(id, part))
+        animation_delay = 400 // frame_number
+
+        for i in range(frame_number):
+            part_frames.append(load_surface(ResourcePath.frame(id, part, idx=i + 1)))
+
+        part_id = world.create_entity(
+            world.component_for_entity(creature, Position),
+            world.component_for_entity(creature, Direction),
+            Animation(tuple(part_frames), animation_delay),
+            Renderable(),
+            Part(creature, PartType.from_str(part)),
+        )
+        parts.append(part_id)
+    world.component_for_entity(creature, Animation).children = tuple(parts)
+
+    return creature
