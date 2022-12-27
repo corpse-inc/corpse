@@ -18,7 +18,7 @@ _cache = {}
 
 
 def init_resources_path() -> str:
-    res = "/".join(__file__.split("/")[:-2]) + "/resources"
+    res = "/".join(__file__.split("/")[:-2]) + "/data"
     if sys.platform not in {"linux", "darwin"} and res.startswith("/"):
         return res[1:]
     return res

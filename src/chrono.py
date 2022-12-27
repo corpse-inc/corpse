@@ -2,8 +2,6 @@ import esper
 import pygame
 import utils
 
-from dataclasses import dataclass as component
-
 # Сколько длится день в мс
 DAY = 20 * 1000 * 60  # 20 минут
 
@@ -18,23 +16,11 @@ MAX_ALPHA = 240
 T, N, M = 5, 1000, 0.24
 
 
-@component
-class Time:
-    """Компонент, определяющий количество миллисекунд, прошедших с начала игры."""
-
-    ms: int = 0
-
-
-class TimeMovingProcessor(esper.Processor):
-    def process(self, dt=None, **_):
-        utils.time(self).ms += dt
-
-
 class DayNightCyclingProcessor(esper.Processor):
     """Система смены дня и ночи."""
 
     def process(self, screen=None, **_):
-        starttime = utils.time(self).ms
+        starttime = pygame.time.get_ticks()
         daytime = starttime % DAY
 
         if daytime < (DAY / 2):
@@ -59,4 +45,4 @@ class DayNightCyclingProcessor(esper.Processor):
         darken = pygame.Surface(screen.get_size())
         darken.fill((0, 0, 0))
         darken.set_alpha(alpha)
-        pygame.display.get_surface().blit(darken, (0, 0))
+        screen.blit(darken, (0, 0))

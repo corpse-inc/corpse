@@ -1,6 +1,7 @@
 import esper
 from object import SolidGroup
 import pygame
+import pygame_gui
 
 from animation import (
     Part,
@@ -12,21 +13,22 @@ from animation import (
     StateChangingProcessor,
     StateHandlingProcessor,
 )
-from input import InputProcessor
+from event import EventProcessor
+from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from roof import RoofTogglingProcessor
+from chrono import DayNightCyclingProcessor
 from creature import Creature, PlayerMarker
 from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
 from location import Location, InitLocationProcessor, Position
-from chrono import Time, TimeMovingProcessor, DayNightCyclingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 from object import SolidGroup, SolidGroupingProcessor
 
 
 PROCESSORS = (
-    InputProcessor,
+    EventProcessor,
     InitLocationProcessor,
     SolidGroupingProcessor,
     MovementProcessor,
@@ -38,7 +40,7 @@ PROCESSORS = (
     RoofTogglingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
-    TimeMovingProcessor,
+    UiDrawingProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -48,7 +50,6 @@ CHUNK_LOADER_PROCESSORS = (
 
 
 def fill_world(world: esper.World):
-    world.create_entity(Time())
     location = world.create_entity(Location())
     solid_group = world.create_entity(SolidGroup())
     player_surface = pygame.transform.rotate(
@@ -94,6 +95,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(RESOLUTION)
     pygame.display.set_caption("Corpse inc.")
     clock = pygame.time.Clock()
+    uimanager = pygame_gui.UIManager(screen.get_size())
 
     world = esper.World()
 
@@ -110,7 +112,9 @@ if __name__ == "__main__":
     running = [True]
     while running[0]:
         chunkloader.process(RESOLUTION, world)
-        world.process(dt=clock.tick(FPS), screen=screen, running=running)
+        world.process(
+            dt=clock.tick(FPS), screen=screen, uimanager=uimanager, running=running
+        )
         pygame.display.flip()
 
     pygame.quit()
