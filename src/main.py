@@ -1,5 +1,4 @@
 import esper
-from object import SolidGroup
 import pygame
 import pygame_gui
 
@@ -21,10 +20,10 @@ from chrono import DayNightCyclingProcessor
 from creature import Creature, PlayerMarker
 from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
+from object import SolidGroup, SolidGroupingProcessor
 from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
-from object import SolidGroup, SolidGroupingProcessor
 
 
 PROCESSORS = (
