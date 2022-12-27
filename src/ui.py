@@ -1,16 +1,19 @@
-import pygame
 import esper
+import pygame_gui
 
 from dataclasses import dataclass as component
 
 
 @component
 class UiElement:
-    surface: pygame.surface.Surface
-    position: pygame.math.Vector2
+    element: pygame_gui.core.ui_element.UIElement
 
 
 class UiDrawingProcessor(esper.Processor):
-    def process(self, screen=None, **_):
-        for _, elem in self.world.get_component(UiElement):
-            screen.blit(elem.surface, elem.position)
+    """Рисует и обеовляет элементы ui, проверяет события, связанные с ui."""
+
+    def process(self, dt=None, screen=None, uimanager=None, **_):
+        ui: pygame_gui.UIManager = uimanager
+
+        ui.draw_ui(screen)
+        ui.update(dt / 1000)

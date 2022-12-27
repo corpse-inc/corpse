@@ -1,5 +1,6 @@
 import esper
 import pygame
+import pygame_gui
 
 from animation import (
     Part,
@@ -11,7 +12,8 @@ from animation import (
     StateChangingProcessor,
     StateHandlingProcessor,
 )
-from input import InputProcessor
+from event import EventProcessor
+from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from roof import RoofTogglingProcessor
 from chrono import DayNightCyclingProcessor
@@ -24,7 +26,7 @@ from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
 
 PROCESSORS = (
-    InputProcessor,
+    EventProcessor,
     InitLocationProcessor,
     MovementProcessor,
     RotationProcessor,
@@ -35,6 +37,7 @@ PROCESSORS = (
     RoofTogglingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
+    UiDrawingProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -88,6 +91,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(RESOLUTION)
     pygame.display.set_caption("Corpse inc.")
     clock = pygame.time.Clock()
+    uimanager = pygame_gui.UIManager(screen.get_size())
 
     world = esper.World()
 
@@ -104,7 +108,9 @@ if __name__ == "__main__":
     running = [True]
     while running[0]:
         chunkloader.process(RESOLUTION, world)
-        world.process(dt=clock.tick(FPS), screen=screen, running=running)
+        world.process(
+            dt=clock.tick(FPS), screen=screen, uimanager=uimanager, running=running
+        )
         pygame.display.flip()
 
     pygame.quit()
