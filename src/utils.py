@@ -133,6 +133,14 @@ def location(processor, player_position=None):
     return world.component_for_entity(player(processor, Position).location, Location)
 
 
+def solid_group(processor):
+    from object import SolidGroup
+
+    world: esper.World = processor.world
+    for _, group in world.get_component(SolidGroup):
+        return group
+
+
 def time(processor, cache=True):
     from chrono import Time
 

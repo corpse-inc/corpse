@@ -20,6 +20,7 @@ from chrono import DayNightCyclingProcessor
 from creature import Creature, PlayerMarker
 from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
+from object import SolidGroup, SolidGroupingProcessor
 from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
@@ -28,6 +29,7 @@ from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 PROCESSORS = (
     EventProcessor,
     InitLocationProcessor,
+    SolidGroupingProcessor,
     MovementProcessor,
     RotationProcessor,
     FrameCyclingProcessor,
@@ -48,6 +50,7 @@ CHUNK_LOADER_PROCESSORS = (
 
 def fill_world(world: esper.World):
     location = world.create_entity(Location())
+    solid_group = world.create_entity(SolidGroup())
     player_surface = pygame.transform.rotate(
         pygame.transform.scale2x(
             pygame.image.load(ResourcePath.frame("player", 1, "body")).convert_alpha()
