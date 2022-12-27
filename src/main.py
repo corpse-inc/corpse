@@ -13,6 +13,7 @@ from animation import (
     StateHandlingProcessor,
 )
 from event import EventProcessor
+from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from roof import RoofTogglingProcessor
 from chrono import DayNightCyclingProcessor
@@ -21,7 +22,6 @@ from render import RenderProcessor, Renderable
 from utils import FPS, RESOLUTION, ResourcePath
 from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-from ui import UiDrawingProcessor
 from movement import Direction, MovementProcessor, RotationProcessor, Velocity
 
 
@@ -86,10 +86,6 @@ def fill_world(world: esper.World):
     world.component_for_entity(player, Animation).children = (player_legs,)
 
 
-def make_ui(ui: pygame_gui.UIManager, world: esper.World):
-    ui.create_tool_tip("Test tooltip", (200, 200), (0, 0))
-
-
 if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode(RESOLUTION)
@@ -100,7 +96,6 @@ if __name__ == "__main__":
     world = esper.World()
 
     fill_world(world)
-    make_ui(uimanager, world)
 
     for processor in PROCESSORS:
         world.add_processor(processor())
