@@ -4,7 +4,7 @@ import pytmx
 import pyscroll
 import utils
 
-from enum import Enum, IntEnum, auto
+from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
 from creature import PlayerMarker

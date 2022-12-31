@@ -1,11 +1,11 @@
+import os
 import sys
 import math
 import esper
 import pygame
 
-from animation import Animation
-from creature import PlayerMarker
-
+from typing import Callable, Tuple
+from animation import StateType
 
 FPS = 60
 
@@ -22,7 +22,7 @@ _cache = {}
 
 
 def init_resources_path() -> str:
-    res = "/".join(__file__.split("/")[:-2]) + "/resources"
+    res = "/".join(__file__.split("/")[:-2]) + "/data"
     if sys.platform not in {"linux", "darwin"} and res.startswith("/"):
         return res[1:]
     return res
@@ -40,9 +40,9 @@ class ResourcePath:
     def frame(
         cls,
         object_id: str,
-        idx: int,
         part_type: str | None = None,
         part_state: str | None = None,
+        idx: int | None = None,
     ) -> str:
         s = f"{RESOURCES}/frames/{object_id}"
 
@@ -52,14 +52,19 @@ class ResourcePath:
         if part_state:
             s += f"/{part_state}"
 
-        return f"{s}/{idx}.png"
+        if idx:
+            return f"{s}/{idx}.png"
+
+        return s
 
 
-def animation_from_surface(surface: pygame.surface.Surface) -> Animation:
+def animation_from_surface(surface: pygame.surface.Surface):
+    from animation import Animation
+
     return Animation(frames=(surface,))
 
 
-def surface_from_animation(animation: Animation) -> pygame.surface.Surface:
+def surface_from_animation(animation) -> pygame.surface.Surface:
     return animation.frames[animation._frame]
 
 
@@ -90,6 +95,8 @@ def sprite(
 
 
 def player(processor, *components, id=False, cache=True):
+    from creature import PlayerMarker
+
     world: esper.World = processor.world
 
     if id and cache:
@@ -133,6 +140,32 @@ def location(processor, player_position=None):
     return world.component_for_entity(player(processor, Position).location, Location)
 
 
+def solid_group(processor):
+    from object import SolidGroup
+
+    world: esper.World = processor.world
+    for _, group in world.get_component(SolidGroup):
+        return group
+
+
+def time(processor, cache=True):
+    from chrono import Time
+
+    world: esper.World = processor.world
+
+    if cache:
+        key = "time_entity_id"
+
+        if time := _cache.get(key, None):
+            return world.component_for_entity(time, Time)
+
+        comp = world.get_component(Time)
+        _cache[key] = comp[0][0]
+        return comp[0][1]
+
+    return world.get_component(Time)[0]
+
+
 def vector_angle(vector: pygame.Vector2) -> float:
     return vector.as_polar()[1]
 
@@ -153,3 +186,102 @@ def rotate_point(origin, point, angle):
     qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
 
     return qx, qy
+
+
+# clamp(x) = max(a,min(x,b)) ∈ [a,b]
+def clamp(x, a, b):
+    """Сжимает число x в промежуток [a, b]."""
+    return max(a, min(x, b))
+
+
+def dir_count(dir: str) -> int:
+    """Возвращает количество файлов в директории."""
+    return len(next(os.walk(dir))[2])
+
+
+def creature(
+    world: esper.World,
+    id: str,
+    position,
+    *extra_comps,
+    extra_parts: Tuple[str] = (),
+    states={StateType.Stands},
+    surface_preprocessor: Callable[[pygame.surface.Surface], None] | None = None,
+):
+    """Создаёт существо и возвращает id его сущности в базе данных сущностей.
+
+    Аргументы:
+    *world*: бд сущностей
+    *id*: строковый уникальный идентификатор существа
+    *position*: местоположение существа (location.Position)
+    **extra_comps*: дополнительные компоненты для применения к сущности
+    *extra_parts*: части тела существа помимо тела (body)
+    *states*: текущие состояния существа
+    *surface_preprocessor*: функция, переданная в качестве данного аргумента будет
+    использована на каждом pygame.Surface в данной функции. Полезно, если прежде
+    чем загружать картинку анимации, её нужно как-то обработать
+
+    Пример использования:
+    ```python
+    player = utils.creature(
+        world,
+        "player",
+        Position(location, "test", pygame.Vector2(320, 320)),
+        PlayerMarker(),
+        extra_parts={"legs"},
+        surface_preprocessor=lambda s: pygame.transform.rotate(
+            pygame.transform.scale2x(s), 90
+        ),
+    )
+    ```"""
+
+    from render import Renderable
+    from creature import Creature
+    from location import Position
+    from movement import Direction, Velocity
+    from animation import States, Animation, Part, PartType
+
+    def load_surface(path):
+        prep = surface_preprocessor
+        surf = pygame.image.load(path).convert_alpha()
+
+        if prep:
+            return prep(surf)
+
+        return surf
+
+    frames = []
+    for i in range(dir_count(ResourcePath.frame(id, "body"))):
+        frames.append(load_surface(ResourcePath.frame(id, "body", idx=i + 1)))
+
+    creature = world.create_entity(
+        Creature(),
+        Direction(),
+        Renderable(),
+        Velocity(pygame.Vector2(0)),
+        States(states),
+        Animation(tuple(frames)),
+        position,
+        *extra_comps,
+    )
+
+    parts = []
+    for part in extra_parts:
+        part_frames = []
+        frame_number = dir_count(ResourcePath.frame(id, part))
+        animation_delay = 400 // frame_number
+
+        for i in range(frame_number):
+            part_frames.append(load_surface(ResourcePath.frame(id, part, idx=i + 1)))
+
+        part_id = world.create_entity(
+            world.component_for_entity(creature, Position),
+            world.component_for_entity(creature, Direction),
+            Animation(tuple(part_frames), animation_delay),
+            Renderable(),
+            Part(creature, PartType.from_str(part)),
+        )
+        parts.append(part_id)
+    world.component_for_entity(creature, Animation).children = tuple(parts)
+
+    return creature

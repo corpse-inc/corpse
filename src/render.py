@@ -1,5 +1,6 @@
 import pygame
 import esper
+from pygame.sprite import collide_mask
 import utils
 
 from dataclasses import dataclass as component
@@ -8,6 +9,7 @@ from dataclasses import dataclass as component
 @component
 class Renderable:
     sprite: pygame.sprite.Sprite | None = None
+    _old_sprite: pygame.sprite.Sprite | None = None
 
 
 class RenderProcessor(esper.Processor):
@@ -23,6 +25,8 @@ class RenderProcessor(esper.Processor):
 
         location = utils.location(self)
         location.sprites.empty()
+
+        solid_sprites = utils.solid_group(self).group
 
         for entity, (render, ani, pos) in self.world.get_components(
             Renderable, Animation, Position
@@ -40,7 +44,21 @@ class RenderProcessor(esper.Processor):
             ) is not None and dir.angle != 0:
                 if dir.angle is None:
                     dir.angle = utils.vector_angle(dir.vector)
-                img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
+
+                rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
+
+                sprite = utils.sprite(
+                    rotate_img,
+                    rotate_img.get_rect(center=pos.coords),
+                    pygame.mask.from_surface(rotate_img),
+                )
+
+                if not pygame.sprite.spritecollideany(
+                    sprite, solid_sprites, collided=pygame.sprite.collide_mask
+                ):
+                    img = rotate_img
+                elif render._old_sprite is not None:
+                    img = render._old_sprite.image
 
             sprite = utils.sprite(
                 img,
@@ -52,8 +70,9 @@ class RenderProcessor(esper.Processor):
                 location.sprites.add(sprite, layer=pos.layer.value)
 
             render.sprite = sprite
+            render._old_sprite = sprite
+
+        solid_sprites.empty()
 
         if screen is not None:
             location.sprites.draw(screen)
-
-        pygame.display.flip()

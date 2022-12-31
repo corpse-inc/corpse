@@ -1,9 +1,8 @@
 import pygame
 import esper
+import utils
 
 from dataclasses import dataclass as component
-
-import utils
 
 
 @component
@@ -16,22 +15,41 @@ class MovementProcessor(esper.Processor):
 
     def process(self, **_):
         from location import Location, Position
+        from creature import Creature
+        from object import Solid
+        from render import Renderable
 
-        for _, (pos, vel) in self.world.get_components(Position, Velocity):
-            vec = vel.vector
-            if (vec.x, vec.y) == (0, 0):
-                continue
+        for _, (_, render) in self.world.get_components(Creature, Renderable):
+            creature_sprite = render.sprite
 
-            location = self.world.component_for_entity(pos.location, Location)
-            map_x, map_y = utils.location_map_size(location)
+            for _, (pos, vel) in self.world.get_components(Position, Velocity):
+                vec = vel.vector
+                if (vec.x, vec.y) == (0, 0):
+                    continue
 
-            new_coords = pos.coords + vec
-            if new_coords.x >= map_x or new_coords.x <= 0:
-                new_coords.x = pos.coords.x
-            if new_coords.y >= map_y or new_coords.y <= 0:
-                new_coords.y = pos.coords.y
+                location = self.world.component_for_entity(pos.location, Location)
+                map_x, map_y = utils.location_map_size(location)
 
-            pos.coords = new_coords
+                new_coords = pos.coords + vec
+
+                if new_coords.x >= map_x or new_coords.x <= 0:
+                    new_coords.x = pos.coords.x
+                if new_coords.y >= map_y or new_coords.y <= 0:
+                    new_coords.y = pos.coords.y
+
+                for _, (_, render) in self.world.get_components(Solid, Renderable):
+                    object_sprite = render.sprite
+
+                    creature_sprite.rect.center = new_coords
+
+                    if object_sprite is not None and pygame.sprite.collide_mask(
+                        creature_sprite, object_sprite
+                    ):
+                        new_coords = pos.coords
+
+                    creature_sprite.rect.center = pos.coords
+
+                pos.coords = new_coords
 
 
 @component
