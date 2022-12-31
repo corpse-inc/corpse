@@ -4,7 +4,7 @@ import math
 import esper
 import pygame
 
-from typing import Callable, Tuple
+from typing import Callable, Iterable
 from animation import StateType
 
 FPS = 60
@@ -204,9 +204,10 @@ def creature(
     id: str,
     position,
     *extra_comps,
-    extra_parts: Tuple[str] = (),
+    extra_parts: Iterable[str] = (),
     states={StateType.Stands},
-    surface_preprocessor: Callable[[pygame.surface.Surface], None] | None = None,
+    surface_preprocessor: Callable[[pygame.surface.Surface], pygame.surface.Surface]
+    | None = None,
 ):
     """Создаёт существо и возвращает id его сущности в базе данных сущностей.
 
