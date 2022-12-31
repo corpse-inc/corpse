@@ -18,7 +18,6 @@ class SolidGroupingProcessor(esper.Processor):
 class SolidGroup:
     group: pygame.sprite.Group = pygame.sprite.Group()
 
-
 @component
 class Size:
     w: float

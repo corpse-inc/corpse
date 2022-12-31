@@ -17,6 +17,7 @@ from render import RenderProcessor
 from roof import RoofTogglingProcessor
 from chrono import DayNightCyclingProcessor
 from object import SolidGroup, SolidGroupingProcessor
+from items import ItemsGroup, ItemsGroupingProcessor, ItemsProcessor
 from movement import MovementProcessor, RotationProcessor
 from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
@@ -26,6 +27,7 @@ PROCESSORS = (
     EventProcessor,
     InitLocationProcessor,
     SolidGroupingProcessor,
+    ItemsGroupingProcessor,
     MovementProcessor,
     RotationProcessor,
     FrameCyclingProcessor,
@@ -36,6 +38,7 @@ PROCESSORS = (
     RenderProcessor,
     DayNightCyclingProcessor,
     UiDrawingProcessor,
+    ItemsProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (

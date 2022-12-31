@@ -147,6 +147,14 @@ def solid_group(processor):
     for _, group in world.get_component(SolidGroup):
         return group
 
+def items_group(processor):
+    from items import ItemsGroup
+
+    world: esper.World = processor.world
+    for _, group in world.get_component(ItemsGroup):
+        return group
+
+
 
 def time(processor, cache=True):
     from chrono import Time

@@ -10,6 +10,7 @@ from dataclasses import dataclass as component
 from creature import PlayerMarker
 from render import Renderable
 from object import Invisible, Size, Solid
+from items import Item
 
 
 class Layer(IntEnum):
@@ -89,6 +90,10 @@ class InitLocationProcessor(esper.Processor):
 
                 if object.properties.get("is_solid", False):
                     self.world.add_component(entity, Solid())
+
+                if object.properties.get("is_item", False):
+                    self.world.add_component(entity, Item())
+
 
     def _make_location_data(self, location: int, location_id: str):
         tilemap = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))

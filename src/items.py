@@ -1,11 +1,31 @@
 from dataclasses import dataclass as component
 import pygame
+import esper
+import utils
+
+class ItemsProcessor(esper.Processor):
+    pass
+
+
+class ItemsGroupingProcessor(esper.Processor):
+    def process(self, screen=None, **_):
+        from render import Renderable
+
+        items_group = utils.items_group(self).group
+        for _, (render, _) in self.world.get_components(Renderable, Item):
+            if render.sprite is not None and render.sprite not in items_group:
+                items_group.add(render.sprite)
+
+
+@component
+class ItemsGroup:
+    group: pygame.sprite.Group = pygame.sprite.Group()
 
 
 # default component for all item
 @component
 class Item:
-    icon: pygame
+    pass
     
 
 @component
@@ -65,9 +85,8 @@ class EdgedWeapon:
 class Magazine:
     ammo: int
     current: int
-    max: itn
-
-   damage: int
+    max: int
+    damage: int
 
 
 @component
