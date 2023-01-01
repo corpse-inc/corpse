@@ -49,7 +49,7 @@ CHUNK_LOADER_PROCESSORS = (
 
 def fill_world(world: esper.World):
     location = world.create_entity(Location())
-    solid_group = world.create_entity(SolidGroup())
+    solid_group = world.create_entity(SolidGroup(), ItemsGroup())
     player = utils.creature(
         world,
         "player",

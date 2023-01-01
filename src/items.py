@@ -4,7 +4,21 @@ import esper
 import utils
 
 class ItemsProcessor(esper.Processor):
-    pass
+    def process(self, **_):
+
+        from location import Position
+
+        player, pos = utils.player(self, Position, id=True)
+        x_player = pos.coords.x
+        y_player = pos.coords.y
+
+        items_sprite = utils.items_group(self).group
+        for sprite in items_sprite:
+            x_item = sprite.rect.x
+            y_item = sprite.rect.y
+            if (x_player - x_item == 8 or x_item - x_player == 8) and\
+                    (y_player - y_item == 8 or y_item - y_player -- 8):
+                print("item near")
 
 
 class ItemsGroupingProcessor(esper.Processor):
