@@ -67,7 +67,7 @@ class RotationProcessor(esper.Processor):
         from location import Position
 
         player, pos = utils.player(self, Position, id=True)
-        location = utils.location(self, pos)
+        location = utils.location(self)
 
         mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
         player_pos = pygame.Vector2(location.renderer.translate_point(pos.coords))

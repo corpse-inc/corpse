@@ -6,6 +6,7 @@ import pygame
 
 from typing import Callable, Iterable
 from animation import StateType
+from location import Position, SpawnPoint
 
 FPS = 60
 
@@ -129,15 +130,19 @@ def player_from_world(world, *components, id=False):
     return player(fake_processor, *components, id=id, cache=False)
 
 
-def location(processor, player_position=None):
-    from location import Location, Position
+def location(processor, id=False):
+    """Возвращает id сущности локации и компонент локации в виде кортежа."""
+
+    from location import Location
 
     world: esper.World = processor.world
 
-    if player_position is not None:
-        return world.component_for_entity(player_position.location, Location)
+    entity, location = world.get_component(Location)[0]
 
-    return world.component_for_entity(player(processor, Position).location, Location)
+    if id:
+        return entity, location
+
+    return location
 
 
 def solid_group(processor):
@@ -202,7 +207,7 @@ def dir_count(dir: str) -> int:
 def creature(
     world: esper.World,
     id: str,
-    position,
+    position: Position | SpawnPoint,
     *extra_comps,
     extra_parts: Iterable[str] = (),
     states={StateType.Stands},
@@ -222,7 +227,7 @@ def creature(
     использована на каждом pygame.Surface в данной функции. Полезно, если прежде
     чем загружать картинку анимации, её нужно как-то обработать
 
-    Пример использования:
+    Примеры использования:
     ```python
     player = utils.creature(
         world,
@@ -233,12 +238,16 @@ def creature(
         surface_preprocessor=lambda s: pygame.transform.rotate(
             pygame.transform.scale2x(s), 90
         ),
+    player = utils.creature(
+        world,
+        "zombie",
+        SpawnPoint("zombie")
     )
     ```"""
 
+    from bind import BindRequest
     from render import Renderable
     from creature import Creature
-    from location import Position
     from movement import Direction, Velocity
     from animation import States, Animation, Part, PartType
 
@@ -270,19 +279,24 @@ def creature(
     for part in extra_parts:
         part_frames = []
         frame_number = dir_count(ResourcePath.frame(id, part))
-        animation_delay = 400 // frame_number
+        animation_delay = (
+            400 // frame_number
+        )  # замедляем анимацию при небольшом количестве кадров
 
         for i in range(frame_number):
             part_frames.append(load_surface(ResourcePath.frame(id, part, idx=i + 1)))
 
         part_id = world.create_entity(
-            world.component_for_entity(creature, Position),
-            world.component_for_entity(creature, Direction),
             Animation(tuple(part_frames), animation_delay),
             Renderable(),
             Part(creature, PartType.from_str(part)),
         )
+
+        world.create_entity(BindRequest(creature, part_id, Position))
+        world.create_entity(BindRequest(creature, part_id, Direction))
+
         parts.append(part_id)
+
     world.component_for_entity(creature, Animation).children = tuple(parts)
 
     return creature
