@@ -245,6 +245,7 @@ def creature(
     )
     ```"""
 
+    from meta import Id
     from bind import BindRequest
     from render import Renderable
     from creature import Creature
@@ -265,6 +266,7 @@ def creature(
         frames.append(load_surface(ResourcePath.frame(id, "body", idx=i + 1)))
 
     creature = world.create_entity(
+        Id(id),
         Creature(),
         Direction(),
         Renderable(),
