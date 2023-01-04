@@ -2,6 +2,7 @@ import pygame
 import esper
 import utils
 
+from typing import Optional
 from dataclasses import dataclass as component
 
 
@@ -54,8 +55,8 @@ class MovementProcessor(esper.Processor):
 
 @component
 class Direction:
-    vector: pygame.Vector2 | None = None
-    angle: float | None = None
+    vector: Optional[pygame.Vector2] = None
+    angle: Optional[float] = None
 
 
 class RotationProcessor(esper.Processor):

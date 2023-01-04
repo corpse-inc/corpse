@@ -4,7 +4,7 @@ import math
 import esper
 import pygame
 
-from typing import Callable, Iterable
+from typing import Callable, Iterable, Optional
 from animation import StateType
 from location import Position, SpawnPoint
 
@@ -41,9 +41,9 @@ class ResourcePath:
     def frame(
         cls,
         object_id: str,
-        part_type: str | None = None,
-        part_state: str | None = None,
-        idx: int | None = None,
+        part_type: Optional[str] = None,
+        part_state: Optional[str] = None,
+        idx: Optional[int] = None,
     ) -> str:
         s = f"{RESOURCES}/frames/{object_id}"
 
@@ -79,9 +79,9 @@ def location_map_size(location) -> tuple[int, int]:
 
 
 def sprite(
-    image: pygame.surface.Surface | None = None,
-    rect: pygame.rect.Rect | None = None,
-    mask: pygame.mask.Mask | None = None,
+    image: Optional[pygame.surface.Surface] = None,
+    rect: Optional[pygame.rect.Rect] = None,
+    mask: Optional[pygame.mask.Mask] = None,
 ) -> pygame.sprite.Sprite:
     sprite = pygame.sprite.Sprite()
 
@@ -211,8 +211,9 @@ def creature(
     *extra_comps,
     extra_parts: Iterable[str] = (),
     states={StateType.Stands},
-    surface_preprocessor: Callable[[pygame.surface.Surface], pygame.surface.Surface]
-    | None = None,
+    surface_preprocessor: Optional[
+        Callable[[pygame.surface.Surface], pygame.surface.Surface]
+    ] = None,
 ):
     """Создаёт существо и возвращает id его сущности в базе данных сущностей.
 
