@@ -12,10 +12,12 @@ def location_map_size(location) -> tuple[int, int]:
     return w * tile, h * tile
 
 
-def player(processor, *components, id=False, cache=True):
+def player(source, *components, id=False, cache=True):
     from creature import PlayerMarker
 
-    world: esper.World = processor.world
+    world: esper.World = (
+        source if source.__class__.__name__ == "World" else source.world
+    )
 
     if id and cache:
         key = "player_entity_id"
@@ -41,18 +43,14 @@ def player(processor, *components, id=False, cache=True):
         return _cache[key]
 
 
-def player_from_world(world, *components, id=False):
-    fake_processor = esper.Processor()
-    fake_processor.world = world
-    return player(fake_processor, *components, id=id, cache=False)
-
-
-def location(processor, id=False):
+def location(source, id=False):
     """Возвращает id сущности локации и компонент локации в виде кортежа."""
 
     from location import Location
 
-    world: esper.World = processor.world
+    world: esper.World = (
+        source if source.__class__.__name__ == "World" else source.world
+    )
 
     entity, location = world.get_component(Location)[0]
 

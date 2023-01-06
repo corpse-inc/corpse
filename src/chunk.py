@@ -10,7 +10,7 @@ from typing import Tuple
 class ChunkUnloadingProcessor(esper.Processor):
     def process(self, screen_size: Tuple[int, int], world: esper.World):
         w, h = screen_size
-        px, py = utils.get.player_from_world(world, Position).coords
+        px, py = utils.get.player(world, Position).coords
 
         for obj, pos in world.get_component(Position):
             if world.try_component(obj, PlayerMarker):
@@ -27,7 +27,7 @@ class ChunkUnloadingProcessor(esper.Processor):
 class ChunkLoadingProcessor(esper.Processor):
     def process(self, screen_size: Tuple[int, int], world: esper.World):
         w, h = screen_size
-        px, py = utils.get.player_from_world(world, Position).coords
+        px, py = utils.get.player(world, Position).coords
 
         for obj, pos in self.world.get_component(Position):
             x, y = pos.coords
