@@ -3,6 +3,7 @@ import pygame
 import esper
 import utils
 
+
 class ItemsProcessor(esper.Processor):
     def process(self, **_):
 
@@ -16,8 +17,9 @@ class ItemsProcessor(esper.Processor):
         for sprite in items_sprite:
             x_item = sprite.rect.x
             y_item = sprite.rect.y
-            if (x_player - x_item == 8 or x_item - x_player == 8) and\
-                    (y_player - y_item == 8 or y_item - y_player -- 8):
+            if (x_player - x_item == 8 or x_item - x_player == 8) and (
+                y_player - y_item == 8 or y_item - y_player == 8
+            ):
                 print("item near")
 
 
@@ -40,7 +42,7 @@ class ItemsGroup:
 @component
 class Item:
     pass
-    
+
 
 @component
 class About:
@@ -93,7 +95,7 @@ class FireWeapon:
 @component
 class EdgedWeapon:
     range: int
- 
+
 
 @component
 class Magazine:
@@ -112,5 +114,3 @@ class Ammo:
 @component
 class Armor:
     resistance: float
-
-
