@@ -23,10 +23,10 @@ class RenderProcessor(esper.Processor):
         from movement import Direction
         from object import Size, Invisible
 
-        location = utils.location(self)
+        location = utils.get.location(self)
         location.sprites.empty()
 
-        solid_sprites = utils.solid_group(self).group
+        solid_sprites = utils.get.solid_group(self).group
 
         for entity, (render, ani, pos) in self.world.get_components(
             Renderable, Animation, Position
@@ -34,7 +34,7 @@ class RenderProcessor(esper.Processor):
             if self.world.try_component(entity, Invisible):
                 continue
 
-            img = utils.surface_from_animation(ani)
+            img = utils.convert.surface_from_animation(ani)
 
             if (size := self.world.try_component(entity, Size)) is not None:
                 img = pygame.transform.scale(img, (size.w, size.h))
@@ -43,11 +43,11 @@ class RenderProcessor(esper.Processor):
                 dir := self.world.try_component(entity, Direction)
             ) is not None and dir.angle != 0:
                 if dir.angle is None:
-                    dir.angle = utils.vector_angle(dir.vector)
+                    dir.angle = utils.math.vector_angle(dir.vector)
 
                 rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
 
-                sprite = utils.sprite(
+                sprite = utils.make.sprite(
                     rotate_img,
                     rotate_img.get_rect(center=pos.coords),
                     pygame.mask.from_surface(rotate_img),
@@ -60,7 +60,7 @@ class RenderProcessor(esper.Processor):
                 elif render._old_sprite is not None:
                     img = render._old_sprite.image
 
-            sprite = utils.sprite(
+            sprite = utils.make.sprite(
                 img,
                 img.get_rect(center=pos.coords),
                 pygame.mask.from_surface(img),

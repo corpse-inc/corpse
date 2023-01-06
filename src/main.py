@@ -3,6 +3,8 @@ import utils
 import pygame
 import pygame_gui
 
+from utils.consts import FPS, RESOLUTION
+
 from animation import (
     FrameCyclingProcessor,
     StateChangingProcessor,
@@ -15,7 +17,6 @@ from location import (
     SpawnablePositioningProcessor,
 )
 from event import EventProcessor
-from utils import FPS, RESOLUTION
 from bind import BindingProcessor
 from ui import UiDrawingProcessor
 from creature import PlayerMarker
@@ -55,7 +56,7 @@ def fill_world(world: esper.World):
     world.create_entity(LocationInitRequest("test"))
 
     sprite_groups = world.create_entity(SolidGroup())
-    player = utils.creature(
+    player = utils.make.creature(
         world,
         "player",
         SpawnPoint("player"),

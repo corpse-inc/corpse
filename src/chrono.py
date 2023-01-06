@@ -26,7 +26,7 @@ class DayNightCyclingProcessor(esper.Processor):
         if daytime < (DAY / 2):
             return
 
-        alpha = utils.clamp(M * N, 0, MAX_ALPHA)
+        alpha = utils.math.clamp(M * N, 0, MAX_ALPHA)
 
         night = daytime - (DAY / 2)
         for i in range(int(N)):
@@ -40,7 +40,7 @@ class DayNightCyclingProcessor(esper.Processor):
                 alpha = M * i
                 break
 
-        alpha = utils.clamp(alpha, 0, MAX_ALPHA)
+        alpha = utils.math.clamp(alpha, 0, MAX_ALPHA)
 
         darken = pygame.Surface(screen.get_size())
         darken.fill((0, 0, 0))

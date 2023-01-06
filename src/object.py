@@ -8,7 +8,7 @@ class SolidGroupingProcessor(esper.Processor):
     def process(self, screen=None, **_):
         from render import Renderable
 
-        solid_group = utils.solid_group(self).group
+        solid_group = utils.get.solid_group(self).group
         for _, (render, _) in self.world.get_components(Renderable, Solid):
             if render.sprite is not None and render.sprite not in solid_group:
                 solid_group.add(render.sprite)

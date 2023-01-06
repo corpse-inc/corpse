@@ -8,7 +8,6 @@ import utils
 from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
-from creature import PlayerMarker
 from render import Renderable
 from object import Invisible, ObjectNotFoundError, Size, Solid
 
@@ -29,7 +28,7 @@ class Layer(IntEnum):
 
     @classmethod
     def from_str(cls, s: str):
-        return cls[utils.snake_to_camel_case(s)]
+        return cls[utils.convert.snake_to_camel_case(s)]
 
 
 @component
@@ -84,7 +83,7 @@ class InitLocationProcessor(esper.Processor):
 
                 if object.image is not None:
                     self.world.add_component(
-                        entity, utils.animation_from_surface(object.image)
+                        entity, utils.convert.animation_from_surface(object.image)
                     )
 
                 if object.rotation != 0:
@@ -97,14 +96,14 @@ class InitLocationProcessor(esper.Processor):
                     self.world.add_component(entity, Solid())
 
     def _make_location(self, location: int, location_id: str):
-        tilemap = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))
+        tilemap = pytmx.load_pygame(utils.fs.ResourcePath.location_tilemap(location_id))
 
         self._fill_objects(tilemap, location)
 
         renderer = pyscroll.BufferedRenderer(
             data=pyscroll.TiledMapData(tilemap),
-            size=utils.CAMERA_SIZE,
-            zoom=utils.CAMERA_ZOOM,
+            size=utils.consts.CAMERA_SIZE,
+            zoom=utils.consts.CAMERA_ZOOM,
         )
 
         sprites = pyscroll.PyscrollGroup(map_layer=renderer)
@@ -121,7 +120,7 @@ class InitLocationProcessor(esper.Processor):
 
 class SpawnablePositioningProcessor(esper.Processor):
     def process(self, **_):
-        location_id, location = utils.location(self, id=True)
+        location_id, location = utils.get.location(self, id=True)
 
         for ent, point in self.world.get_component(SpawnPoint):
             if self.world.has_component(ent, Position):

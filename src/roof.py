@@ -9,7 +9,7 @@ from render import Renderable
 
 class RoofTogglingProcessor(esper.Processor):
     def process(self, **_):
-        player_sprite = utils.player(self, Renderable).sprite
+        player_sprite = utils.get.player(self, Renderable).sprite
 
         for roof, (render, pos) in self.world.get_components(Renderable, Position):
             roof_sprite = render.sprite

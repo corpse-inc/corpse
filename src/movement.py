@@ -29,7 +29,7 @@ class MovementProcessor(esper.Processor):
                     continue
 
                 location = self.world.component_for_entity(pos.location, Location)
-                map_x, map_y = utils.location_map_size(location)
+                map_x, map_y = utils.get.location_map_size(location)
 
                 new_coords = pos.coords + vec
 
@@ -67,14 +67,14 @@ class RotationProcessor(esper.Processor):
 
         from location import Position
 
-        player, pos = utils.player(self, Position, id=True)
-        location = utils.location(self)
+        player, pos = utils.get.player(self, Position, id=True)
+        location = utils.get.location(self)
 
         mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
         player_pos = pygame.Vector2(location.renderer.translate_point(pos.coords))
 
         rotation_vector = mouse_pos - player_pos
-        rotation_angle = utils.vector_angle(rotation_vector)
+        rotation_angle = utils.math.vector_angle(rotation_vector)
 
         if (dir := self.world.try_component(player, Direction)) is not None:
             dir.vector = rotation_vector

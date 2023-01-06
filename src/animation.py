@@ -41,7 +41,7 @@ class PartType(Enum):
 
     @classmethod
     def from_str(cls, s: str):
-        return cls[utils.snake_to_camel_case(s)]
+        return cls[utils.convert.snake_to_camel_case(s)]
 
 
 @component

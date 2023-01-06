@@ -4,9 +4,10 @@ import sys
 
 import pygame_gui
 
-from creature import PlayerMarker
 from movement import Velocity
-from utils import PLAYER_SPEED
+from creature import PlayerMarker
+
+from utils.consts import PLAYER_SPEED
 
 
 class EventProcessor(esper.Processor):
