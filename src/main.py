@@ -8,8 +8,15 @@ from animation import (
     StateChangingProcessor,
     StateHandlingProcessor,
 )
+from location import (
+    InitLocationProcessor,
+    LocationInitRequest,
+    SpawnPoint,
+    SpawnablePositioningProcessor,
+)
 from event import EventProcessor
 from utils import FPS, RESOLUTION
+from bind import BindingProcessor
 from ui import UiDrawingProcessor
 from creature import PlayerMarker
 from camera import CameraProcessor
@@ -19,13 +26,13 @@ from chrono import DayNightCyclingProcessor
 from object import SolidGroup, SolidGroupingProcessor
 from items import ItemsGroup, ItemsGroupingProcessor, ItemsProcessor
 from movement import MovementProcessor, RotationProcessor
-from location import Location, InitLocationProcessor, Position
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-
 
 PROCESSORS = (
     EventProcessor,
     InitLocationProcessor,
+    SpawnablePositioningProcessor,
+    BindingProcessor,
     SolidGroupingProcessor,
     ItemsGroupingProcessor,
     MovementProcessor,
@@ -48,12 +55,13 @@ CHUNK_LOADER_PROCESSORS = (
 
 
 def fill_world(world: esper.World):
-    location = world.create_entity(Location())
-    solid_group = world.create_entity(SolidGroup(), ItemsGroup())
+    world.create_entity(LocationInitRequest("test"))
+
+    sprite_groups = world.create_entity(SolidGroup(), ItemsGroup())
     player = utils.creature(
         world,
         "player",
-        Position(location, "test", pygame.Vector2(320, 320)),
+        SpawnPoint("player"),
         PlayerMarker(),
         extra_parts={"legs"},
         surface_preprocessor=lambda s: pygame.transform.rotate(
@@ -83,10 +91,13 @@ if __name__ == "__main__":
 
     running = [True]
     while running[0]:
-        chunkloader.process(RESOLUTION, world)
         world.process(
-            dt=clock.tick(FPS), screen=screen, uimanager=uimanager, running=running
+            dt=clock.tick(FPS),
+            screen=screen,
+            uimanager=uimanager,
+            running=running,
         )
+        chunkloader.process(RESOLUTION, world)
         pygame.display.flip()
 
     pygame.quit()

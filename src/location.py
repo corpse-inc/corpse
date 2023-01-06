@@ -7,10 +7,9 @@ import utils
 from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
-from creature import PlayerMarker
-from render import Renderable
-from object import Invisible, Size, Solid
 from items import Item
+from render import Renderable
+from object import Invisible, ObjectNotFoundError, Size, Solid
 
 
 class Layer(IntEnum):
@@ -34,29 +33,35 @@ class Layer(IntEnum):
 
 @component
 class Location:
-    map: pytmx.TiledMap | None = None
-    sprites: pyscroll.PyscrollGroup | None = None
-    renderer: pyscroll.BufferedRenderer | None = None
+    map: pytmx.TiledMap
+    renderer: pyscroll.BufferedRenderer
+    sprites: pyscroll.PyscrollGroup
+
+
+@component
+class LocationInitRequest:
+    """Запрос на инициализацию локации. id - строковый идентификатор
+    локации для нахождения её .tmx файла."""
+
+    id: str
 
 
 @component
 class Position:
     location: int
-    location_id: str
     coords: pygame.Vector2
     layer: Layer = Layer.Objects
 
 
-@component
-class SkipLocationInitMarker:
-    """Если в мире игры есть сущность с данным компонентом, значит нужно
-    пропустить инициализацию локаций."""
+class SpawnPoint:
+    def __init__(self, name: str):
+        self.name = name
 
 
 class InitLocationProcessor(esper.Processor):
-    """Инициализирует локацию, на которой в данный момент находится игрок."""
+    """Инициализирует локации."""
 
-    def _fill_objects(self, tilemap: pytmx.TiledMap, location: int, location_id: str):
+    def _fill_objects(self, tilemap: pytmx.TiledMap, location: int):
         from movement import Direction
 
         for group in tilemap.objectgroups:
@@ -66,7 +71,6 @@ class InitLocationProcessor(esper.Processor):
                 entity = self.world.create_entity(
                     Position(
                         location,
-                        location_id,
                         pygame.Vector2(object.as_points[1]),
                         Layer.from_str(group.name),
                     ),
@@ -94,11 +98,10 @@ class InitLocationProcessor(esper.Processor):
                 if object.properties.get("is_item", False):
                     self.world.add_component(entity, Item())
 
-
-    def _make_location_data(self, location: int, location_id: str):
+    def _make_location(self, location: int, location_id: str):
         tilemap = pytmx.load_pygame(utils.ResourcePath.location_tilemap(location_id))
 
-        self._fill_objects(tilemap, location, location_id)
+        self._fill_objects(tilemap, location)
 
         renderer = pyscroll.BufferedRenderer(
             data=pyscroll.TiledMapData(tilemap),
@@ -108,17 +111,37 @@ class InitLocationProcessor(esper.Processor):
 
         sprites = pyscroll.PyscrollGroup(map_layer=renderer)
 
-        return tilemap, sprites, renderer
+        return Location(tilemap, renderer, sprites)
 
+    def process(self, location=None, **_):
+        for entity, request in self.world.get_component(LocationInitRequest):
+            location = self._make_location(entity, request.id)
+            self.world.add_component(entity, location)
+            self.world.remove_component(entity, LocationInitRequest)
+
+
+class SpawnablePositioningProcessor(esper.Processor):
     def process(self, **_):
-        if len(self.world.get_component(SkipLocationInitMarker)) != 0:
-            return
+        location_id, location = utils.location(self, id=True)
 
-        for _, (_, position) in self.world.get_components(PlayerMarker, Position):
-            location = self.world.component_for_entity(position.location, Location)
-            (
-                location.map,
-                location.sprites,
-                location.renderer,
-            ) = self._make_location_data(position.location, position.location_id)
-            self.world.create_entity(SkipLocationInitMarker())
+        for ent, point in self.world.get_component(SpawnPoint):
+            if self.world.has_component(ent, Position):
+                continue
+
+            for group in location.map.objectgroups:
+                for object in group:
+                    object: pytmx.TiledObject
+                    if object.name == point.name:
+                        layer = Layer.from_str(group.name)
+                        break
+                    object = None
+                else:
+                    continue
+                break
+
+            if not object:
+                raise ObjectNotFoundError(f"Объект с именем {point.name} не найден")
+
+            coords = pygame.Vector2(object.as_points[0])
+
+            self.world.add_component(ent, Position(location_id, coords, layer))

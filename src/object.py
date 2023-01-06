@@ -32,3 +32,7 @@ class Solid:
 @component
 class Invisible:
     pass
+
+
+class ObjectNotFoundError(Exception):
+    pass

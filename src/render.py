@@ -1,15 +1,15 @@
 import pygame
 import esper
-from pygame.sprite import collide_mask
 import utils
 
+from typing import Optional
 from dataclasses import dataclass as component
 
 
 @component
 class Renderable:
-    sprite: pygame.sprite.Sprite | None = None
-    _old_sprite: pygame.sprite.Sprite | None = None
+    sprite: Optional[pygame.sprite.Sprite] = None
+    _old_sprite: Optional[pygame.sprite.Sprite] = None
 
 
 class RenderProcessor(esper.Processor):

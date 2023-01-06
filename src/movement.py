@@ -2,6 +2,7 @@ import pygame
 import esper
 import utils
 
+from typing import Optional
 from dataclasses import dataclass as component
 
 
@@ -54,8 +55,8 @@ class MovementProcessor(esper.Processor):
 
 @component
 class Direction:
-    vector: pygame.Vector2 | None = None
-    angle: float | None = None
+    vector: Optional[pygame.Vector2] = None
+    angle: Optional[float] = None
 
 
 class RotationProcessor(esper.Processor):
@@ -67,7 +68,7 @@ class RotationProcessor(esper.Processor):
         from location import Position
 
         player, pos = utils.player(self, Position, id=True)
-        location = utils.location(self, pos)
+        location = utils.location(self)
 
         mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
         player_pos = pygame.Vector2(location.renderer.translate_point(pos.coords))
