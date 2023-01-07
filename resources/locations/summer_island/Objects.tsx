@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Objects" tilewidth="85" tileheight="64" tilecount="10" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="Objects" tilewidth="85" tileheight="64" tilecount="14" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>
@@ -60,5 +60,17 @@
    <property name="is_solid" type="bool" value="true"/>
   </properties>
   <image width="85" height="23" source="../../assets/objects/SandBag/TDS04_0002_Sandbags.png"/>
+ </tile>
+ <tile id="10">
+  <image width="30" height="30" source="../../assets/Sprite-0002.png"/>
+ </tile>
+ <tile id="11">
+  <image width="60" height="30" source="../../assets/shizlong.png"/>
+ </tile>
+ <tile id="12">
+  <image width="30" height="30" source="../../assets/zont_broken.png"/>
+ </tile>
+ <tile id="13">
+  <image width="60" height="30" source="../../assets/shizlong2.png"/>
  </tile>
 </tileset>
