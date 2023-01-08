@@ -105,6 +105,7 @@ if __name__ == "__main__":
     menu = pygame_menu.Menu(
         "Corpse inc.",
         *RESOLUTION,
+        center_content=False,
         theme=utils.make.menu_theme(),
     )
 
