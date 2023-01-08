@@ -47,6 +47,5 @@ class EventProcessor(esper.Processor):
                         running[0] = False
                     else:
                         pygame.quit()
-                        sys.exit()
                 case pygame.KEYUP:
                     self._handle_key_release(event)

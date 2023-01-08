@@ -1,5 +1,6 @@
 import esper
 import pygame
+import pygame_menu
 
 from utils.fs import ResourcePath, dir_count
 
@@ -7,6 +8,24 @@ from location import Position, SpawnPoint
 from animation import StateType
 
 from typing import Optional, Callable, Iterable
+
+
+def menu_theme() -> pygame_menu.Theme:
+    theme = pygame_menu.Theme()
+
+    background = pygame_menu.baseimage.BaseImage(
+        image_path=ResourcePath.get("ui/main_menu_background.jpg"),
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+    )
+    theme.background_color = background
+
+    theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
+    # theme.widget_alignment = pygame_menu.locals.ALIGN_RIGHT
+    theme.selection_color = pygame.Color(0, 0, 0)
+    theme.widget_margin = (-30, 0)
+    theme.widget_offset = (0.35, 0.01)
+
+    return theme
 
 
 def sprite(

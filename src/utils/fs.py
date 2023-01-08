@@ -16,6 +16,10 @@ RESOURCES = init_resources_path()
 
 class ResourcePath:
     @classmethod
+    def get(cls, path: str) -> str:
+        return f"{RESOURCES}/{path}"
+
+    @classmethod
     def location_tilemap(cls, location_id: str) -> str:
         return f"{RESOURCES}/world/{location_id}.tmx"
 

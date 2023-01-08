@@ -2,6 +2,7 @@ import esper
 import utils
 import pygame
 import pygame_gui
+import pygame_menu
 
 from utils.consts import FPS, RESOLUTION
 
@@ -68,10 +69,7 @@ def fill_world(world: esper.World):
     )
 
 
-if __name__ == "__main__":
-    pygame.init()
-    screen = pygame.display.set_mode(RESOLUTION)
-    pygame.display.set_caption("Corpse inc.")
+def run(screen: pygame.surface.Surface):
     clock = pygame.time.Clock()
     uimanager = pygame_gui.UIManager(screen.get_size())
 
@@ -98,4 +96,20 @@ if __name__ == "__main__":
         chunkloader.process(RESOLUTION, world)
         pygame.display.flip()
 
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode(RESOLUTION)
+    pygame.display.set_caption("Corpse inc.")
+
+    menu = pygame_menu.Menu(
+        "Corpse inc.",
+        *RESOLUTION,
+        theme=utils.make.menu_theme(),
+    )
+
+    menu.add.button("Играть", lambda: run(screen))
+    menu.add.button("Выйти", pygame_menu.events.EXIT)
+
+    menu.mainloop(screen)
     pygame.quit()
