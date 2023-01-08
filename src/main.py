@@ -1,3 +1,4 @@
+import sys
 import esper
 import utils
 import pygame
@@ -102,15 +103,19 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(RESOLUTION)
     pygame.display.set_caption("Corpse inc.")
 
-    menu = pygame_menu.Menu(
-        "Corpse inc.",
-        *RESOLUTION,
-        center_content=False,
-        theme=utils.make.menu_theme(),
-    )
+    if "--debug" in sys.argv:
+        run(screen)
+    else:
+        menu = pygame_menu.Menu(
+            "Corpse inc.",
+            *RESOLUTION,
+            center_content=False,
+            theme=utils.make.menu_theme(),
+        )
 
-    menu.add.button("Играть", lambda: run(screen))
-    menu.add.button("Выйти", pygame_menu.events.EXIT)
+        menu.add.button("Играть", lambda: run(screen))
+        menu.add.button("Выйти", pygame_menu.events.EXIT)
 
-    menu.mainloop(screen)
+        menu.mainloop(screen)
+
     pygame.quit()
