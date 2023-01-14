@@ -98,6 +98,10 @@ def run(screen: pygame.surface.Surface):
         pygame.display.flip()
 
 
+def settings():
+    pass
+
+
 if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode(RESOLUTION)
@@ -114,6 +118,7 @@ if __name__ == "__main__":
         )
 
         menu.add.button("Играть", lambda: run(screen))
+        menu.add.button("Настройки", lambda: settings())
         menu.add.button("Выйти", pygame_menu.events.EXIT)
 
         menu.mainloop(screen)
