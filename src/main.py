@@ -140,6 +140,7 @@ if __name__ == "__main__":
             uimanager=uimanager,
         )
         chunkloader.process(settings["resolution"], world)
+
         pygame.display.flip()
 
     pygame.quit()

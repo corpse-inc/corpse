@@ -1,6 +1,6 @@
-import pygame
 import esper
-import sys
+import utils
+import pygame
 
 import pygame_gui
 
@@ -19,6 +19,7 @@ class EventProcessor(esper.Processor):
 
             if pressed[pygame.K_ESCAPE]:
                 paused[0] = True
+                utils.save.save_game(self.world)
 
             if pressed[pygame.K_w]:
                 vel.vector.y = -PLAYER_SPEED
