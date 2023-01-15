@@ -2,12 +2,13 @@ import pygame
 import esper
 import pytmx
 import pyscroll
-from meta import Id
 import utils
 
+from typing import Tuple
 from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
+from meta import Id
 from render import Renderable
 from object import Invisible, ObjectNotFoundError, Size, Solid
 
@@ -95,14 +96,14 @@ class InitLocationProcessor(esper.Processor):
                 if object.properties.get("is_solid", False):
                     self.world.add_component(entity, Solid())
 
-    def _make_location(self, location: int, location_id: str):
+    def _make_location(self, location: int, location_id: str, camera_size: Tuple[int]):
         tilemap = pytmx.load_pygame(utils.fs.ResourcePath.location_tilemap(location_id))
 
         self._fill_objects(tilemap, location)
 
         renderer = pyscroll.BufferedRenderer(
             data=pyscroll.TiledMapData(tilemap),
-            size=utils.consts.CAMERA_SIZE,
+            size=camera_size,
             zoom=utils.consts.CAMERA_ZOOM,
         )
 
@@ -110,9 +111,9 @@ class InitLocationProcessor(esper.Processor):
 
         return Location(tilemap, renderer, sprites)
 
-    def process(self, location=None, **_):
+    def process(self, location=None, settings=None, **_):
         for entity, request in self.world.get_component(LocationInitRequest):
-            location = self._make_location(entity, request.id)
+            location = self._make_location(entity, request.id, settings["resolution"])
             self.world.add_component(entity, location)
             self.world.add_component(entity, Id(request.id))
             self.world.remove_component(entity, LocationInitRequest)

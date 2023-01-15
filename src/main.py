@@ -5,7 +5,9 @@ import pygame
 import pygame_gui
 import pygame_menu
 
-from utils.consts import FPS, RESOLUTION
+from typing import Dict
+from copy import deepcopy
+from utils.consts import FPS
 
 from animation import (
     FrameCyclingProcessor,
@@ -70,7 +72,7 @@ def fill_world(world: esper.World):
     )
 
 
-def run(screen: pygame.surface.Surface):
+def run(screen: pygame.surface.Surface, settings: Dict):
     clock = pygame.time.Clock()
     uimanager = pygame_gui.UIManager(screen.get_size())
 
@@ -89,36 +91,55 @@ def run(screen: pygame.surface.Surface):
     running = [True]
     while running[0]:
         world.process(
-            dt=clock.tick(FPS),
             screen=screen,
-            uimanager=uimanager,
             running=running,
+            settings=settings,
+            dt=clock.tick(FPS),
+            uimanager=uimanager,
         )
-        chunkloader.process(RESOLUTION, world)
+        chunkloader.process(settings["resolution"], world)
         pygame.display.flip()
 
 
-def settings():
-    pass
-
-
 if __name__ == "__main__":
+    settings = deepcopy(utils.consts.DEFAULT_SETTINGS)
+
     pygame.init()
-    screen = pygame.display.set_mode(RESOLUTION)
+    screen = pygame.display.set_mode(settings["resolution"])
     pygame.display.set_caption("Corpse inc.")
 
     if "--debug" in sys.argv:
-        run(screen)
+        run(screen, settings)
     else:
-        menu = pygame_menu.Menu(
-            "Corpse inc.",
-            *RESOLUTION,
-            center_content=False,
-            theme=utils.make.menu_theme(),
+
+        def apply_settings():
+            pygame.display.set_mode(settings["resolution"])
+
+        settings_menu = pygame_menu.Menu(
+            "Corpse inc. -> Settings",
+            *settings["resolution"],
+            theme=utils.make.settings_menu_theme(),
+            onreset=apply_settings,
         )
 
-        menu.add.button("Играть", lambda: run(screen))
-        menu.add.button("Настройки", lambda: settings())
+        def change_resolution(_, res):
+            settings["resolution"] = res
+
+        settings_menu.add.dropselect(
+            "Разрешение экрана",
+            [("640x480", (640, 480)), ("720x480", (720, 480))],
+            onchange=change_resolution,
+        )
+
+        menu = pygame_menu.Menu(
+            "Corpse inc.",
+            *settings["resolution"],
+            center_content=False,
+            theme=utils.make.main_menu_theme(),
+        )
+
+        menu.add.button("Играть", lambda: run(screen, settings))
+        menu.add.button("Настройки", settings_menu)
         menu.add.button("Выйти", pygame_menu.events.EXIT)
 
         menu.mainloop(screen)

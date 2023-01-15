@@ -1,7 +1,8 @@
-FPS = 60
+DEFAULT_SETTINGS = {
+    "resolution": (640, 480),
+}
 
-RESOLUTION = 640, 640
-CAMERA_SIZE = RESOLUTION
+FPS = 60
 
 # TODO: Баг: при изменении данной константы система rotation.RotationProcessor
 # неправильно вращает спрайты.
