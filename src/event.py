@@ -13,9 +13,12 @@ from utils.consts import PLAYER_SPEED
 class EventProcessor(esper.Processor):
     """Обрабатывает события."""
 
-    def _handle_key_press(self):
+    def _handle_key_press(self, paused):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
             pressed = pygame.key.get_pressed()
+
+            if pressed[pygame.K_ESCAPE]:
+                paused[0] = True
 
             if pressed[pygame.K_w]:
                 vel.vector.y = -PLAYER_SPEED
@@ -33,12 +36,12 @@ class EventProcessor(esper.Processor):
             elif event.key in {pygame.K_a, pygame.K_d}:
                 vel.vector.x = 0
 
-    def process(self, running=None, uimanager=None, **_):
+    def process(self, running=None, uimanager=None, paused=None, events=None, **_):
         ui: pygame_gui.UIManager = uimanager
 
-        self._handle_key_press()
+        self._handle_key_press(paused)
 
-        for event in pygame.event.get():
+        for event in events:
             ui.process_events(event)
 
             match event.type:

@@ -20,7 +20,6 @@ def main_menu_theme() -> pygame_menu.Theme:
     theme.background_color = background
 
     theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
-    # theme.widget_alignment = pygame_menu.locals.ALIGN_RIGHT
     theme.selection_color = pygame.Color(0, 0, 0)
     theme.widget_margin = (-30, 0)
     theme.widget_offset = (0.35, 0.01)
@@ -38,7 +37,25 @@ def settings_menu_theme() -> pygame_menu.Theme:
     theme.background_color = background
 
     theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
-    theme.selection_color = pygame.Color(0, 0, 0)
+    theme.selection_color = pygame.Color(255, 255, 255)
+    theme.widget_font_color = pygame.Color(0, 0, 0)
+
+    return theme
+
+
+def pause_menu_theme() -> pygame_menu.Theme:
+    theme = pygame_menu.Theme()
+
+    background = pygame_menu.baseimage.BaseImage(
+        image_path=ResourcePath.get("ui/pause_menu_background.jpg"),
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+    )
+    theme.background_color = background
+
+    theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
+    theme.selection_color = pygame.Color(255, 255, 255)
+    theme.widget_font_color = pygame.Color(0, 0, 0)
+    theme.widget_offset = (0, 0.5)
 
     return theme
 

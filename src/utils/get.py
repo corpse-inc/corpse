@@ -1,4 +1,5 @@
 import esper
+import pygame_menu
 
 _cache = {}
 
@@ -66,3 +67,15 @@ def solid_group(processor):
     world: esper.World = processor.world
     for _, group in world.get_component(SolidGroup):
         return group
+
+
+def menu(source, id: str) -> pygame_menu.Menu:
+    from meta import Id
+
+    world: esper.World = (
+        source if source.__class__.__name__ == "World" else source.world
+    )
+
+    for _, (menu_id, menu) in world.get_components(Id, pygame_menu.Menu):
+        if menu_id.id == id:
+            return menu

@@ -1,11 +1,8 @@
-import sys
 import esper
 import utils
 import pygame
 import pygame_gui
-import pygame_menu
 
-from typing import Dict
 from copy import deepcopy
 from utils.consts import FPS
 
@@ -19,6 +16,12 @@ from location import (
     LocationInitRequest,
     SpawnPoint,
     SpawnablePositioningProcessor,
+)
+from menu import (
+    MenuDrawingProcessor,
+    MenuUpdatingProcessor,
+    MenuTogglingProcessor,
+    MenuCreationProcessor,
 )
 from event import EventProcessor
 from bind import BindingProcessor
@@ -55,6 +58,13 @@ CHUNK_LOADER_PROCESSORS = (
     ChunkLoadingProcessor,
 )
 
+MENU_MANAGER_PROCESSORS = (
+    MenuCreationProcessor,
+    MenuTogglingProcessor,
+    MenuUpdatingProcessor,
+    MenuDrawingProcessor,
+)
+
 
 def fill_world(world: esper.World):
     world.create_entity(LocationInitRequest("test"))
@@ -72,7 +82,13 @@ def fill_world(world: esper.World):
     )
 
 
-def run(screen: pygame.surface.Surface, settings: Dict):
+if __name__ == "__main__":
+    settings = deepcopy(utils.consts.DEFAULT_SETTINGS)
+
+    pygame.init()
+    screen = pygame.display.set_mode(settings["resolution"])
+    pygame.display.set_caption("Corpse inc.")
+
     clock = pygame.time.Clock()
     uimanager = pygame_gui.UIManager(screen.get_size())
 
@@ -88,10 +104,35 @@ def run(screen: pygame.surface.Surface, settings: Dict):
     for processor in CHUNK_LOADER_PROCESSORS:
         chunkloader.add_processor(processor())
 
+    menumanager = esper.World()
+    for processor in MENU_MANAGER_PROCESSORS:
+        menumanager.add_processor(processor())
+
     running = [True]
+    paused = [False]
+    started = [False]
+    current_menu = ["main_menu"]
+
     while running[0]:
+        events = pygame.event.get()
+
+        menumanager.process(
+            current_menu=current_menu,
+            screen=screen,
+            settings=settings,
+            events=events,
+            paused=paused,
+            started=started,
+        )
+
+        if not started[0] or paused[0]:
+            pygame.display.flip()
+            continue
+
         world.process(
             screen=screen,
+            paused=paused,
+            events=events,
             running=running,
             settings=settings,
             dt=clock.tick(FPS),
@@ -99,49 +140,5 @@ def run(screen: pygame.surface.Surface, settings: Dict):
         )
         chunkloader.process(settings["resolution"], world)
         pygame.display.flip()
-
-
-if __name__ == "__main__":
-    settings = deepcopy(utils.consts.DEFAULT_SETTINGS)
-
-    pygame.init()
-    screen = pygame.display.set_mode(settings["resolution"])
-    pygame.display.set_caption("Corpse inc.")
-
-    if "--debug" in sys.argv:
-        run(screen, settings)
-    else:
-
-        def apply_settings():
-            pygame.display.set_mode(settings["resolution"])
-
-        settings_menu = pygame_menu.Menu(
-            "Corpse inc. -> Settings",
-            *settings["resolution"],
-            theme=utils.make.settings_menu_theme(),
-            onreset=apply_settings,
-        )
-
-        def change_resolution(_, res):
-            settings["resolution"] = res
-
-        settings_menu.add.dropselect(
-            "Разрешение экрана",
-            [("640x480", (640, 480)), ("720x480", (720, 480))],
-            onchange=change_resolution,
-        )
-
-        menu = pygame_menu.Menu(
-            "Corpse inc.",
-            *settings["resolution"],
-            center_content=False,
-            theme=utils.make.main_menu_theme(),
-        )
-
-        menu.add.button("Играть", lambda: run(screen, settings))
-        menu.add.button("Настройки", settings_menu)
-        menu.add.button("Выйти", pygame_menu.events.EXIT)
-
-        menu.mainloop(screen)
 
     pygame.quit()
