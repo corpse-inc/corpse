@@ -3,6 +3,8 @@ import json
 import esper
 import pygame
 
+SAVES_DIR = "/".join(__file__.split("/")[:-3]) + "/saves"
+
 
 def save_game(world: esper.World):
     from meta import Id
@@ -65,12 +67,10 @@ def save_game(world: esper.World):
                     continue
             data[id].append(comp)
 
-    saves_dir = "/".join(__file__.split("/")[:-3]) + "/saves"
-
     try:
-        os.mkdir(saves_dir)
+        os.mkdir(SAVES_DIR)
     except FileExistsError:
         pass
 
-    with open(f"{saves_dir}/world.json", mode="w", encoding="utf-8") as file:
+    with open(f"{SAVES_DIR}/world.json", mode="w", encoding="utf-8") as file:
         file.write(json.dumps(data, default=serialize, indent=4))
