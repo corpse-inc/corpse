@@ -1,3 +1,4 @@
+import sys
 import esper
 import utils
 import pygame
@@ -110,7 +111,7 @@ if __name__ == "__main__":
 
     running = [True]
     paused = [False]
-    started = [False]
+    started = [True if "--debug" in sys.argv else False]
     current_menu = ["main_menu"]
 
     while running[0]:
