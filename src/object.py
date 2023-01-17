@@ -3,6 +3,7 @@ import esper
 import utils
 
 from dataclasses import dataclass as component
+from typing import Optional
 
 
 class SolidGroupingProcessor(esper.Processor):
@@ -13,6 +14,12 @@ class SolidGroupingProcessor(esper.Processor):
         for _, (render, _) in self.world.get_components(Renderable, Solid):
             if render.sprite is not None and render.sprite not in solid_group:
                 solid_group.add(render.sprite)
+
+
+class BumpMarkerRemovingProcessor(esper.Processor):
+    def process(self, **_):
+        for ent, _ in self.world.get_component(BumpMarker):
+            self.world.remove_component(ent, BumpMarker)
 
 
 @component
@@ -29,6 +36,14 @@ class Size:
 @component
 class Solid:
     pass
+
+
+@component
+class BumpMarker:
+    """Компонент-маркер, обозначающий столкновение твёрдой (Solid) сущности с
+    другой твёрдой сущностью (entity)."""
+
+    entity: Optional[int] = None
 
 
 @component

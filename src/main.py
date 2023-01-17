@@ -11,6 +11,7 @@ from movement import (
     DirectionAngleCalculationProcessor,
     MovementProcessor,
     RotationProcessor,
+    Velocity,
 )
 from animation import (
     FrameCyclingProcessor,
@@ -35,10 +36,16 @@ from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from render import RenderProcessor
 from roof import RoofTogglingProcessor
+from ai import (
+    Enemy,
+    EnemyRoutingProcessor,
+    EnemyRotationProcessor,
+    InstructingProcessor,
+)
 from chrono import DayNightCyclingProcessor
-from creature import PlayerMarker
-from object import SolidGroup, SolidGroupingProcessor
+from creature import PlayerMarker, ZombieMarker
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
+from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
 
 
 PROCESSORS = (
@@ -55,7 +62,11 @@ PROCESSORS = (
     StateHandlingProcessor,
     CameraProcessor,
     RoofTogglingProcessor,
+    EnemyRoutingProcessor,
+    EnemyRotationProcessor,
+    InstructingProcessor,
     RenderProcessor,
+    BumpMarkerRemovingProcessor,
     DayNightCyclingProcessor,
     UiDrawingProcessor,
 )
@@ -86,6 +97,15 @@ def fill_world(world: esper.World):
         surface_preprocessor=lambda s: pygame.transform.rotate(
             pygame.transform.scale2x(s), 90
         ),
+    )
+    zombie = utils.make.creature(
+        world,
+        "zombie",
+        SpawnPoint("zombie"),
+        Velocity(pygame.Vector2(0), 5),
+        Enemy(player),
+        ZombieMarker(),
+        surface_preprocessor=lambda s: pygame.transform.rotate(s, -90),
     )
 
 

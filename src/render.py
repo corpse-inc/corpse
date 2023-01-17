@@ -19,9 +19,9 @@ class RenderProcessor(esper.Processor):
 
     def process(self, screen=None, **_):
         from location import Position
-        from animation import Animation
         from movement import Direction
-        from object import Size, Invisible
+        from animation import Animation
+        from object import Size, Invisible, BumpMarker
 
         location = utils.get.location(self)
         location.sprites.empty()
@@ -54,6 +54,7 @@ class RenderProcessor(esper.Processor):
                 ):
                     img = rotate_img
                 elif render._old_sprite is not None:
+                    self.world.add_component(entity, BumpMarker())
                     img = render._old_sprite.image
 
             sprite = utils.make.sprite(

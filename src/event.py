@@ -7,8 +7,6 @@ import pygame_gui
 from movement import Velocity
 from creature import PlayerMarker
 
-from utils.consts import PLAYER_SPEED
-
 
 class EventProcessor(esper.Processor):
     """Обрабатывает события."""
@@ -22,13 +20,13 @@ class EventProcessor(esper.Processor):
                 utils.save.save_game(self.world)
 
             if pressed[pygame.K_w]:
-                vel.vector.y = -PLAYER_SPEED
+                vel.vector.y = -vel.value
             if pressed[pygame.K_a]:
-                vel.vector.x = -PLAYER_SPEED
+                vel.vector.x = -vel.value
             if pressed[pygame.K_s]:
-                vel.vector.y = PLAYER_SPEED
+                vel.vector.y = vel.value
             if pressed[pygame.K_d]:
-                vel.vector.x = PLAYER_SPEED
+                vel.vector.x = vel.value
 
     def _handle_key_release(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):

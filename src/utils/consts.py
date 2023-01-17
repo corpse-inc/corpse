@@ -8,4 +8,4 @@ FPS = 60
 # неправильно вращает спрайты.
 CAMERA_ZOOM = 1
 
-PLAYER_SPEED = 3
+DEFAULT_SPEED = 3

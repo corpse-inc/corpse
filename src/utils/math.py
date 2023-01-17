@@ -24,3 +24,8 @@ def clamp(x, a, b):
 
 def vector_angle(vector: pygame.Vector2) -> float:
     return vector.as_polar()[1]
+
+
+def angle_vector(angle: float) -> pygame.Vector2:
+    rad = math.radians(angle)
+    return pygame.Vector2(math.cos(rad), math.sin(rad))

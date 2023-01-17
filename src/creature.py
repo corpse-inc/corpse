@@ -9,3 +9,8 @@ class Creature:
 @component
 class PlayerMarker:
     pass
+
+
+@component
+class ZombieMarker:
+    pass

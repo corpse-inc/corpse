@@ -2,32 +2,29 @@ import pygame
 import esper
 import utils
 
-from typing import Optional
 from dataclasses import dataclass as component
 
 
 @component
 class Velocity:
     vector: pygame.Vector2
+    value: float = utils.consts.DEFAULT_SPEED
 
 
 class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
     def process(self, **_):
-        from location import Location, Position
-        from creature import Creature
-        from object import Solid
         from render import Renderable
+        from object import Solid, BumpMarker
+        from location import Location, Position
 
-        for creature, (_, render) in self.world.get_components(Creature, Renderable):
-            if not (
-                (pos := self.world.try_component(creature, Position))
-                and (vel := self.world.try_component(creature, Velocity))
-            ):
-                continue
-
-            if not (creature_sprite := render.sprite):
+        for moving, (vel, pos, render) in self.world.get_components(
+            Velocity,
+            Position,
+            Renderable,
+        ):
+            if not (moving_sprite := render.sprite):
                 continue
 
             vec = vel.vector
@@ -45,17 +42,18 @@ class MovementProcessor(esper.Processor):
                 new_coords.y = pos.coords.y
 
             for object, (_, render) in self.world.get_components(Solid, Renderable):
-                if creature == object or not (object_sprite := render.sprite):
+                if moving == object or not (object_sprite := render.sprite):
                     continue
 
-                creature_sprite.rect.center = new_coords
+                moving_sprite.rect.center = new_coords
 
                 if object_sprite is not None and pygame.sprite.collide_mask(
-                    creature_sprite, object_sprite
+                    moving_sprite, object_sprite
                 ):
+                    self.world.add_component(moving, BumpMarker(object))
                     new_coords = pos.coords
 
-                creature_sprite.rect.center = pos.coords
+                moving_sprite.rect.center = pos.coords
 
             pos.coords = new_coords
 
