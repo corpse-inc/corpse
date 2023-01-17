@@ -15,6 +15,7 @@ class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
     def process(self, **_):
+        from ai import Enemy
         from render import Renderable
         from object import Solid, BumpMarker
         from location import Location, Position
@@ -50,8 +51,12 @@ class MovementProcessor(esper.Processor):
                 if object_sprite is not None and pygame.sprite.collide_mask(
                     moving_sprite, object_sprite
                 ):
-                    self.world.add_component(moving, BumpMarker(object))
                     new_coords = pos.coords
+                    # if (
+                    #     enemy := self.world.try_component(moving, Enemy)
+                    # ) and enemy.entity == object:
+                    #     continue
+                    self.world.add_component(moving, BumpMarker(object))
 
                 moving_sprite.rect.center = pos.coords
 

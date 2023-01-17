@@ -58,8 +58,19 @@ class EnemyRoutingProcessor(esper.Processor):
             elif ey > y:
                 vel.vector.y = vel.value
 
-            if self.world.has_component(ent, BumpMarker):
-                pass
+            if object := self.world.try_component(ent, BumpMarker):
+                self.world.add_component(
+                    ent,
+                    FollowInstructions(
+                        (Command(Cmd.StepBackward, 5),)
+                        if object.entity == enemy.entity
+                        else (
+                            Command(Cmd.StepBackward, 10),
+                            Command(Cmd.Rotate, 70),
+                            Command(Cmd.StepForward, 50),
+                        )
+                    ),
+                )
 
 
 class EnemyRotationProcessor(esper.Processor):
