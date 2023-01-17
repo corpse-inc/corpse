@@ -52,10 +52,6 @@ class MovementProcessor(esper.Processor):
                     moving_sprite, object_sprite
                 ):
                     new_coords = pos.coords
-                    # if (
-                    #     enemy := self.world.try_component(moving, Enemy)
-                    # ) and enemy.entity == object:
-                    #     continue
                     self.world.add_component(moving, BumpMarker(object))
 
                 moving_sprite.rect.center = pos.coords
