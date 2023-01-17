@@ -42,9 +42,6 @@ class RenderProcessor(esper.Processor):
             if (
                 dir := self.world.try_component(entity, Direction)
             ) is not None and dir.angle != 0:
-                if dir.angle is None:
-                    dir.angle = utils.math.vector_angle(dir.vector)
-
                 rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
 
                 sprite = utils.make.sprite(

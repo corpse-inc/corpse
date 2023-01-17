@@ -7,6 +7,11 @@ import pygame_gui
 from copy import deepcopy
 from utils.consts import FPS
 
+from movement import (
+    DirectionAngleCalculationProcessor,
+    MovementProcessor,
+    RotationProcessor,
+)
 from animation import (
     FrameCyclingProcessor,
     StateChangingProcessor,
@@ -27,14 +32,14 @@ from menu import (
 from event import EventProcessor
 from bind import BindingProcessor
 from ui import UiDrawingProcessor
-from creature import PlayerMarker
 from camera import CameraProcessor
 from render import RenderProcessor
 from roof import RoofTogglingProcessor
 from chrono import DayNightCyclingProcessor
+from creature import PlayerMarker
 from object import SolidGroup, SolidGroupingProcessor
-from movement import MovementProcessor, RotationProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
+
 
 PROCESSORS = (
     EventProcessor,
@@ -42,8 +47,9 @@ PROCESSORS = (
     SpawnablePositioningProcessor,
     BindingProcessor,
     SolidGroupingProcessor,
-    MovementProcessor,
+    DirectionAngleCalculationProcessor,
     RotationProcessor,
+    MovementProcessor,
     FrameCyclingProcessor,
     StateChangingProcessor,
     StateHandlingProcessor,

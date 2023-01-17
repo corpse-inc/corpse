@@ -55,8 +55,15 @@ class MovementProcessor(esper.Processor):
 
 @component
 class Direction:
-    vector: Optional[pygame.Vector2] = None
-    angle: Optional[float] = None
+    vector: pygame.Vector2 = pygame.Vector2(0)
+    angle: float = 0
+
+
+class DirectionAngleCalculationProcessor(esper.Processor):
+    def process(self, **_):
+        for _, dir in self.world.get_component(Direction):
+            if dir.vector:
+                dir.angle = utils.math.vector_angle(dir.vector)
 
 
 class RotationProcessor(esper.Processor):
@@ -74,13 +81,11 @@ class RotationProcessor(esper.Processor):
         player_pos = pygame.Vector2(location.renderer.translate_point(pos.coords))
 
         rotation_vector = mouse_pos - player_pos
-        rotation_angle = utils.math.vector_angle(rotation_vector)
 
         if (dir := self.world.try_component(player, Direction)) is not None:
             dir.vector = rotation_vector
-            dir.angle = rotation_angle
         else:
-            self.world.add_component(player, Direction(rotation_vector, rotation_angle))
+            self.world.add_component(player, Direction(rotation_vector))
 
     def process(self, **_):
         self._rotate_player()
