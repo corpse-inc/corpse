@@ -120,6 +120,7 @@ def creature(
     ```"""
 
     from meta import Id
+    from object import Solid
     from bind import BindRequest
     from render import Renderable
     from creature import Creature
@@ -142,6 +143,7 @@ def creature(
     creature = world.create_entity(
         Id(id),
         Creature(),
+        Solid(),
         Direction(),
         Renderable(),
         Velocity(pygame.Vector2(0)),

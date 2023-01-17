@@ -36,12 +36,10 @@ class RenderProcessor(esper.Processor):
 
             img = utils.convert.surface_from_animation(ani)
 
-            if (size := self.world.try_component(entity, Size)) is not None:
+            if size := self.world.try_component(entity, Size):
                 img = pygame.transform.scale(img, (size.w, size.h))
 
-            if (
-                dir := self.world.try_component(entity, Direction)
-            ) is not None and dir.angle != 0:
+            if (dir := self.world.try_component(entity, Direction)) and dir.angle != 0:
                 rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
 
                 sprite = utils.make.sprite(
@@ -50,6 +48,7 @@ class RenderProcessor(esper.Processor):
                     pygame.mask.from_surface(rotate_img),
                 )
 
+                solid_sprites.remove(render._old_sprite)
                 if not pygame.sprite.spritecollideany(
                     sprite, solid_sprites, collided=pygame.sprite.collide_mask
                 ):

@@ -44,8 +44,9 @@ class MovementProcessor(esper.Processor):
             if new_coords.y >= map_y or new_coords.y <= 0:
                 new_coords.y = pos.coords.y
 
-            for _, (_, render) in self.world.get_components(Solid, Renderable):
-                object_sprite = render.sprite
+            for object, (_, render) in self.world.get_components(Solid, Renderable):
+                if creature == object or not (object_sprite := render.sprite):
+                    continue
 
                 creature_sprite.rect.center = new_coords
 
