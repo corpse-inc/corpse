@@ -20,37 +20,43 @@ class MovementProcessor(esper.Processor):
         from object import Solid
         from render import Renderable
 
-        for _, (_, render) in self.world.get_components(Creature, Renderable):
-            creature_sprite = render.sprite
+        for creature, (_, render) in self.world.get_components(Creature, Renderable):
+            if not (
+                (pos := self.world.try_component(creature, Position))
+                and (vel := self.world.try_component(creature, Velocity))
+            ):
+                continue
 
-            for _, (pos, vel) in self.world.get_components(Position, Velocity):
-                vec = vel.vector
-                if (vec.x, vec.y) == (0, 0):
-                    continue
+            if not (creature_sprite := render.sprite):
+                continue
 
-                location = self.world.component_for_entity(pos.location, Location)
-                map_x, map_y = utils.get.location_map_size(location)
+            vec = vel.vector
+            if (vec.x, vec.y) == (0, 0):
+                continue
 
-                new_coords = pos.coords + vec
+            location = self.world.component_for_entity(pos.location, Location)
+            map_x, map_y = utils.get.location_map_size(location)
 
-                if new_coords.x >= map_x or new_coords.x <= 0:
-                    new_coords.x = pos.coords.x
-                if new_coords.y >= map_y or new_coords.y <= 0:
-                    new_coords.y = pos.coords.y
+            new_coords = pos.coords + vec
 
-                for _, (_, render) in self.world.get_components(Solid, Renderable):
-                    object_sprite = render.sprite
+            if new_coords.x >= map_x or new_coords.x <= 0:
+                new_coords.x = pos.coords.x
+            if new_coords.y >= map_y or new_coords.y <= 0:
+                new_coords.y = pos.coords.y
 
-                    creature_sprite.rect.center = new_coords
+            for _, (_, render) in self.world.get_components(Solid, Renderable):
+                object_sprite = render.sprite
 
-                    if object_sprite is not None and pygame.sprite.collide_mask(
-                        creature_sprite, object_sprite
-                    ):
-                        new_coords = pos.coords
+                creature_sprite.rect.center = new_coords
 
-                    creature_sprite.rect.center = pos.coords
+                if object_sprite is not None and pygame.sprite.collide_mask(
+                    creature_sprite, object_sprite
+                ):
+                    new_coords = pos.coords
 
-                pos.coords = new_coords
+                creature_sprite.rect.center = pos.coords
+
+            pos.coords = new_coords
 
 
 @component
