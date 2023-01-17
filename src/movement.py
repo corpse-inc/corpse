@@ -15,10 +15,9 @@ class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
     def process(self, **_):
-        from ai import Enemy
         from render import Renderable
-        from object import Solid, BumpMarker
         from location import Location, Position
+        from object import Solid, BumpMarker, Size
 
         for moving, (vel, pos, render) in self.world.get_components(
             Velocity,
@@ -35,11 +34,16 @@ class MovementProcessor(esper.Processor):
             location = self.world.component_for_entity(pos.location, Location)
             map_x, map_y = utils.get.location_map_size(location)
 
+            map_bounds = 32
+
+            map_x -= map_bounds
+            map_y -= map_bounds
+
             new_coords = pos.coords + vec
 
-            if new_coords.x >= map_x or new_coords.x <= 0:
+            if new_coords.x >= map_x or new_coords.x <= map_bounds:
                 new_coords.x = pos.coords.x
-            if new_coords.y >= map_y or new_coords.y <= 0:
+            if new_coords.y >= map_y or new_coords.y <= map_bounds:
                 new_coords.y = pos.coords.y
 
             for object, (_, render) in self.world.get_components(Solid, Renderable):
