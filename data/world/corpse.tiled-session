@@ -161,9 +161,11 @@
             "scaleInDock": 1
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/tileset.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/trees.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_graund.tsx": {
@@ -178,6 +180,7 @@
             }
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx#autumn_trees": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "Tileset.tsx": {
