@@ -3,6 +3,7 @@
  <tileset firstgid="1" source="ground.tsx"/>
  <tileset firstgid="6" source="storages.tsx"/>
  <tileset firstgid="12" source="roofs.tsx"/>
+ <tileset firstgid="14" source="items.tsx"/>
  <layer id="1" name="ground" width="10" height="10">
   <data encoding="csv">
 1,3,1,2,2,2,2,2,2,2,
@@ -21,6 +22,13 @@
   <object id="1" gid="6" x="253.333" y="174.667" width="64" height="64">
    <properties>
     <property name="is_solid" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="1" gid="6" x="96" y="96" width="64" height="64" rotation="47"/>
+  <object id="5" gid="14" x="175.727" y="433.069" width="44.266" height="49.7101" rotation="331.661">
+   <properties>
+    <property name="is_item" type="bool" value="true"/>
+    <property name="is_solid" type="bool" value="false"/>
    </properties>
   </object>
  </objectgroup>

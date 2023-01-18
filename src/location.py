@@ -9,6 +9,7 @@ from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
 from meta import Id
+from items import Item
 from render import Renderable
 from object import Invisible, ObjectNotFoundError, Size, Solid
 
@@ -96,7 +97,12 @@ class InitLocationProcessor(esper.Processor):
                 if object.properties.get("is_solid", False):
                     self.world.add_component(entity, Solid())
 
-    def _make_location(self, location: int, location_id: str, camera_size: Tuple[int]):
+                if object.properties.get("is_item", False):
+                    self.world.add_component(entity, Item())
+
+    def _make_location(
+        self, location: int, location_id: str, camera_size: Tuple[int, int]
+    ):
         tilemap = pytmx.load_pygame(utils.fs.ResourcePath.location_tilemap(location_id))
 
         self._fill_objects(tilemap, location)

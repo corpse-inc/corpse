@@ -57,6 +57,7 @@ from render import RenderProcessor
 from roof import RoofTogglingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
+from items import ItemsGroup, ItemsGroupingProcessor, ItemsProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
 
@@ -68,6 +69,7 @@ PROCESSORS = (
     BindingProcessor,
     SolidGroupingProcessor,
     DirectionAngleCalculationProcessor,
+    ItemsGroupingProcessor,
     RotationProcessor,
     MovementProcessor,
     FrameCyclingProcessor,
@@ -82,6 +84,7 @@ PROCESSORS = (
     EnemyDamagingProcessor,
     InstructingProcessor,
     InstructionExecutingProcessor,
+    ItemsProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
     UiDrawingProcessor,
@@ -106,7 +109,8 @@ MENU_MANAGER_PROCESSORS = (
 def fill_world(world: esper.World):
     world.create_entity(LocationInitRequest("test"))
 
-    sprite_groups = world.create_entity(SolidGroup())
+    sprite_groups = world.create_entity(SolidGroup(), ItemsGroup())
+
     player = utils.make.creature(
         world,
         "player",
