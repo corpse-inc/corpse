@@ -1,5 +1,6 @@
 import sys
 import esper
+from meta import Id
 import utils
 import pygame
 import pygame_gui
@@ -33,7 +34,6 @@ from menu import (
 from creature import (
     Damage,
     DamageLocker,
-    Health,
     PlayerMarker,
     ZombieMarker,
     DamageMakingProcessor,
@@ -44,6 +44,7 @@ from ai import (
     EnemyRoutingProcessor,
     EnemyRotationProcessor,
     InstructingProcessor,
+    InstructionExecutingProcessor,
     EnemyDamagingProcessor,
 )
 from event import EventProcessor
@@ -77,6 +78,7 @@ PROCESSORS = (
     EnemyRotationProcessor,
     EnemyDamagingProcessor,
     InstructingProcessor,
+    InstructionExecutingProcessor,
     RenderProcessor,
     BumpMarkerRemovingProcessor,
     DayNightCyclingProcessor,

@@ -54,9 +54,9 @@ class Position:
     layer: Layer = Layer.Objects
 
 
+@component
 class SpawnPoint:
-    def __init__(self, name: str):
-        self.name = name
+    name: str
 
 
 class InitLocationProcessor(esper.Processor):

@@ -1,3 +1,4 @@
+import os
 import esper
 import pygame
 import pygame_menu
@@ -149,7 +150,6 @@ def creature(
         Renderable(),
         Velocity(pygame.Vector2(0)),
         States(states),
-        Animation(tuple(frames)),
         position,
         *extra_comps,
     )
@@ -176,6 +176,25 @@ def creature(
 
         parts.append(part_id)
 
-    world.component_for_entity(creature, Animation).children = tuple(parts)
+    state_based_frames = {}
+    for dir, _, _ in os.walk(ResourcePath.frame(id)):
+        name = dir.split("/")[-1]
+        try:
+            state_type = (
+                StateType.from_str(name) if name != "body" else StateType.Stands
+            )
+        except KeyError:
+            continue
+        state_based_frames[state_type] = tuple(
+            load_surface(ResourcePath.frame(id, name, idx=i + 1))
+            for i in range(dir_count(ResourcePath.frame(id, name)))
+        )
+
+    world.add_component(
+        creature,
+        Animation(
+            tuple(frames), children=tuple(parts), state_based_frames=state_based_frames
+        ),
+    )
 
     return creature

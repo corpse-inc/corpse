@@ -15,33 +15,68 @@ class Enemy:
     entity: int
 
 
+class InstructionExecutingProcessor(esper.Processor):
+    def process(self, **_):
+        from movement import Direction, Velocity
+
+        for ent, ins in self.world.get_component(FollowInstructions):
+            cur = ins._current
+            cmd, args, cons = cur.cmd, cur.args, cur.cons
+
+            if not cur:
+                continue
+
+            if (dir := self.world.try_component(ent, Direction)) and (
+                (vel := self.world.try_component(ent, Velocity))
+                and cmd in {Cmd.StepBackward, Cmd.StepForward}
+            ):
+                vec = utils.math.angle_vector(dir.angle) * vel.value / 2
+                if cmd == Cmd.StepForward:
+                    vel.vector = vec
+                elif cmd == Cmd.StepBackward:
+                    vel.vector = -vec
+                ins._consumed = 1
+                continue
+
+            if (
+                ins := self.world.try_component(ent, FollowInstructions)
+            ) and cmd == Cmd.Rotate:
+                consume = cons / 10
+                dir.angle += consume
+                dir.vector = None
+                ins._consumed = consume
+                continue
+
+
 class EnemyRoutingProcessor(esper.Processor):
     """Маршрутизирует враждебных существ."""
 
     def process(self, **_):
         from location import Position
         from object import BumpMarker
-        from movement import Velocity, Direction
+        from creature import DeadMarker
+        from movement import Velocity
 
         for ent, (enemy, pos, vel) in self.world.get_components(
             Enemy, Position, Velocity
         ):
-            if (ins := self.world.try_component(ent, FollowInstructions)) and (
-                (dir := self.world.try_component(ent, Direction))
-                and ins._current
-                and ins._current.cmd in {Cmd.StepBackward, Cmd.StepForward}
-            ):
-                vec = utils.math.angle_vector(dir.angle) * vel.value / 2
-                if ins._current.cmd == Cmd.StepForward:
-                    vel.vector = vec
-                elif ins._current.cmd == Cmd.StepBackward:
-                    vel.vector = -vec
-                ins._consumed = 1
-                continue
-
             if self.world.has_component(ent, FollowInstructions):
                 vel.vector = pygame.Vector2(0)
                 vel.angle = 0
+                continue
+
+            if self.world.has_component(enemy.entity, DeadMarker):
+                self.world.add_component(
+                    ent,
+                    FollowInstructions(
+                        (
+                            Command(Cmd.Rotate, 360),
+                            Command(Cmd.Rotate, -360),
+                            Command(Cmd.StepForward, 10),
+                        )
+                    ),
+                )
+                self.world.remove_component(ent, Enemy)
                 continue
 
             enemy_pos = self.world.component_for_entity(enemy.entity, Position)
@@ -83,17 +118,6 @@ class EnemyRotationProcessor(esper.Processor):
         for ent, (enemy, dir, pos) in self.world.get_components(
             Enemy, Direction, Position
         ):
-            if (
-                (ins := self.world.try_component(ent, FollowInstructions))
-                and ins._current
-                and ins._current.cmd == Cmd.Rotate
-            ):
-                consume = ins._current.cons / 10
-                dir.angle += consume
-                dir.vector = None
-                ins._consumed = consume
-                continue
-
             if self.world.has_component(ent, FollowInstructions):
                 continue
 

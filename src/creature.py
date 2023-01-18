@@ -16,6 +16,11 @@ class Health:
 
 
 @component
+class DeadMarker:
+    pass
+
+
+@component
 class Damage:
     value: float
 

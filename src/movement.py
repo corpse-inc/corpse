@@ -1,6 +1,6 @@
-import pygame
 import esper
 import utils
+import pygame
 
 from dataclasses import dataclass as component
 
@@ -16,8 +16,8 @@ class MovementProcessor(esper.Processor):
 
     def process(self, **_):
         from render import Renderable
+        from object import Solid, BumpMarker
         from location import Location, Position
-        from object import Solid, BumpMarker, Size
 
         for moving, (vel, pos, render) in self.world.get_components(
             Velocity,
@@ -41,10 +41,11 @@ class MovementProcessor(esper.Processor):
 
             new_coords = pos.coords + vec
 
-            if new_coords.x >= map_x or new_coords.x <= map_bounds:
-                new_coords.x = pos.coords.x
-            if new_coords.y >= map_y or new_coords.y <= map_bounds:
-                new_coords.y = pos.coords.y
+            if moving == utils.get.player(self, id=True):
+                if new_coords.x >= map_x or new_coords.x <= map_bounds:
+                    new_coords.x = pos.coords.x
+                if new_coords.y >= map_y or new_coords.y <= map_bounds:
+                    new_coords.y = pos.coords.y
 
             for object, (_, render) in self.world.get_components(Solid, Renderable):
                 if moving == object or not (object_sprite := render.sprite):
