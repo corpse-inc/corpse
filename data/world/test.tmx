@@ -33,6 +33,6 @@
   </object>
  </objectgroup>
  <objectgroup id="4" name="roofs">
-  <object id="4" gid="13" x="448" y="128" width="256" height="128" rotation="343.319"/>
+  <object id="4" gid="13" x="448" y="128" width="256" height="128" rotation="343.319" visible="0"/>
  </objectgroup>
 </map>

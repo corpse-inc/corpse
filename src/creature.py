@@ -26,6 +26,11 @@ class Damage:
 
 
 @component
+class DamagedMarker:
+    pass
+
+
+@component
 class DamageLocker:
     delay: int
     _delay: Optional[int] = None
@@ -68,9 +73,16 @@ class DamageMakingProcessor(esper.Processor):
                 continue
 
             health.value -= req.damage
+            self.world.add_component(req.reciever, DamagedMarker())
 
             if self.world.has_component(req.sender, DamageLocker):
                 self.world.add_component(req.sender, DamageLock())
+
+
+class DamageMarkerRemovingProcessor(esper.Processor):
+    def process(self, **_):
+        for ent, _ in self.world.get_component(DamagedMarker):
+            self.world.remove_component(ent, DamagedMarker)
 
 
 @component

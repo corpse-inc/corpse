@@ -34,10 +34,12 @@ from menu import (
 from creature import (
     Damage,
     DamageLocker,
+    Health,
     PlayerMarker,
     ZombieMarker,
     DamageMakingProcessor,
     DamageDelayingProcessor,
+    DamageMarkerRemovingProcessor,
 )
 from ai import (
     Enemy,
@@ -53,6 +55,7 @@ from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from render import RenderProcessor
 from roof import RoofTogglingProcessor
+from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
@@ -67,12 +70,12 @@ PROCESSORS = (
     DirectionAngleCalculationProcessor,
     RotationProcessor,
     MovementProcessor,
-    DamageMakingProcessor,
     FrameCyclingProcessor,
     StateChangingProcessor,
     StateHandlingProcessor,
     CameraProcessor,
     RoofTogglingProcessor,
+    DamageMakingProcessor,
     DamageDelayingProcessor,
     EnemyRoutingProcessor,
     EnemyRotationProcessor,
@@ -80,9 +83,11 @@ PROCESSORS = (
     InstructingProcessor,
     InstructionExecutingProcessor,
     RenderProcessor,
-    BumpMarkerRemovingProcessor,
     DayNightCyclingProcessor,
     UiDrawingProcessor,
+    ScreenReddingProcessor,
+    DamageMarkerRemovingProcessor,
+    BumpMarkerRemovingProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (
