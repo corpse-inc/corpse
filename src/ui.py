@@ -6,7 +6,7 @@ import pygame_gui
 
 from meta import About, Id
 from creature import Health
-from item import CollidedItem, Inventory
+from item import CollidedItem, Equipment, Inventory
 
 from dataclasses import dataclass as component
 
@@ -25,6 +25,7 @@ class UiDrawingProcessor(esper.Processor):
         kill = []
 
         player, inv = utils.get.player(self, Inventory, id=True)
+        equip = utils.get.player(self, Equipment)
 
         sw, sh = screen.get_rect().size
 
@@ -44,6 +45,10 @@ class UiDrawingProcessor(esper.Processor):
             position = ((i - 1) * slot_width + sw / 2 - row_width / 2, sh - slot_height)
             relative_rect = pygame.Rect(position, (slot_width, slot_height))
             button = pygame_gui.elements.UIButton(relative_rect, "", ui)
+
+            if equip.item == (i - 1):
+                button.colours["normal_border"] = pygame.Color(0, 50, 0, 200)
+                button.rebuild()
 
             if item is not None and button.check_hover(dt, False):
                 text = ""

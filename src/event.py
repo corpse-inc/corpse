@@ -6,7 +6,7 @@ import pygame_gui
 
 from movement import Velocity
 from creature import PlayerMarker
-from item import CollidedItem, TakeItemRequest
+from item import CollidedItem, Equipment, TakeItemRequest
 
 
 class EventProcessor(esper.Processor):
@@ -56,6 +56,18 @@ class EventProcessor(esper.Processor):
                         item := self.world.try_component(player, CollidedItem)
                     ):
                         self.world.add_component(player, TakeItemRequest(item.entity))
+                    elif event.key in (
+                        slot_keys := (
+                            pygame.K_1,
+                            pygame.K_2,
+                            pygame.K_3,
+                            pygame.K_4,
+                            pygame.K_5,
+                        )
+                    ):
+                        self.world.component_for_entity(
+                            player, Equipment
+                        ).item = slot_keys.index(event.key)
 
                 case pygame.KEYUP:
                     self._handle_key_release(event)

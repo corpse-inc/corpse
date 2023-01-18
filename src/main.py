@@ -49,6 +49,7 @@ from ai import (
     EnemyDamagingProcessor,
 )
 from item import (
+    Equipment,
     Inventory,
     ItemsGroup,
     ItemsGroupingProcessor,
@@ -127,6 +128,7 @@ def fill_world(world: esper.World):
         SpawnPoint("player"),
         PlayerMarker(),
         Inventory(5),
+        Equipment(),
         extra_parts={"legs"},
         surface_preprocessor=lambda s: pygame.transform.rotate(
             pygame.transform.scale2x(s), 90

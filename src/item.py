@@ -100,3 +100,9 @@ class ItemsTakingProcessor(esper.Processor):
                     break
 
             self.world.remove_component(ent, TakeItemRequest)
+
+
+@component
+class Equipment:
+    # индекс экупированного слота в инвентаре
+    item: int = 0
