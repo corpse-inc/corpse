@@ -3,14 +3,17 @@ import esper
 import pygame
 
 from enum import Enum, auto
-from typing import Set, Tuple
+from typing import Dict, Optional, Set, Tuple
 from dataclasses import dataclass as component
 
-from movement import Velocity
+from meta import Id
+from creature import Health
 from object import Invisible
+from movement import Velocity
 
 
 class StateType(Enum):
+    Dead = auto()
     Stands = auto()
     Walks = auto()
     HoldsGun = auto()
@@ -29,6 +32,7 @@ class Animation:
     delay: int = 0
     paused: bool = False
     children: Tuple[int] = ()
+    state_based_frames: Optional[Dict[StateType, Tuple[pygame.surface.Surface]]] = None
     _frame: int = 0
     _delay: int = 0
 
@@ -72,13 +76,19 @@ class FrameCyclingProcessor(esper.Processor):
 
 class StateChangingProcessor(esper.Processor):
     def process(self, **_):
-        for _, (states_comp, vel) in self.world.get_components(States, Velocity):
+        for entity, states_comp in self.world.get_component(States):
             states = set()
 
-            if vel.vector == pygame.Vector2(0):
-                states.add(StateType.Stands)
-            else:
-                states.add(StateType.Walks)
+            if vel := self.world.try_component(entity, Velocity):
+                if vel.vector == pygame.Vector2(0):
+                    states.add(StateType.Stands)
+                else:
+                    states.add(StateType.Walks)
+
+            if health := self.world.try_component(entity, Health):
+                if health.value <= 0:
+                    states.add(StateType.Dead)
+                    health.value = 0
 
             states_comp.value.clear()
             states_comp.value.update(states)
@@ -88,9 +98,20 @@ class StateHandlingProcessor(esper.Processor):
     def process(self, **_):
         for _, (ani, states) in self.world.get_components(Animation, States):
             states = states.value
+
+            if StateType.Dead in states and self.world.has_component(entity, Velocity):
+                self.world.remove_component(entity, Velocity)
+                if ani.state_based_frames and StateType.Dead in ani.state_based_frames:
+                    ani.state_based_frames[StateType.Stands] = [
+                        surface.copy() for surface in ani.frames
+                    ]
+                    ani.frames = ani.state_based_frames[StateType.Dead]
+                    ani.delay = 400 // len(ani.frames)
+
             for part_ent in ani.children:
                 part = self.world.component_for_entity(part_ent, Part).type
+
                 if part == PartType.Legs and StateType.Stands in states:
                     self.world.add_component(part_ent, Invisible())
-                elif self.world.try_component(part_ent, Invisible):
+                elif self.world.has_component(part_ent, Invisible):
                     self.world.remove_component(part_ent, Invisible)

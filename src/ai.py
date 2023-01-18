@@ -102,6 +102,23 @@ class EnemyRotationProcessor(esper.Processor):
             dir.vector = enemy_pos.coords - pos.coords
 
 
+class EnemyDamagingProcessor(esper.Processor):
+    def process(self, **_):
+        from creature import Damage, DamageLock, DamageRequest
+        from object import BumpMarker
+
+        for entity, (enemy, bump, damage) in self.world.get_components(
+            Enemy, BumpMarker, Damage
+        ):
+            if self.world.has_component(entity, DamageLock):
+                continue
+
+            if enemy.entity == bump.entity:
+                self.world.create_entity(
+                    DamageRequest(entity, enemy.entity, damage.value)
+                )
+
+
 class Cmd(IntEnum):
     Rotate = auto()
     StepForward = auto()

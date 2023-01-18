@@ -18,7 +18,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="objects">
-  <object id="1" gid="6" x="320" y="320" width="64" height="64">
+  <object id="1" gid="6" x="253.333" y="174.667" width="64" height="64">
    <properties>
     <property name="is_solid" type="bool" value="true"/>
    </properties>

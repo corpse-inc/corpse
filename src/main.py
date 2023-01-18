@@ -30,20 +30,29 @@ from menu import (
     MenuTogglingProcessor,
     MenuCreationProcessor,
 )
+from creature import (
+    Damage,
+    DamageLocker,
+    Health,
+    PlayerMarker,
+    ZombieMarker,
+    DamageMakingProcessor,
+    DamageDelayingProcessor,
+)
+from ai import (
+    Enemy,
+    EnemyRoutingProcessor,
+    EnemyRotationProcessor,
+    InstructingProcessor,
+    EnemyDamagingProcessor,
+)
 from event import EventProcessor
 from bind import BindingProcessor
 from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from render import RenderProcessor
 from roof import RoofTogglingProcessor
-from ai import (
-    Enemy,
-    EnemyRoutingProcessor,
-    EnemyRotationProcessor,
-    InstructingProcessor,
-)
 from chrono import DayNightCyclingProcessor
-from creature import PlayerMarker, ZombieMarker
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
 
@@ -57,13 +66,16 @@ PROCESSORS = (
     DirectionAngleCalculationProcessor,
     RotationProcessor,
     MovementProcessor,
+    DamageMakingProcessor,
     FrameCyclingProcessor,
     StateChangingProcessor,
     StateHandlingProcessor,
     CameraProcessor,
     RoofTogglingProcessor,
+    DamageDelayingProcessor,
     EnemyRoutingProcessor,
     EnemyRotationProcessor,
+    EnemyDamagingProcessor,
     InstructingProcessor,
     RenderProcessor,
     BumpMarkerRemovingProcessor,
@@ -102,8 +114,10 @@ def fill_world(world: esper.World):
         world,
         "zombie",
         SpawnPoint("zombie"),
-        Velocity(pygame.Vector2(0), 5),
+        Velocity(pygame.Vector2(0), 3),
         Enemy(player),
+        Damage(5),
+        DamageLocker(50),
         ZombieMarker(),
         surface_preprocessor=lambda s: pygame.transform.rotate(s, -90),
     )

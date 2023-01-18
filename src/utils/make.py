@@ -123,7 +123,7 @@ def creature(
     from object import Solid
     from bind import BindRequest
     from render import Renderable
-    from creature import Creature
+    from creature import Creature, Health
     from movement import Direction, Velocity
     from animation import States, Animation, Part, PartType
 
@@ -143,6 +143,7 @@ def creature(
     creature = world.create_entity(
         Id(id),
         Creature(),
+        Health(),
         Solid(),
         Direction(),
         Renderable(),
