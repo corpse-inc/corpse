@@ -1,5 +1,5 @@
 {
-    "activeFile": "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground_as_tiles.tsx",
+    "activeFile": "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -40,6 +40,7 @@
             "scaleInEditor": 0.0448
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Machine.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 0.0988
         },
@@ -58,12 +59,89 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/autumn_ground.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/summer_island_map.tmx": {
             "scale": 0.3324,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 4429.903730445248,
-                "y": 3703.369434416366
+                "x": 5097.77376654633,
+                "y": 4034.296028880867
+            }
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats02.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Ground.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.2248,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Ground_as_tiles.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Ground_as_tiles_autumn.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 40.5514,
+            "scaleInEditor": 0.6648
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Herose.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/House.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Interior.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Machine.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Objects.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Tileset.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Trees.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/autumn_ground.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.7594,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_graund.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx": {
+            "scale": 0.2359,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1649.003815175922,
+                "y": 1080.9665112335733
             }
         },
         "Tileset.tsx": {
@@ -117,40 +195,42 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/data/assets/tds_modern_pixel_game_kit/tilesets/PNG/Source",
+    "last.externalTilesetPath": "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island",
+    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/resources/assets_autumn/background/Source",
     "openFiles": [
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/summer_island_map.tmx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats02.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground_as_tiles.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Herose.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/House.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Interior.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Machine.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Objects.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Tileset.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Trees.tsx"
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats02.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Herose.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/House.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Interior.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Machine.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Objects.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Tileset.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Trees.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/autumn_ground.tsx"
     ],
     "project": "corpse.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/summer_island_map.tmx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats02.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Trees.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Tileset.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Objects.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Machine.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Interior.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/House.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Herose.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground_as_tiles.tsx"
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats02.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Herose.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/House.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Interior.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Machine.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Objects.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Tileset.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Trees.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/autumn_ground.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Ground.tsx"
     ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 64,
-        "width": 64
-    }
+        "height": 32,
+        "width": 32
+    },
+    "tileset.type": 0
 }
