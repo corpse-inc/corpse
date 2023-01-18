@@ -53,7 +53,7 @@ class ItemCollisionDetectingProcessor(esper.Processor):
 
 class RemoveItemCollidingMarker(esper.Processor):
     def process(self, **_):
-        for ent, item in self.world.get_component(CollidedItem):
+        for ent, _ in self.world.get_component(CollidedItem):
             self.world.remove_component(ent, CollidedItem)
 
 
@@ -88,14 +88,15 @@ class ItemsTakingProcessor(esper.Processor):
         from render import Renderable
 
         for ent, (inv, take) in self.world.get_components(Inventory, TakeItemRequest):
-            print(inv.slots)
             for i in range(len(inv.slots)):
                 if inv.slots[i] is None:
                     inv.slots[i] = take.entity
                     remove_comps = (Position, Renderable)
+
                     for comp in remove_comps:
                         if self.world.has_component(take.entity, comp):
                             self.world.remove_component(take.entity, comp)
+
                     break
 
             self.world.remove_component(ent, TakeItemRequest)

@@ -27,7 +27,6 @@ class RenderProcessor(esper.Processor):
         location.sprites.empty()
 
         solid_sprites = utils.get.solid_group(self).group
-        item_sprites = utils.get.items_group(self).group
 
         for entity, (render, ani, pos) in self.world.get_components(
             Renderable, Animation, Position
@@ -71,7 +70,6 @@ class RenderProcessor(esper.Processor):
             render._old_sprite = sprite
 
         solid_sprites.empty()
-        item_sprites.empty()
 
         if screen is not None:
             location.sprites.draw(screen)

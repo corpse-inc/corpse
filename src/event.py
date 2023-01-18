@@ -18,7 +18,7 @@ class EventProcessor(esper.Processor):
         if pressed[pygame.K_ESCAPE]:
             paused[0] = True
 
-        player, vel = utils.get.player(self, Velocity, id=True)
+        vel = utils.get.player(self, Velocity)
 
         if pressed[pygame.K_w]:
             vel.vector.y = -vel.value
@@ -28,11 +28,6 @@ class EventProcessor(esper.Processor):
             vel.vector.y = vel.value
         if pressed[pygame.K_d]:
             vel.vector.x = vel.value
-
-        if pressed[pygame.K_e] and (
-            item := self.world.try_component(player, CollidedItem)
-        ):
-            self.world.add_component(player, TakeItemRequest(item.entity))
 
     def _handle_key_release(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
@@ -55,5 +50,12 @@ class EventProcessor(esper.Processor):
                         running[0] = False
                     else:
                         pygame.quit()
+                case pygame.KEYDOWN:
+                    player = utils.get.player(self, id=True)
+                    if event.key == pygame.K_e and (
+                        item := self.world.try_component(player, CollidedItem)
+                    ):
+                        self.world.add_component(player, TakeItemRequest(item.entity))
+
                 case pygame.KEYUP:
                     self._handle_key_release(event)
