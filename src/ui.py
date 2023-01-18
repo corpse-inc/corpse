@@ -22,6 +22,8 @@ class UiDrawingProcessor(esper.Processor):
     def process(self, dt=None, screen=None, uimanager=None, **_):
         ui: pygame_gui.UIManager = uimanager
 
+        kill = []
+
         player, inv = utils.get.player(self, Inventory, id=True)
 
         sw, sh = screen.get_rect().size
@@ -31,11 +33,11 @@ class UiDrawingProcessor(esper.Processor):
             take_item_tt = ui.create_tool_tip(
                 f"Взять <i>{about.name}</i> (<b>E</b>)", (sw / 2 - 50, 20), (0, 0)
             )
+            kill.append(take_item_tt)
 
         slot_width = 32 + 16
         slot_height = slot_width
         row_width = slot_width * inv.capacity
-        kill = []
         for i in range(1, inv.capacity + 1):
             item = inv.slots[i - 1]
 
@@ -60,6 +62,3 @@ class UiDrawingProcessor(esper.Processor):
 
         for element in kill:
             element.kill()
-
-        if item:
-            take_item_tt.kill()
