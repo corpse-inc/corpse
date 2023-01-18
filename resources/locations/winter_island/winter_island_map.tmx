@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="4994">
- <tileset firstgid="1" source="House.tsx"/>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="4999">
+ <tileset firstgid="1" source="roof.tsx"/>
  <tileset firstgid="26" source="winter_graund.tsx"/>
- <tileset firstgid="1466" source="Trees.tsx"/>
- <tileset firstgid="1476" source="Objects.tsx"/>
- <tileset firstgid="1490" source="Machine.tsx"/>
- <tileset firstgid="1524" source="Herose.tsx"/>
- <tileset firstgid="1542" source="Boats.tsx"/>
- <tileset firstgid="1644" source="Interior.tsx"/>
- <tileset firstgid="1757" source="Tileset.tsx"/>
+ <tileset firstgid="1466" source="trees.tsx"/>
+ <tileset firstgid="1476" source="objects.tsx"/>
+ <tileset firstgid="1490" source="machine.tsx"/>
+ <tileset firstgid="1524" source="creatures.tsx"/>
+ <tileset firstgid="1542" source="boats.tsx"/>
+ <tileset firstgid="1644" source="interior.tsx"/>
+ <tileset firstgid="1757" source="tileset.tsx"/>
  <tileset firstgid="3197" source="autumn_ground.tsx"/>
  <tileset firstgid="4637" name="autumn_trees" tilewidth="161" tileheight="145" tilecount="17" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
@@ -64,6 +64,7 @@
    <image width="152" height="136" source="../../assets/objects/Trees Bushes/TDS04_0022_Tree1.png"/>
   </tile>
  </tileset>
+ <tileset firstgid="4654" source="Boats.tsx"/>
  <layer id="1" name="Ground" width="250" height="250">
   <data encoding="csv">
 3387,3432,3432,3387,3387,3388,3387,3432,3432,3387,3388,3388,3388,3387,3387,3387,3387,3388,3387,3388,3388,3433,3433,3387,1992,1992,270,1992,270,269,270,269,270,269,261,269,217,262,261,261,261,261,261,262,261,261,261,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,171,172,217,217,217,217,217,217,217,217,262,217,217,217,217,261,217,217,217,217,261,261,261,216,261,262,262,261,261,216,262,261,216,217,217,217,262,262,262,261,217,261,261,261,261,261,261,261,261,217,217,217,217,217,261,261,261,261,261,216,216,216,217,261,261,261,261,261,261,261,261,261,261,261,261,261,261,216,261,261,217,216,217,261,217,261,261,261,261,261,261,261,261,261,261,261,261,261,217,261,216,261,262,261,261,262,262,261,261,261,261,216,261,261,261,216,217,261,262,262,216,261,261,261,217,261,261,261,217,217,216,216,261,261,216,261,261,261,261,261,261,261,261,
@@ -793,6 +794,11 @@
   <object id="4991" gid="1526" x="1296.68" y="1487.46" width="41" height="48"/>
   <object id="4992" gid="1526" x="2163.53" y="823.289" width="41" height="48"/>
   <object id="4993" gid="1526" x="2481.58" y="243.308" width="41" height="48"/>
+  <object id="4994" gid="4703" x="436.161" y="2737.38" width="243.843" height="275.318" rotation="335.861"/>
+  <object id="4995" gid="4706" x="1810.79" y="1051.13" width="229.42" height="220.2" rotation="342.441"/>
+  <object id="4996" gid="4709" x="1915.54" y="944.085" width="64" height="64"/>
+  <object id="4997" gid="4707" x="350.261" y="2766.89" width="128" height="128"/>
+  <object id="4998" gid="4705" x="1131.66" y="1763.16" width="128" height="128" rotation="336.618"/>
  </objectgroup>
  <objectgroup id="3" name="Objects">
   <object id="16" gid="1475" x="-94.1818" y="7868" width="152" height="136"/>
