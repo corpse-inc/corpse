@@ -9,7 +9,6 @@ from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
 from meta import Id
-from items import Item
 from render import Renderable
 from object import Invisible, ObjectNotFoundError, Size, Solid
 

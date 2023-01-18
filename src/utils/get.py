@@ -70,7 +70,7 @@ def solid_group(processor):
 
 
 def items_group(processor):
-    from items import ItemsGroup
+    from item import ItemsGroup
 
     world: esper.World = processor.world
     for _, group in world.get_component(ItemsGroup):

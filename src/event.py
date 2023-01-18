@@ -6,6 +6,7 @@ import pygame_gui
 
 from movement import Velocity
 from creature import PlayerMarker
+from item import CollidedItem, TakeItemRequest
 
 
 class EventProcessor(esper.Processor):
@@ -13,18 +14,25 @@ class EventProcessor(esper.Processor):
 
     def _handle_key_press(self, paused):
         pressed = pygame.key.get_pressed()
+
         if pressed[pygame.K_ESCAPE]:
             paused[0] = True
 
-        for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
-            if pressed[pygame.K_w]:
-                vel.vector.y = -vel.value
-            if pressed[pygame.K_a]:
-                vel.vector.x = -vel.value
-            if pressed[pygame.K_s]:
-                vel.vector.y = vel.value
-            if pressed[pygame.K_d]:
-                vel.vector.x = vel.value
+        player, vel = utils.get.player(self, Velocity, id=True)
+
+        if pressed[pygame.K_w]:
+            vel.vector.y = -vel.value
+        if pressed[pygame.K_a]:
+            vel.vector.x = -vel.value
+        if pressed[pygame.K_s]:
+            vel.vector.y = vel.value
+        if pressed[pygame.K_d]:
+            vel.vector.x = vel.value
+
+        if pressed[pygame.K_e] and (
+            item := self.world.try_component(player, CollidedItem)
+        ):
+            self.world.add_component(player, TakeItemRequest(item.entity))
 
     def _handle_key_release(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):

@@ -49,6 +49,15 @@ from ai import (
     InstructionExecutingProcessor,
     EnemyDamagingProcessor,
 )
+from item import (
+    Inventory,
+    ItemsGroup,
+    ItemsGroupingProcessor,
+    ItemCollisionDetectingProcessor,
+    RemoveItemCollidingMarker,
+    ItemsTakingProcessor,
+    InventoryInitializingProcessor,
+)
 from event import EventProcessor
 from bind import BindingProcessor
 from ui import UiDrawingProcessor
@@ -59,16 +68,9 @@ from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
-from items import (
-    ItemsGroup,
-    ItemsGroupingProcessor,
-    ItemCollisionDetectingProcessor,
-    RemoveItemCollidingMarker,
-)
 
 
 PROCESSORS = (
-    EventProcessor,
     InitLocationProcessor,
     SpawnablePositioningProcessor,
     BindingProcessor,
@@ -88,12 +90,15 @@ PROCESSORS = (
     EnemyDamagingProcessor,
     InstructingProcessor,
     InstructionExecutingProcessor,
+    InventoryInitializingProcessor,
     ItemsGroupingProcessor,
     ItemCollisionDetectingProcessor,
+    ItemsTakingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
     UiDrawingProcessor,
     ScreenReddingProcessor,
+    EventProcessor,
     DamageMarkerRemovingProcessor,
     BumpMarkerRemovingProcessor,
     RemoveItemCollidingMarker,
@@ -122,6 +127,7 @@ def fill_world(world: esper.World):
         "player",
         SpawnPoint("player"),
         PlayerMarker(),
+        Inventory(5),
         extra_parts={"legs"},
         surface_preprocessor=lambda s: pygame.transform.rotate(
             pygame.transform.scale2x(s), 90

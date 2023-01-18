@@ -4,7 +4,7 @@ import pygame_gui
 
 from meta import About
 from creature import Health
-from items import CollidedItem
+from item import CollidedItem
 
 from dataclasses import dataclass as component
 

@@ -1,9 +1,11 @@
 import pygame
 import esper
-from meta import About
 import utils
 
+from typing import Optional, Sequence
 from dataclasses import dataclass as component
+
+from meta import About
 
 
 @component
@@ -18,6 +20,11 @@ class Item:
 
 @component
 class CollidedItem:
+    entity: int
+
+
+@component
+class TakeItemRequest:
     entity: int
 
 
@@ -60,3 +67,35 @@ class ItemsGroupingProcessor(esper.Processor):
                 if render._old_sprite:
                     items_group.remove(render._old_sprite)
                 items_group.add(render.sprite)
+
+
+@component
+class Inventory:
+    capacity: int
+    slots: Optional[Sequence[Optional[int]]] = None
+
+
+class InventoryInitializingProcessor(esper.Processor):
+    def process(self, **_):
+        for _, inv in self.world.get_component(Inventory):
+            if inv.slots is None:
+                inv.slots = [None for _ in range(inv.capacity)]
+
+
+class ItemsTakingProcessor(esper.Processor):
+    def process(self, **_):
+        from location import Position
+        from render import Renderable
+
+        for ent, (inv, take) in self.world.get_components(Inventory, TakeItemRequest):
+            print(inv.slots)
+            for i in range(len(inv.slots)):
+                if inv.slots[i] is None:
+                    inv.slots[i] = take.entity
+                    remove_comps = (Position, Renderable)
+                    for comp in remove_comps:
+                        if self.world.has_component(take.entity, comp):
+                            self.world.remove_component(take.entity, comp)
+                    break
+
+            self.world.remove_component(ent, TakeItemRequest)
