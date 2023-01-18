@@ -1,0 +1,156 @@
+{
+    "activeFile": "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground_as_tiles.tsx",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats02.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground_as_tiles.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Herose.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.2339,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/House.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Interior.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 0.0448
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Machine.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.0988
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Objects.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Tileset.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Trees.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/summer_island_map.tmx": {
+            "scale": 0.3324,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 4429.903730445248,
+                "y": 3703.369434416366
+            }
+        },
+        "Tileset.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "ground.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "misc.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "people.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "road.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "roofs.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "storages.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "test.tmx": {
+            "scale": 0.938125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 226.51565622918056,
+                "y": 320.852764823451
+            }
+        },
+        "trees.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "vehicles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/data/assets/tds_modern_pixel_game_kit/tilesets/PNG/Source",
+    "openFiles": [
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/summer_island_map.tmx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats02.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground_as_tiles.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Herose.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/House.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Interior.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Machine.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Objects.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Tileset.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Trees.tsx"
+    ],
+    "project": "corpse.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/summer_island_map.tmx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Boats02.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Trees.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Tileset.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Objects.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Machine.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Interior.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/House.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Herose.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/summer_island/Ground_as_tiles.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}

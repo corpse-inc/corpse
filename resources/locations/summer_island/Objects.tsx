@@ -62,15 +62,27 @@
   <image width="85" height="23" source="../../assets/objects/SandBag/TDS04_0002_Sandbags.png"/>
  </tile>
  <tile id="10">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
   <image width="30" height="30" source="../../assets/Sprite-0002.png"/>
  </tile>
  <tile id="11">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
   <image width="60" height="30" source="../../assets/shizlong.png"/>
  </tile>
  <tile id="12">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
   <image width="30" height="30" source="../../assets/zont_broken.png"/>
  </tile>
  <tile id="13">
+  <properties>
+   <property name="is_solid" type="bool" value="true"/>
+  </properties>
   <image width="60" height="30" source="../../assets/shizlong2.png"/>
  </tile>
 </tileset>
