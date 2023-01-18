@@ -45,6 +45,21 @@ class UiDrawingProcessor(esper.Processor):
             relative_rect = pygame.Rect(position, (slot_width, slot_height))
             button = pygame_gui.elements.UIButton(relative_rect, "", ui)
 
+            if item is not None and button.check_hover(dt, False):
+                text = ""
+
+                if about := self.world.try_component(item, About):
+                    text = f"<i>{about.name}</i>"
+                    if about.description:
+                        text += f"<br><br>{about.description}"
+                else:
+                    text = self.world.component_for_entity(item, Id).id
+
+                item_info_tt = ui.create_tool_tip(
+                    text, pygame.mouse.get_pos(), (0, -slot_height)
+                )
+                kill.append(item_info_tt)
+
             if item is not None:
                 padding = 8
                 position = (position[0] + padding, position[1] + padding)
