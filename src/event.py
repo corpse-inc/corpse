@@ -15,7 +15,6 @@ class EventProcessor(esper.Processor):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_ESCAPE]:
             paused[0] = True
-            utils.save.save_game(self.world)
 
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
             if pressed[pygame.K_w]:
