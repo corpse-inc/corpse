@@ -170,11 +170,11 @@
             "scaleInDock": 1
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx": {
-            "scale": 1.5063,
+            "scale": 0.2315,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1424.6829980747527,
-                "y": 1378.875390028547
+                "x": 1719.2224622030237,
+                "y": 1142.5485961123109
             }
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx#autumn_trees": {
@@ -235,9 +235,6 @@
     "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/resources/assets_winter/creatures/zombi",
     "openFiles": [
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats02.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Herose.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/House.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Interior.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Machine.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Objects.tsx",
@@ -250,9 +247,6 @@
     "property.type": "bool",
     "recentFiles": [
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats02.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Herose.tsx",
-        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/House.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Interior.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Machine.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Objects.tsx",
@@ -260,6 +254,9 @@
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Trees.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/autumn_ground.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats02.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Herose.tsx",
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/House.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Ground.tsx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
