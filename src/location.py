@@ -151,6 +151,7 @@ class SpawnablePositioningProcessor(esper.Processor):
             if not object:
                 raise ObjectNotFoundError(f"Объект с именем {point.name} не найден")
 
-            coords = pygame.Vector2(object.as_points[0])
+            points = object.as_points
+            coords = pygame.Vector2(points[0] if len(points) == 1 else points[1])
 
             self.world.add_component(ent, Position(location_id, coords, layer))
