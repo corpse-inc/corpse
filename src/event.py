@@ -12,13 +12,12 @@ class EventProcessor(esper.Processor):
     """Обрабатывает события."""
 
     def _handle_key_press(self, paused):
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_ESCAPE]:
+            paused[0] = True
+            utils.save.save_game(self.world)
+
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
-            pressed = pygame.key.get_pressed()
-
-            if pressed[pygame.K_ESCAPE]:
-                paused[0] = True
-                utils.save.save_game(self.world)
-
             if pressed[pygame.K_w]:
                 vel.vector.y = -vel.value
             if pressed[pygame.K_a]:
