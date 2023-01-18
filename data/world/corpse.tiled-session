@@ -133,6 +133,9 @@
             "scaleInDock": 0.7594,
             "scaleInEditor": 1
         },
+        "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/autumn_trees.tsx": {
+            "dynamicWrapping": true
+        },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_graund.tsx": {
             "scaleInDock": 1
         },
@@ -196,7 +199,7 @@
         }
     },
     "last.externalTilesetPath": "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island",
-    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/resources/assets_autumn/background/Source",
+    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/resources/assets/objects/Trees Bushes",
     "openFiles": [
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats.tsx",
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Boats02.tsx",
@@ -232,5 +235,5 @@
         "height": 32,
         "width": 32
     },
-    "tileset.type": 0
+    "tileset.type": 1
 }
