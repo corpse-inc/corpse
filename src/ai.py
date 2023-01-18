@@ -15,39 +15,6 @@ class Enemy:
     entity: int
 
 
-class InstructionExecutingProcessor(esper.Processor):
-    def process(self, **_):
-        from movement import Direction, Velocity
-
-        for ent, ins in self.world.get_component(FollowInstructions):
-            cur = ins._current
-            cmd, args, cons = cur.cmd, cur.args, cur.cons
-
-            if not cur:
-                continue
-
-            if (dir := self.world.try_component(ent, Direction)) and (
-                (vel := self.world.try_component(ent, Velocity))
-                and cmd in {Cmd.StepBackward, Cmd.StepForward}
-            ):
-                vec = utils.math.angle_vector(dir.angle) * vel.value / 2
-                if cmd == Cmd.StepForward:
-                    vel.vector = vec
-                elif cmd == Cmd.StepBackward:
-                    vel.vector = -vec
-                ins._consumed = 1
-                continue
-
-            if (
-                ins := self.world.try_component(ent, FollowInstructions)
-            ) and cmd == Cmd.Rotate:
-                consume = cons / 10
-                dir.angle += consume
-                dir.vector = None
-                ins._consumed = consume
-                continue
-
-
 class EnemyRoutingProcessor(esper.Processor):
     """Маршрутизирует враждебных существ."""
 
@@ -141,6 +108,47 @@ class EnemyDamagingProcessor(esper.Processor):
                 self.world.create_entity(
                     DamageRequest(entity, enemy.entity, damage.value)
                 )
+
+
+class InstructionExecutingProcessor(esper.Processor):
+    def process(self, **_):
+        from movement import Direction, Velocity
+
+        for ent, ins in self.world.get_component(FollowInstructions):
+            cur = ins._current
+            cmd, args, cons = cur.cmd, cur.args, cur.cons
+
+            if not cur:
+                continue
+
+            if (dir := self.world.try_component(ent, Direction)) and (
+                (vel := self.world.try_component(ent, Velocity))
+                and cmd in {Cmd.StepBackward, Cmd.StepForward}
+            ):
+                vec = utils.math.angle_vector(dir.angle)
+
+                if abs(vec.x) > abs(vec.y):
+                    vec.x, vec.y = vel.value if vec.x > 0 else -vel.value, 0
+                else:
+                    vec.x, vec.y = 0, vel.value if vec.y > 0 else -vel.value
+
+                if cmd == Cmd.StepForward:
+                    vel.vector = vec
+                elif cmd == Cmd.StepBackward:
+                    vel.vector = -vec
+
+                ins._consumed = 1
+
+                continue
+
+            if (
+                ins := self.world.try_component(ent, FollowInstructions)
+            ) and cmd == Cmd.Rotate:
+                consume = cons / 10
+                dir.angle += consume
+                dir.vector = None
+                ins._consumed = consume
+                continue
 
 
 class Cmd(IntEnum):
