@@ -1,3 +1,4 @@
+from copy import deepcopy
 import pygame
 import esper
 import utils
@@ -79,7 +80,17 @@ class InventoryInitializingProcessor(esper.Processor):
     def process(self, **_):
         for _, inv in self.world.get_component(Inventory):
             if inv.slots is None:
-                inv.slots = [None for _ in range(inv.capacity)]
+                inv.slots = []
+
+            while len(inv.slots) < inv.capacity:
+                inv.slots.append(None)
+
+
+class InventoryFillingProcessor(esper.Processor):
+    def process(self, **_):
+        for _, inv in self.world.get_component(Inventory):
+            while len(inv.slots) < inv.capacity:
+                inv.slots.append(None)
 
 
 class ItemsTakingProcessor(esper.Processor):
@@ -106,3 +117,26 @@ class ItemsTakingProcessor(esper.Processor):
 class Equipment:
     # индекс экупированного слота в инвентаре
     item: int = 0
+
+
+@component
+class GroundItem:
+    item: int
+
+
+class ItemGroundingProcessor(esper.Processor):
+    def process(self, **_):
+        from location import Position
+        from render import Renderable
+        from location import Layer
+
+        for ent, (ground, inv, pos) in self.world.get_components(
+            GroundItem, Inventory, Position
+        ):
+            item = inv.slots.pop(ground.item)
+
+            self.world.add_component(
+                item, Position(pos.location, deepcopy(pos.coords), Layer.Items)
+            )
+            self.world.add_component(item, Renderable())
+            self.world.remove_component(ent, GroundItem)

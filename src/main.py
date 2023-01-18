@@ -51,12 +51,14 @@ from ai import (
 from item import (
     Equipment,
     Inventory,
+    ItemGroundingProcessor,
     ItemsGroup,
     ItemsGroupingProcessor,
     ItemCollisionDetectingProcessor,
     RemoveItemCollidingMarker,
     ItemsTakingProcessor,
     InventoryInitializingProcessor,
+    InventoryFillingProcessor,
 )
 from event import EventProcessor
 from bind import BindingProcessor
@@ -94,6 +96,8 @@ PROCESSORS = (
     ItemCollisionDetectingProcessor,
     ItemsTakingProcessor,
     ItemsGroupingProcessor,
+    ItemGroundingProcessor,
+    InventoryFillingProcessor,
     RenderProcessor,
     EventProcessor,
     DayNightCyclingProcessor,
