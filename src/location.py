@@ -21,6 +21,7 @@ class Layer(IntEnum):
 
     # Порядок имеет значение!
     Ground = auto()
+    Items = auto()
     Objects = auto()
     Creatures = auto()
     Roofs = auto()
@@ -85,7 +86,10 @@ class InitLocationProcessor(esper.Processor):
 
                 if object.image is not None:
                     self.world.add_component(
-                        entity, utils.convert.animation_from_surface(object.image)
+                        entity,
+                        utils.convert.animation_from_surface(
+                            object.image.convert_alpha()
+                        ),
                     )
 
                 if object.rotation != 0:
@@ -97,8 +101,9 @@ class InitLocationProcessor(esper.Processor):
                 if object.properties.get("is_solid", False):
                     self.world.add_component(entity, Solid())
 
-                if object.properties.get("is_item", False):
-                    self.world.add_component(entity, Item())
+                if item_id := object.properties.get("item", False):
+                    for comp in utils.make.item_comps(item_id):
+                        self.world.add_component(entity, comp)
 
     def _make_location(
         self, location: int, location_id: str, camera_size: Tuple[int, int]

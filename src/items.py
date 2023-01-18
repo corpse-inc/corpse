@@ -1,36 +1,9 @@
-from dataclasses import dataclass as component
 import pygame
 import esper
+from meta import About
 import utils
 
-
-class ItemsProcessor(esper.Processor):
-    def process(self, **_):
-
-        from location import Position
-
-        player, pos = utils.get.player(self, Position, id=True)
-        x_player = pos.coords.x
-        y_player = pos.coords.y
-
-        items_sprite = utils.get.items_group(self).group
-        for sprite in items_sprite:
-            x_item = sprite.rect.x
-            y_item = sprite.rect.y
-            if (x_player - x_item == 8 or x_item - x_player == 8) and (
-                y_player - y_item == 8 or y_item - y_player == 8
-            ):
-                print("item near")
-
-
-class ItemsGroupingProcessor(esper.Processor):
-    def process(self, screen=None, **_):
-        from render import Renderable
-
-        items_group = utils.get.items_group(self).group
-        for _, (render, _) in self.world.get_components(Renderable, Item):
-            if render.sprite is not None and render.sprite not in items_group:
-                items_group.add(render.sprite)
+from dataclasses import dataclass as component
 
 
 @component
@@ -38,79 +11,52 @@ class ItemsGroup:
     group: pygame.sprite.Group = pygame.sprite.Group()
 
 
-# default component for all item
 @component
 class Item:
     pass
 
 
 @component
-class About:
-    name: str
-    description: str
+class CollidedItem:
+    entity: int
 
 
-@component
-class Position:
-    location: int
-    coords: pygame.math.Vector2
+class ItemNotFoundError(Exception):
+    pass
 
 
-@component
-class Durability:
-    times: int
+ITEMS = {
+    "gun": (About("Оружие"),),
+}
 
 
-# component for consumables
-@component
-class ConsumptionComment:
-    comments: tuple[str]
+class ItemCollisionDetectingProcessor(esper.Processor):
+    def process(self, **_):
+        from render import Renderable
+
+        player, player_render = utils.get.player(self, Renderable, id=True)
+
+        if not player_render.sprite:
+            return
+
+        for item, (_, item_render) in self.world.get_components(Item, Renderable):
+            if pygame.sprite.collide_mask(player_render.sprite, item_render.sprite):
+                self.world.add_component(player, CollidedItem(item))
 
 
-@component
-class HealRequest:
-    creature: int
-    amount: int
+class RemoveItemCollidingMarker(esper.Processor):
+    def process(self, **_):
+        for ent, item in self.world.get_component(CollidedItem):
+            self.world.remove_component(ent, CollidedItem)
 
 
-@component
-class SaturateRequest:
-    creature: int
-    amount: int
+class ItemsGroupingProcessor(esper.Processor):
+    def process(self, **_):
+        from render import Renderable
 
-
-@component
-class DamageRequest:
-    creature: int
-    amount: int
-
-
-# component for weapon
-@component
-class FireWeapon:
-    power: float
-    range: int
-
-
-@component
-class EdgedWeapon:
-    range: int
-
-
-@component
-class Magazine:
-    ammo: int
-    current: int
-    max: int
-    damage: int
-
-
-@component
-class Ammo:
-    id: int
-    damage: int
-
-
-@component
-class Armor:
-    resistance: float
+        items_group = utils.get.items_group(self).group
+        for _, (render, _) in self.world.get_components(Renderable, Item):
+            if render.sprite is not None and render.sprite not in items_group:
+                if render._old_sprite:
+                    items_group.remove(render._old_sprite)
+                items_group.add(render.sprite)

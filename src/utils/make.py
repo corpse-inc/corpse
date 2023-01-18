@@ -1,3 +1,4 @@
+from copy import deepcopy
 import os
 import esper
 import pygame
@@ -198,3 +199,22 @@ def creature(
     )
 
     return creature
+
+
+def item_comps(id: str, *extra_comps):
+    from meta import Id
+    from items import Item, ItemNotFoundError, ITEMS
+
+    if id not in ITEMS:
+        raise ItemNotFoundError(f"Предмет с идентификатором {id} не найден")
+
+    return Id(id), Item(), *deepcopy(ITEMS[id]), *extra_comps
+
+
+def item(world: esper.World, id: str, *extra_comps):
+    from items import ItemNotFoundError, ITEMS
+
+    if id not in ITEMS:
+        raise ItemNotFoundError(f"Предмет с идентификатором {id} не найден")
+
+    return world.create_entity(item_comps(id, *extra_comps))

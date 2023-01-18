@@ -57,9 +57,14 @@ from render import RenderProcessor
 from roof import RoofTogglingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
-from items import ItemsGroup, ItemsGroupingProcessor, ItemsProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
+from items import (
+    ItemsGroup,
+    ItemsGroupingProcessor,
+    ItemCollisionDetectingProcessor,
+    RemoveItemCollidingMarker,
+)
 
 
 PROCESSORS = (
@@ -69,7 +74,6 @@ PROCESSORS = (
     BindingProcessor,
     SolidGroupingProcessor,
     DirectionAngleCalculationProcessor,
-    ItemsGroupingProcessor,
     RotationProcessor,
     MovementProcessor,
     FrameCyclingProcessor,
@@ -84,13 +88,15 @@ PROCESSORS = (
     EnemyDamagingProcessor,
     InstructingProcessor,
     InstructionExecutingProcessor,
-    ItemsProcessor,
+    ItemsGroupingProcessor,
+    ItemCollisionDetectingProcessor,
     RenderProcessor,
     DayNightCyclingProcessor,
     UiDrawingProcessor,
     ScreenReddingProcessor,
     DamageMarkerRemovingProcessor,
     BumpMarkerRemovingProcessor,
+    RemoveItemCollidingMarker,
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -121,6 +127,7 @@ def fill_world(world: esper.World):
             pygame.transform.scale2x(s), 90
         ),
     )
+    return
     zombie = utils.make.creature(
         world,
         "zombie",

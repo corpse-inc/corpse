@@ -1,10 +1,12 @@
 import esper
+import utils
 import pygame_gui
 
-from dataclasses import dataclass as component
+from meta import About
 from creature import Health
+from items import CollidedItem
 
-import utils
+from dataclasses import dataclass as component
 
 
 @component
@@ -18,10 +20,20 @@ class UiDrawingProcessor(esper.Processor):
     def process(self, dt=None, screen=None, uimanager=None, **_):
         ui: pygame_gui.UIManager = uimanager
 
-        health = utils.get.player(self.world, Health).value
-        tt = ui.create_tool_tip(f"{health}", (20, 20), (0, 0))
+        player, health = utils.get.player(self, Health, id=True)
+        sw, sh = screen.get_rect().size
+
+        # health_tt = ui.create_tool_tip(f"{health.value}", (20, 20), (0, 0))
+
+        if item := self.world.try_component(player, CollidedItem):
+            about = self.world.component_for_entity(item.entity, About)
+            take_item_tt = ui.create_tool_tip(
+                f"Взять <i>{about.name}</i> (<b>E</b>)", (sw / 2 - 50, 20), (0, 0)
+            )
 
         ui.draw_ui(screen)
         ui.update(dt / 1000)
 
-        tt.kill()
+        # health_tt.kill()
+        if item:
+            take_item_tt.kill()
