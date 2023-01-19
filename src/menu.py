@@ -26,7 +26,7 @@ class MenuCreationProcessor(esper.Processor):
             "Corpse inc. -> Настройки",
             *settings["resolution"],
             enabled=False,
-            theme=utils.make.settings_menu_theme(),
+            theme=utils.make.settings_menu_theme(settings),
         )
 
         def change_resolution(_, res):
@@ -46,7 +46,7 @@ class MenuCreationProcessor(esper.Processor):
             "Corpse inc.",
             *settings["resolution"],
             center_content=False,
-            theme=utils.make.main_menu_theme(),
+            theme=utils.make.main_menu_theme(settings),
         )
 
         def play():
@@ -64,7 +64,7 @@ class MenuCreationProcessor(esper.Processor):
             *settings["resolution"],
             center_content=False,
             enabled=False,
-            theme=utils.make.pause_menu_theme(),
+            theme=utils.make.pause_menu_theme(settings),
         )
 
         def continue_game():

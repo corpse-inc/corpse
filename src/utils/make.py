@@ -12,11 +12,12 @@ from animation import StateType
 from typing import Optional, Callable, Iterable
 
 
-def main_menu_theme() -> pygame_menu.Theme:
+def main_menu_theme(settings) -> pygame_menu.Theme:
     theme = pygame_menu.Theme()
+    res = "x".join(map(str, settings["resolution"]))
 
     background = pygame_menu.baseimage.BaseImage(
-        image_path=ResourcePath.get("ui/main_menu_background.jpg"),
+        image_path=ResourcePath.get(f"ui/main_menu_background/{res}.jpg"),
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
     )
     theme.background_color = background
@@ -29,11 +30,12 @@ def main_menu_theme() -> pygame_menu.Theme:
     return theme
 
 
-def settings_menu_theme() -> pygame_menu.Theme:
+def settings_menu_theme(settings) -> pygame_menu.Theme:
     theme = pygame_menu.Theme()
+    res = "x".join(map(str, settings["resolution"]))
 
     background = pygame_menu.baseimage.BaseImage(
-        image_path=ResourcePath.get("ui/settings_menu_background.jpg"),
+        image_path=ResourcePath.get(f"ui/settings_menu_background/{res}.jpg"),
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
     )
     theme.background_color = background
@@ -45,11 +47,12 @@ def settings_menu_theme() -> pygame_menu.Theme:
     return theme
 
 
-def pause_menu_theme() -> pygame_menu.Theme:
+def pause_menu_theme(settings) -> pygame_menu.Theme:
     theme = pygame_menu.Theme()
+    res = "x".join(map(str, settings["resolution"]))
 
     background = pygame_menu.baseimage.BaseImage(
-        image_path=ResourcePath.get("ui/pause_menu_background.jpg"),
+        image_path=ResourcePath.get(f"ui/pause_menu_background/{res}.jpg"),
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
     )
     theme.background_color = background
