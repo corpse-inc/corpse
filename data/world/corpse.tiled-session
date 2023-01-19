@@ -354,6 +354,7 @@
             "scaleInEditor": 0.5666
         },
         "winter_island/boats.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -394,11 +395,11 @@
             "scaleInEditor": 1
         },
         "winter_island/winter_island_map.tmx": {
-            "scale": 0.42,
+            "scale": 0.5043,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 675,
-                "y": 446.4285714285714
+                "x": 746.5794170136824,
+                "y": 312.31409875074365
             }
         },
         "winter_island/winter_island_map.tmx#autumn_trees": {
@@ -429,8 +430,9 @@
         "winter_island/autumn_trees.tsx"
     ],
     "project": "corpse.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
+        "winter_island/winter_island_map.tmx",
         "winter_island/autumn_ground.tsx",
         "winter_island/boats.tsx",
         "winter_island/creatures.tsx",
@@ -441,7 +443,6 @@
         "winter_island/tileset.tsx",
         "winter_island/trees.tsx",
         "winter_island/winter_graund.tsx",
-        "winter_island/winter_island_map.tmx",
         "winter_island/autumn_trees.tsx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
