@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="5717">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="5718">
  <tileset firstgid="1" source="roof.tsx"/>
  <tileset firstgid="26" source="winter_graund.tsx"/>
  <tileset firstgid="1466" source="trees.tsx"/>
@@ -13,55 +13,55 @@
  <tileset firstgid="4637" name="autumn_trees.tsx" tilewidth="161" tileheight="145" tilecount="17" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0010_Bush-03.png"/>
+   <image width="44" height="34" source="../../assets/autumn/objects/trees/TDS04_0010_Bush-03.png"/>
   </tile>
   <tile id="1">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0011_Bush-02.png"/>
+   <image width="66" height="28" source="../../assets/autumn/objects/trees/TDS04_0011_Bush-02.png"/>
   </tile>
   <tile id="2">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0012_Bush-01.png"/>
+   <image width="31" height="30" source="../../assets/autumn/objects/trees/TDS04_0012_Bush-01.png"/>
   </tile>
   <tile id="3">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0019_Tree4.png"/>
+   <image width="140" height="131" source="../../assets/autumn/objects/trees/TDS04_0019_Tree4.png"/>
   </tile>
   <tile id="4">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0020_Tree3.png"/>
+   <image width="161" height="145" source="../../assets/autumn/objects/trees/TDS04_0020_Tree3.png"/>
   </tile>
   <tile id="5">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0021_Tree2.png"/>
+   <image width="104" height="106" source="../../assets/autumn/objects/trees/TDS04_0021_Tree2.png"/>
   </tile>
   <tile id="6">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0022_Tree1.png"/>
+   <image width="152" height="136" source="../../assets/autumn/objects/trees/TDS04_0022_Tree1.png"/>
   </tile>
   <tile id="7">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0006_Tree07.png"/>
+   <image width="29" height="28" source="../../assets/autumn/objects/trees/TDS04_0006_Tree07.png"/>
   </tile>
   <tile id="8">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0007_Tree06.png"/>
+   <image width="25" height="26" source="../../assets/autumn/objects/trees/TDS04_0007_Tree06.png"/>
   </tile>
   <tile id="9">
-   <image source="../../autumn/objects/Trees Bushes/TDS04_0008_Tree05.png"/>
+   <image width="45" height="45" source="../../assets/autumn/objects/trees/TDS04_0008_Tree05.png"/>
   </tile>
   <tile id="10">
-   <image source="../../assets/objects/Trees Bushes/TDS04_0010_Bush-03.png"/>
+   <image width="44" height="34" source="../../assets/autumn/objects/trees/TDS04_0010_Bush-03.png"/>
   </tile>
   <tile id="11">
-   <image source="../../assets/objects/Trees Bushes/TDS04_0011_Bush-02.png"/>
+   <image width="66" height="28" source="../../assets/autumn/objects/trees/TDS04_0011_Bush-02.png"/>
   </tile>
   <tile id="12">
-   <image source="../../assets/objects/Trees Bushes/TDS04_0012_Bush-01.png"/>
+   <image width="31" height="30" source="../../assets/autumn/objects/trees/TDS04_0012_Bush-01.png"/>
   </tile>
   <tile id="13">
-   <image source="../../assets/objects/Trees Bushes/TDS04_0019_Tree4.png"/>
+   <image width="140" height="131" source="../../assets/autumn/objects/trees/TDS04_0019_Tree4.png"/>
   </tile>
   <tile id="14">
-   <image source="../../assets/objects/Trees Bushes/TDS04_0020_Tree3.png"/>
+   <image width="161" height="145" source="../../assets/autumn/objects/trees/TDS04_0020_Tree3.png"/>
   </tile>
   <tile id="15">
-   <image source="../../assets/objects/Trees Bushes/TDS04_0021_Tree2.png"/>
+   <image width="104" height="106" source="../../assets/autumn/objects/trees/TDS04_0021_Tree2.png"/>
   </tile>
   <tile id="16">
-   <image source="../../assets/objects/Trees Bushes/TDS04_0022_Tree1.png"/>
+   <image width="152" height="136" source="../../assets/autumn/objects/trees/TDS04_0022_Tree1.png"/>
   </tile>
  </tileset>
  <tileset firstgid="4654" source="../summer_island/interior.tsx"/>
@@ -4498,8 +4498,8 @@
   <object id="5694" gid="4820" x="633.735" y="574.543" width="161" height="145"/>
   <object id="5695" gid="4821" x="677.167" y="394.435" width="104" height="106"/>
   <object id="5696" gid="4821" x="727.321" y="226.611" width="104" height="106"/>
-  <object id="5697" gid="4821" x="526.704" y="548.756" width="104" height="106"/>
-  <object id="5698" gid="4818" x="571.42" y="647.716" width="31" height="30"/>
+  <object id="5697" gid="4821" x="524.033" y="520.266" width="104" height="106"/>
+  <object id="5698" gid="4818" x="202.83" y="491.021" width="31" height="30"/>
   <object id="5699" gid="4818" x="644.722" y="302.423" width="31" height="30"/>
   <object id="5700" gid="4818" x="1011.23" y="146.173" width="31" height="30"/>
   <object id="5701" gid="4818" x="897.423" y="369.938" width="31" height="30"/>
@@ -4518,6 +4518,7 @@
   <object id="5714" gid="4815" x="593.355" y="711.657" width="45" height="45"/>
   <object id="5715" gid="4815" x="356.086" y="136.812" width="45" height="45"/>
   <object id="5716" gid="1514" x="111.587" y="358.75" width="319.444" height="310.342" rotation="30.058"/>
+  <object id="5717" gid="1474" x="543.62" y="664.593" width="104" height="106"/>
  </objectgroup>
  <objectgroup id="4" name="Roofs">
   <object id="1233" gid="1073741845" x="3416.35" y="1743.52" width="367.63" height="280.27"/>
