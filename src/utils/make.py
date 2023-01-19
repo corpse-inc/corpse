@@ -1,22 +1,24 @@
-from copy import deepcopy
 import os
+import utils
 import esper
 import pygame
 import pygame_menu
 
+
+from copy import deepcopy
 from utils.fs import ResourcePath, dir_count
+from typing import Optional, Callable, Iterable
 
 from location import Position, SpawnPoint
 from animation import StateType
 
-from typing import Optional, Callable, Iterable
 
-
-def main_menu_theme() -> pygame_menu.Theme:
+def main_menu_theme(settings) -> pygame_menu.Theme:
     theme = pygame_menu.Theme()
+    res = "x".join(map(str, settings["resolution"]))
 
     background = pygame_menu.baseimage.BaseImage(
-        image_path=ResourcePath.get("ui/main_menu_background.jpg"),
+        image_path=ResourcePath.get(f"ui/main_menu_background/{res}.jpg"),
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
     )
     theme.background_color = background
@@ -29,11 +31,12 @@ def main_menu_theme() -> pygame_menu.Theme:
     return theme
 
 
-def settings_menu_theme() -> pygame_menu.Theme:
+def settings_menu_theme(settings) -> pygame_menu.Theme:
     theme = pygame_menu.Theme()
+    res = "x".join(map(str, settings["resolution"]))
 
     background = pygame_menu.baseimage.BaseImage(
-        image_path=ResourcePath.get("ui/settings_menu_background.jpg"),
+        image_path=ResourcePath.get(f"ui/settings_menu_background/{res}.jpg"),
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
     )
     theme.background_color = background
@@ -45,11 +48,12 @@ def settings_menu_theme() -> pygame_menu.Theme:
     return theme
 
 
-def pause_menu_theme() -> pygame_menu.Theme:
+def pause_menu_theme(settings) -> pygame_menu.Theme:
     theme = pygame_menu.Theme()
+    res = "x".join(map(str, settings["resolution"]))
 
     background = pygame_menu.baseimage.BaseImage(
-        image_path=ResourcePath.get("ui/pause_menu_background.jpg"),
+        image_path=ResourcePath.get(f"ui/pause_menu_background/{res}.jpg"),
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
     )
     theme.background_color = background
@@ -77,6 +81,20 @@ def sprite(
         sprite.mask = mask
 
     return sprite
+
+
+def sprite_component(animation, position):
+    from render import Sprite
+
+    img = utils.convert.surface_from_animation(animation)
+
+    sprite = utils.make.sprite(
+        img,
+        img.get_rect(center=position.coords),
+        pygame.mask.from_surface(img),
+    )
+
+    return Sprite(img, sprite)
 
 
 def creature(
@@ -124,10 +142,10 @@ def creature(
     from meta import Id
     from object import Solid
     from bind import BindRequest
-    from render import Renderable
     from creature import Creature, Health
     from movement import Direction, Velocity
-    from animation import States, Animation, Part, PartType
+    from render import MakeRenderableRequest
+    from animation import States, Animation, PartType, Part
 
     def load_surface(path):
         prep = surface_preprocessor
@@ -147,8 +165,8 @@ def creature(
         Creature(),
         Health(),
         Solid(),
-        Direction(),
-        Renderable(),
+        Direction(0),
+        MakeRenderableRequest(),
         Velocity(pygame.Vector2(0)),
         States(states),
         position,
@@ -167,8 +185,9 @@ def creature(
             part_frames.append(load_surface(ResourcePath.frame(id, part, idx=i + 1)))
 
         part_id = world.create_entity(
+            Id(f"{id}:{part}"),
             Animation(tuple(part_frames), animation_delay),
-            Renderable(),
+            MakeRenderableRequest(),
             Part(creature, PartType.from_str(part)),
         )
 

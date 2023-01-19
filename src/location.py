@@ -2,6 +2,8 @@ import pygame
 import esper
 import pytmx
 import pyscroll
+from movement import SetDirectionRequest
+from render import MakeRenderableRequest
 import utils
 
 from typing import Tuple
@@ -9,7 +11,6 @@ from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
 from meta import Id
-from render import Renderable
 from object import Invisible, ObjectNotFoundError, Size, Solid
 
 
@@ -77,18 +78,19 @@ class InitLocationProcessor(esper.Processor):
                         Layer.from_str(group.name),
                     ),
                     Size(object.width, object.height),
-                    Renderable(),
+                    MakeRenderableRequest(),
                 )
 
                 if not object.visible:
                     self.world.add_component(entity, Invisible())
 
-                if object.image is not None:
+                if object.image:
+                    image = pygame.transform.scale(
+                        object.image.convert_alpha(), (object.width, object.height)
+                    )
                     self.world.add_component(
                         entity,
-                        utils.convert.animation_from_surface(
-                            object.image.convert_alpha()
-                        ),
+                        utils.convert.animation_from_surface(image),
                     )
 
                 if object.rotation != 0:

@@ -2,16 +2,16 @@ import esper
 import pygame
 import utils
 
-from location import Layer, Position
-from object import Invisible
-from render import Renderable
-
 
 class RoofTogglingProcessor(esper.Processor):
     def process(self, **_):
-        player_sprite = utils.get.player(self, Renderable).sprite
+        from render import Sprite
+        from object import Invisible
+        from location import Layer, Position
 
-        for roof, (render, pos) in self.world.get_components(Renderable, Position):
+        player_sprite = utils.get.player(self, Sprite).sprite
+
+        for roof, (render, pos) in self.world.get_components(Sprite, Position):
             roof_sprite = render.sprite
 
             if pos.layer != Layer.Roofs or roof_sprite is None:
