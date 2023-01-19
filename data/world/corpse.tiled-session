@@ -113,7 +113,7 @@
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Machine.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 1,
+            "scaleInDock": 0.25,
             "scaleInEditor": 1
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/Objects.tsx": {
@@ -133,7 +133,7 @@
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/autumn_ground.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 0.7594,
+            "scaleInDock": 1.3603,
             "scaleInEditor": 1
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/autumn_trees.tsx": {
@@ -173,11 +173,11 @@
             "scaleInDock": 1
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx": {
-            "scale": 0.2315,
-            "selectedLayer": 1,
+            "scale": 0.0917,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1719.2224622030237,
-                "y": 1142.5485961123109
+                "x": 4820.065430752454,
+                "y": 4356.59760087241
             }
         },
         "C:/Users/Anton/PycharmProjects/corpse/resources/locations/winter_island/winter_island_map.tmx#autumn_trees": {
