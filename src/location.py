@@ -3,17 +3,17 @@ import pygame
 import esper
 import pytmx
 import pyscroll
-from ai import Enemy
-from creature import CREATURES, CreatureNotFoundError
-from movement import Direction
 import utils
 
 from typing import Tuple
+from copy import deepcopy
 from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
 from meta import Id
+from movement import Direction
 from render import MakeRenderableRequest
+from creature import CREATURES, CreatureNotFoundError
 from object import Invisible, ObjectNotFoundError, Size, Solid
 from utils.consts import DEFAULT_CONSUME_IMAGE, DEFAULT_CONSUME_SIZE
 
@@ -134,7 +134,12 @@ class InitLocationProcessor(esper.Processor):
                     extra_comps.append(utils.convert.animation_from_surface(image))
 
                 utils.make.creature(
-                    self.world, id, position, *extra_comps, *CREATURES[id]
+                    self.world,
+                    id,
+                    position,
+                    *extra_comps,
+                    *deepcopy(CREATURES[id]),
+                    surface_preprocessor=lambda s: pygame.transform.rotate(s, -90),
                 )
 
     def _fill_objects(self, tilemap: pytmx.TiledMap, location: int):
