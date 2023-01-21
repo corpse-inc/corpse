@@ -1,11 +1,12 @@
 DEFAULT_SETTINGS = {
     "resolution": (640, 480),
+    "zoom": 1,
 }
 
 FPS = 60
 
-# TODO: Баг: при изменении данной константы система rotation.RotationProcessor
-# неправильно вращает спрайты.
-CAMERA_ZOOM = 1
-
+# Скорость существ по умолчанию.
 DEFAULT_SPEED = 3
+
+# За сколько пикселей до подхода к границам карты запрещать проходить дальше.
+TILEMAP_BOUNDS = 32

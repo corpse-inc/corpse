@@ -116,7 +116,6 @@ class InitLocationProcessor(esper.Processor):
         renderer = pyscroll.BufferedRenderer(
             data=pyscroll.TiledMapData(tilemap),
             size=camera_size,
-            zoom=utils.consts.CAMERA_ZOOM,
         )
 
         sprites = pyscroll.PyscrollGroup(map_layer=renderer)

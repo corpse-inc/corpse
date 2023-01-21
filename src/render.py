@@ -177,5 +177,6 @@ class InvisibilityApplyingProcessor(esper.Processor):
 
 
 class SpriteDrawingProcessor(esper.Processor):
-    def process(self, screen=None, **_):
+    def process(self, screen=None, settings=None, **_):
         utils.get.location(self).sprites.draw(screen)
+        utils.get.location(self).renderer.zoom = settings["zoom"]

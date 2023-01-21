@@ -9,7 +9,7 @@ from dataclasses import dataclass as component
 
 from object import Invisible, Solid
 from creature import Health, DeadMarker
-from movement import Direction, LookAfterMouseCursor, Velocity
+from movement import LookAfterMouseCursor, Velocity
 
 
 class StateType(Enum):

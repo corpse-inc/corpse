@@ -1,5 +1,4 @@
 import esper
-from creature import DeadMarker
 import utils
 import pygame
 
@@ -35,7 +34,7 @@ class MovementProcessor(esper.Processor):
             location = self.world.component_for_entity(pos.location, Location)
             map_x, map_y = utils.get.location_map_size(location)
 
-            map_bounds = 32
+            map_bounds = utils.consts.TILEMAP_BOUNDS
 
             map_x -= map_bounds
             map_y -= map_bounds
