@@ -122,7 +122,7 @@ MENU_MANAGER_PROCESSORS = (
 
 
 def fill_world(world: esper.World):
-    world.create_entity(LocationInitRequest("test"))
+    world.create_entity(LocationInitRequest("summer_island/map"))
 
     sprite_groups = world.create_entity(SolidGroup(), ItemsGroup())
 

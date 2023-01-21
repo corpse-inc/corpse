@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Ground_as_tiles" tilewidth="32" tileheight="32" tilecount="1440" columns="45">
+<tileset version="1.9" tiledversion="1.9.2" name="Ground_as_tiles" tilewidth="32" tileheight="32" tilecount="1440" columns="45" objectalignment="center">
  <image source="../../../assets/summer/background/source/default.png" width="1440" height="1024"/>
  <tile id="92">
   <properties>

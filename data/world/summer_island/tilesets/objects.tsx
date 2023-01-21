@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Objects" tilewidth="85" tileheight="64" tilecount="14" columns="0">
+<tileset version="1.9" tiledversion="1.9.2" name="Objects" tilewidth="85" tileheight="64" tilecount="14" columns="0" objectalignment="center">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>

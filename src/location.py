@@ -1,3 +1,4 @@
+from animation import Animation
 import pygame
 import esper
 import pytmx
