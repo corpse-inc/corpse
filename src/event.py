@@ -20,14 +20,15 @@ class EventProcessor(esper.Processor):
 
         vel = utils.get.player(self, Velocity)
 
-        if pressed[pygame.K_w]:
-            vel.vector.y = -vel.value
-        if pressed[pygame.K_a]:
-            vel.vector.x = -vel.value
-        if pressed[pygame.K_s]:
-            vel.vector.y = vel.value
-        if pressed[pygame.K_d]:
-            vel.vector.x = vel.value
+        if vel:
+            if pressed[pygame.K_w]:
+                vel.vector.y = -vel.value
+            if pressed[pygame.K_a]:
+                vel.vector.x = -vel.value
+            if pressed[pygame.K_s]:
+                vel.vector.y = vel.value
+            if pressed[pygame.K_d]:
+                vel.vector.x = vel.value
 
     def _handle_key_release(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):

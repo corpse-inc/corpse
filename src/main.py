@@ -127,7 +127,6 @@ def fill_world(world: esper.World):
             pygame.transform.scale2x(s), 90
         ),
     )
-    return
     zombie = utils.make.creature(
         world,
         "zombie",
