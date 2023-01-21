@@ -4607,7 +4607,7 @@
   <object id="4273" gid="1563" x="1156.33" y="7725.56" width="41" height="44"/>
   <object id="4274" gid="1563" x="287.852" y="7679.48" width="41" height="44"/>
   <object id="4275" gid="1563" x="1712.87" y="7746.83" width="41" height="44"/>
-  <object id="4435" name="player" x="3500.4" y="1508.8">
+  <object id="4435" name="player" x="3596.4" y="1825.8">
    <point/>
   </object>
  </objectgroup>
