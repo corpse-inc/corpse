@@ -41,25 +41,25 @@
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
-  <image width="56" height="64" source="../../assets/summer/objects/Rocks/TDS04_0003_Rock03.png"/>
+  <image width="56" height="64" source="../../assets/summer/objects/rocks/TDS04_0003_Rock03.png"/>
  </tile>
  <tile id="7">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
-  <image width="48" height="62" source="../../assets/summer/objects/Rocks/TDS04_0004_Rock02.png"/>
+  <image width="48" height="62" source="../../assets/summer/objects/rocks/TDS04_0004_Rock02.png"/>
  </tile>
  <tile id="8">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
-  <image width="31" height="38" source="../../assets/summer/objects/Rocks/TDS04_0005_Rock01.png"/>
+  <image width="31" height="38" source="../../assets/summer/objects/rocks/TDS04_0005_Rock01.png"/>
  </tile>
  <tile id="9">
   <properties>
    <property name="is_solid" type="bool" value="true"/>
   </properties>
-  <image width="85" height="23" source="../../assets/summer/objects/SandBag/TDS04_0002_Sandbags.png"/>
+  <image width="85" height="23" source="../../assets/summer/objects/sandbag/TDS04_0002_Sandbags.png"/>
  </tile>
  <tile id="10">
   <properties>
