@@ -14,7 +14,6 @@ class EventProcessor(esper.Processor):
 
     def _handle_key_press(self, paused, settings, wheel_up, wheel_down):
         pressed = pygame.key.get_pressed()
-        mouse = pygame.mouse.get_pressed()
 
         if pressed[pygame.K_ESCAPE]:
             paused[0] = True

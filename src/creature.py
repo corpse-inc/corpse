@@ -99,7 +99,8 @@ def init_creatures_registry(world: esper.World):
     from ai import Enemy
     from movement import Velocity
 
-    player = utils.get.player(world)
+    if not (player := utils.get.player(world)):
+        raise PlayerUninitialized("Игрок не инициализирован")
 
     registry = {
         "zombie": (
@@ -114,5 +115,13 @@ def init_creatures_registry(world: esper.World):
         CREATURES[key] = val
 
 
-class CreatureNotFoundError(Exception):
+class CreatureError(Exception):
+    pass
+
+
+class CreatureNotFoundError(CreatureError):
+    pass
+
+
+class PlayerUninitialized(CreatureError):
     pass

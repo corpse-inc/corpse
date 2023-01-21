@@ -19,6 +19,8 @@ class MovementProcessor(esper.Processor):
         from object import Solid, BumpMarker
         from location import Location, Position
 
+        player = utils.get.player(self)
+
         for moving, (vel, pos, render) in self.world.get_components(
             Velocity,
             Position,
@@ -41,7 +43,7 @@ class MovementProcessor(esper.Processor):
 
             new_coords = pos.coords + vec
 
-            if moving == utils.get.player(self, id=True):
+            if player and moving == player:
                 if new_coords.x >= map_x or new_coords.x <= map_bounds:
                     new_coords.x = pos.coords.x
                 if new_coords.y >= map_y or new_coords.y <= map_bounds:

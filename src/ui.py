@@ -5,7 +5,6 @@ import pygame
 import pygame_gui
 
 from meta import About, Id
-from creature import DeadMarker, Health
 from item import CollidedItem, Equipment, Inventory
 
 from dataclasses import dataclass as component

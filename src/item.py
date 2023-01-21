@@ -37,9 +37,12 @@ class ItemCollisionDetectingProcessor(esper.Processor):
     def process(self, **_):
         from render import Sprite
 
-        player, player_render = utils.get.player(self, Sprite, id=True)
+        try:
+            player, player_render = utils.get.player(self, Sprite, id=True)
+        except TypeError:
+            return
 
-        if not player_render.sprite:
+        if not (player and player_render):
             return
 
         for item, (_, item_render) in self.world.get_components(Item, Sprite):

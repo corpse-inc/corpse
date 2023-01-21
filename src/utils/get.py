@@ -45,7 +45,7 @@ def player(source, *components, id=False, cache=True):
 
             return _cache[key]
     except IndexError:
-        pass
+        return None
 
 
 def location(source, id=False):
