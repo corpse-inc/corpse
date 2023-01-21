@@ -11,9 +11,6 @@
   <image width="320" height="320" source="../../../assets/summer/background/tiles/_0001_DirtTiles.png"/>
  </tile>
  <tile id="3">
-  <properties>
-   <property name="is_sand" type="bool" value="true"/>
-  </properties>
   <image width="320" height="320" source="../../../assets/summer/background/tiles/_0002_SandTiles.png"/>
  </tile>
  <tile id="4">
