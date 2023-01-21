@@ -2,75 +2,39 @@
 <tileset version="1.9" tiledversion="1.9.2" name="House" tilewidth="703" tileheight="287" tilecount="25" columns="0" objectalignment="center">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="695" height="244" source="../../../assets/winter/objects/house/brouken_house1.png"/>
  </tile>
  <tile id="1">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="352" height="267" source="../../../assets/winter/objects/house/brouken_house2.png"/>
  </tile>
  <tile id="2">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="504" height="269" source="../../../assets/winter/objects/house/brouken_house3.png"/>
  </tile>
  <tile id="3">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="275" height="280" source="../../../assets/winter/objects/house/brouken_house4.png"/>
  </tile>
  <tile id="4">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="196" height="196" source="../../../assets/winter/objects/house/brouken_house5.png"/>
  </tile>
  <tile id="5">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="196" height="194" source="../../../assets/winter/objects/house/brouken_house6.png"/>
  </tile>
  <tile id="6">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="256" height="265" source="../../../assets/winter/objects/house/brouken_house7.png"/>
  </tile>
  <tile id="7">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="528" height="277" source="../../../assets/winter/objects/house/brouken_house8.png"/>
  </tile>
  <tile id="8">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="262" height="260" source="../../../assets/winter/objects/house/brouken_house9.png"/>
  </tile>
  <tile id="9">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="351" height="260" source="../../../assets/winter/objects/house/brouken_house10.png"/>
  </tile>
  <tile id="10">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="236" height="244" source="../../../assets/winter/objects/house/brouken_house11.png"/>
  </tile>
  <tile id="11">
-  <properties>
-   <property name="is_solid" type="bool" value="true"/>
-  </properties>
   <image width="198" height="196" source="../../../assets/winter/objects/house/brouken_house12.png"/>
  </tile>
  <tile id="12">

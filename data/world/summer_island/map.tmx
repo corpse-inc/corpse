@@ -4612,7 +4612,7 @@
   </object>
  </objectgroup>
  <objectgroup id="4" name="roofs">
-  <object id="1233" gid="38" x="3604.66" y="1609.68" width="367.63" height="280.27" rotation="180"/>
+  <object id="1233" gid="38" x="3599.73" y="1606.72" width="367.63" height="280.27" rotation="180"/>
   <object id="1250" gid="33" x="5620.11" y="3950.45" width="278" height="283"/>
   <object id="1253" gid="31" x="6013.85" y="3677.41" width="132.333" height="132.667" rotation="90"/>
   <object id="1254" gid="36" x="5364.75" y="3080.85" width="353" height="258" rotation="-90"/>
