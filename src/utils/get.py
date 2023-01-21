@@ -23,25 +23,29 @@ def player(source, *components, id=False, cache=True):
     if id and cache:
         key = "player_entity_id"
 
-    if len(components) == 1:
-        comps = world.get_components(PlayerMarker, *components)[0]
+    try:
+        if len(components) == 1:
+            comps = world.get_components(PlayerMarker, *components)[0]
 
-        if cache and id and _cache.get(key, None) is None:
-            _cache[key] = comps[0]
+            if cache and id and _cache.get(key, None) is None:
+                _cache[key] = comps[0]
 
-        return (comps[0], comps[1][1]) if id else comps[1][1]
-    elif len(components) != 0:
-        comps = world.get_components(PlayerMarker, *components)[0]
+            return (comps[0], comps[1][1]) if id else comps[1][1]
+        elif len(components) != 0:
+            comps = world.get_components(PlayerMarker, *components)[0]
 
-        if cache and id and _cache.get(key, None) is None:
-            _cache[key] = comps[0]
+            if cache and id and _cache.get(key, None) is None:
+                _cache[key] = comps[0]
 
-        return (comps[0], comps[1][1:]) if id else comps[1][1:]
-    elif cache:
-        if _cache.get(key, None) is None:
-            _cache[key] = world.get_component(PlayerMarker)[0][0]
+            return (comps[0], comps[1][1:]) if id else comps[1][1:]
+        elif cache:
+            key = "player_entity_id"
+            if _cache.get(key, None) is None:
+                _cache[key] = world.get_component(PlayerMarker)[0][0]
 
-        return _cache[key]
+            return _cache[key]
+    except IndexError:
+        return None
 
 
 def location(source, id=False):

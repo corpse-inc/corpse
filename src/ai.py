@@ -3,7 +3,7 @@ import esper
 import pygame
 
 from enum import IntEnum, auto
-from typing import Any, Optional, Sequence, Tuple
+from typing import Any, Optional, Sequence
 from dataclasses import dataclass as component
 from dataclasses import dataclass
 
@@ -80,17 +80,20 @@ class EnemyRotationProcessor(esper.Processor):
 
     def process(self, **_):
         from location import Position
-        from movement import Direction
+        from movement import SetDirectionRequest
 
-        for ent, (enemy, dir, pos) in self.world.get_components(
-            Enemy, Direction, Position
-        ):
+        for ent, (enemy, pos) in self.world.get_components(Enemy, Position):
             if self.world.has_component(ent, FollowInstructions):
                 continue
 
             enemy_pos = self.world.component_for_entity(enemy.entity, Position)
 
-            dir.vector = enemy_pos.coords - pos.coords
+            self.world.add_component(
+                ent,
+                SetDirectionRequest(
+                    utils.math.vector_angle(enemy_pos.coords - pos.coords)
+                ),
+            )
 
 
 class EnemyDamagingProcessor(esper.Processor):

@@ -1,3 +1,4 @@
+from item import Inventory
 import utils
 import esper
 import pygame
@@ -8,7 +9,7 @@ from dataclasses import dataclass as component
 
 from object import Invisible, Solid
 from creature import Health, DeadMarker
-from movement import Direction, Velocity
+from movement import LookAfterMouseCursor, Velocity
 
 
 class StateType(Enum):
@@ -104,10 +105,18 @@ class StateChangingProcessor(esper.Processor):
 class StateHandlingProcessor(esper.Processor):
     def process(self, **_):
         for entity, (ani, states) in self.world.get_components(Animation, States):
+            if self.world.has_component(entity, Part):
+                continue
+
             states = states.value
 
             if StateType.Dead in states:
-                remove_comps = (Velocity, Direction, Solid)
+                remove_comps = (
+                    Velocity,
+                    LookAfterMouseCursor,
+                    Inventory,
+                    Solid,
+                )
 
                 for comp in remove_comps:
                     if self.world.has_component(entity, comp):

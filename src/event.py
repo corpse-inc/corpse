@@ -12,22 +12,39 @@ from item import CollidedItem, Equipment, TakeItemRequest, GroundItem
 class EventProcessor(esper.Processor):
     """Обрабатывает события."""
 
-    def _handle_key_press(self, paused):
+    def _handle_key_press(self, paused, settings, wheel_up, wheel_down):
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_ESCAPE]:
             paused[0] = True
+            return
+
+        if (
+            pressed[pygame.K_LCTRL]
+            and (pressed[pygame.K_EQUALS] or pressed[pygame.K_PLUS])
+            or pressed[pygame.K_LCTRL]
+            and wheel_up
+        ) and settings["zoom"] < utils.consts.MAX_ZOOM:
+            settings["zoom"] += utils.consts.ZOOM_STEP
+        elif (
+            pressed[pygame.K_LCTRL]
+            and pressed[pygame.K_MINUS]
+            or pressed[pygame.K_LCTRL]
+            and wheel_down
+        ) and settings["zoom"] > utils.consts.MIN_ZOOM:
+            settings["zoom"] -= utils.consts.ZOOM_STEP
 
         vel = utils.get.player(self, Velocity)
 
-        if pressed[pygame.K_w]:
-            vel.vector.y = -vel.value
-        if pressed[pygame.K_a]:
-            vel.vector.x = -vel.value
-        if pressed[pygame.K_s]:
-            vel.vector.y = vel.value
-        if pressed[pygame.K_d]:
-            vel.vector.x = vel.value
+        if vel:
+            if pressed[pygame.K_w]:
+                vel.vector.y = -vel.value
+            if pressed[pygame.K_a]:
+                vel.vector.x = -vel.value
+            if pressed[pygame.K_s]:
+                vel.vector.y = vel.value
+            if pressed[pygame.K_d]:
+                vel.vector.x = vel.value
 
     def _handle_key_release(self, event: pygame.event.Event):
         for _, (_, vel) in self.world.get_components(PlayerMarker, Velocity):
@@ -36,10 +53,13 @@ class EventProcessor(esper.Processor):
             elif event.key in {pygame.K_a, pygame.K_d}:
                 vel.vector.x = 0
 
-    def process(self, running=None, uimanager=None, paused=None, events=None, **_):
+    def process(
+        self, running=None, uimanager=None, paused=None, events=None, settings=None, **_
+    ):
         ui: pygame_gui.UIManager = uimanager
 
-        self._handle_key_press(paused)
+        wheel_up = False
+        wheel_down = False
 
         for event in events:
             ui.process_events(event)
@@ -78,3 +98,11 @@ class EventProcessor(esper.Processor):
 
                 case pygame.KEYUP:
                     self._handle_key_release(event)
+
+                case pygame.MOUSEWHEEL:
+                    if event.y > 0:
+                        wheel_up = True
+                    elif event.y < 0:
+                        wheel_down = True
+
+        self._handle_key_press(paused, settings, wheel_up, wheel_down)

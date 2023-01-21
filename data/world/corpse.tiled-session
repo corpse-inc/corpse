@@ -1,55 +1,68 @@
 {
-    "activeFile": "winter_island/tilesets/winter_graund.tsx",
+    "activeFile": "",
     "expandedProjectPaths": [
-        "summer_island",
         "winter_island/tilesets",
-        "winter_island",
-        "."
+        "summer_island/tilesets",
+        "summer_island"
     ],
     "fileStates": {
+        "ground.tsx": {
+            "scaleInDock": 1
+        },
+        "items.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "roofs.tsx": {
+            "scaleInDock": 1
+        },
+        "storages.tsx": {
+            "scaleInDock": 1
+        },
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
-                4
+                5,
+                4,
+                3
             ],
-            "scale": 0.2507,
+            "scale": 1,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 3925.0099720781814,
-                "y": 1260.4706820901479
+                "x": 3601.5,
+                "y": 1633
             }
         },
         "summer_island/tilesets/boats.tsx": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.0845
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
         },
         "summer_island/tilesets/creatures.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
-            "scaleInEditor": 0.2889
+            "scaleInEditor": 1
         },
         "summer_island/tilesets/ground.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.0627
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
         },
         "summer_island/tilesets/ground_as_tiles.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.495
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
         },
         "summer_island/tilesets/house_floor.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.2348
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
         },
         "summer_island/tilesets/interior.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
-            "scaleInEditor": 0.0302
+            "scaleInEditor": 1
         },
         "summer_island/tilesets/machine.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 0.25,
             "scaleInEditor": 1
         },
         "summer_island/tilesets/objects.tsx": {
@@ -57,20 +70,32 @@
             "scaleInEditor": 1
         },
         "summer_island/tilesets/roof.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 0.0519
+            "dynamicWrapping": true,
+            "scaleInDock": 0.25,
+            "scaleInEditor": 0.25
         },
         "summer_island/tilesets/trees.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 1,
+            "scaleInDock": 0.25,
             "scaleInEditor": 1
+        },
+        "test.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.75,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 288.66666666666663,
+                "y": 270.66666666666663
+            }
         },
         "winter_island/map.tmx": {
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3764,
-                "y": 3984
+                "x": 4202,
+                "y": 4192
             }
         },
         "winter_island/map.tmx#autumn_trees.tsx": {
@@ -85,75 +110,48 @@
             "scaleInDock": 1
         },
         "winter_island/tilesets/boats.tsx": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInDock": 1
         },
         "winter_island/tilesets/creatures.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInDock": 1
         },
         "winter_island/tilesets/interior.tsx": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.0156
+            "scaleInDock": 1
         },
         "winter_island/tilesets/machine.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInDock": 1
         },
         "winter_island/tilesets/objects.tsx": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInDock": 1
         },
         "winter_island/tilesets/roof.tsx": {
-            "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.1836
+            "scaleInDock": 1
         },
         "winter_island/tilesets/tileset.tsx": {
-            "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.2112
+            "scaleInDock": 1
         },
         "winter_island/tilesets/trees.tsx": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.2851
+            "scaleInDock": 1
         },
         "winter_island/tilesets/winter_graund.tsx": {
-            "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 0.6818
+            "scaleInDock": 1
         }
     },
     "openFiles": [
-        "winter_island/map.tmx",
-        "winter_island/tilesets/autumn_ground.tsx",
-        "winter_island/tilesets/boats.tsx",
-        "winter_island/tilesets/creatures.tsx",
-        "winter_island/tilesets/interior.tsx",
-        "winter_island/tilesets/machine.tsx",
-        "winter_island/tilesets/objects.tsx",
-        "winter_island/tilesets/roof.tsx",
-        "winter_island/tilesets/tileset.tsx",
-        "winter_island/tilesets/trees.tsx",
-        "winter_island/tilesets/winter_graund.tsx"
     ],
     "project": "corpse.tiled-project",
     "recentFiles": [
-        "summer_island/tilesets/trees.tsx",
+        "summer_island/map.tmx",
+        "test.tmx",
         "summer_island/tilesets/roof.tsx",
-        "summer_island/tilesets/objects.tsx",
-        "summer_island/tilesets/interior.tsx",
-        "summer_island/tilesets/house_floor.tsx",
+        "summer_island/tilesets/creatures.tsx",
+        "winter_island/tilesets/autumn_ground.tsx",
+        "summer_island/tilesets/boats.tsx",
         "summer_island/tilesets/ground_as_tiles.tsx",
         "summer_island/tilesets/ground.tsx",
-        "summer_island/tilesets/creatures.tsx",
-        "summer_island/tilesets/boats.tsx",
-        "winter_island/map.tmx",
-        "summer_island/map.tmx",
-        "winter_island/tilesets/winter_graund.tsx"
+        "summer_island/tilesets/house_floor.tsx",
+        "summer_island/tilesets/interior.tsx",
+        "summer_island/tilesets/machine.tsx",
+        "summer_island/tilesets/objects.tsx"
     ]
 }
