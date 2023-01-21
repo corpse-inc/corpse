@@ -2,12 +2,14 @@ import pygame
 import esper
 import utils
 
+from typing import Optional
 from dataclasses import dataclass as component
 
 
 @component
 class Renderable:
-    sprite: pygame.sprite.Sprite | None = None
+    sprite: Optional[pygame.sprite.Sprite] = None
+    _old_sprite: Optional[pygame.sprite.Sprite] = None
 
 
 class RenderProcessor(esper.Processor):
@@ -16,45 +18,58 @@ class RenderProcessor(esper.Processor):
     количество градусов при наличии компонента Direction."""
 
     def process(self, screen=None, **_):
-        from location import PointAnchor
         from location import Position
-        from animation import Animation
         from movement import Direction
-        from size import Size
+        from animation import Animation
+        from object import Size, Invisible, BumpMarker
 
-        location = utils.location(self)
+        location = utils.get.location(self)
         location.sprites.empty()
+
+        solid_sprites = utils.get.solid_group(self).group
 
         for entity, (render, ani, pos) in self.world.get_components(
             Renderable, Animation, Position
         ):
-            img = utils.surface_from_animation(ani)
+            if self.world.try_component(entity, Invisible):
+                continue
 
-            if (size := self.world.try_component(entity, Size)) is not None:
+            img = utils.convert.surface_from_animation(ani)
+
+            if size := self.world.try_component(entity, Size):
                 img = pygame.transform.scale(img, (size.w, size.h))
 
-            if (dir := self.world.try_component(entity, Direction)) is not None:
-                if dir.angle is None:
-                    dir.angle = utils.vector_angle(dir.vector)
-                img = pygame.transform.rotozoom(img, dir.angle, 1)
+            if (dir := self.world.try_component(entity, Direction)) and dir.angle != 0:
+                rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
 
-            sprite = pygame.sprite.Sprite()
-            sprite.image = img
+                sprite = utils.make.sprite(
+                    rotate_img,
+                    rotate_img.get_rect(center=pos.coords),
+                    pygame.mask.from_surface(rotate_img),
+                )
 
-            match pos.anchor:
-                case PointAnchor.TopLeft:
-                    anchor = {"topleft": pos.coords}
-                case PointAnchor.Center:
-                    anchor = {"center": pos.coords}
+                solid_sprites.remove(render._old_sprite)
+                if not pygame.sprite.spritecollideany(
+                    sprite, solid_sprites, collided=pygame.sprite.collide_mask
+                ):
+                    img = rotate_img
+                elif render._old_sprite is not None:
+                    self.world.add_component(entity, BumpMarker())
+                    img = render._old_sprite.image
 
-            sprite.rect = img.get_rect(**anchor)
+            sprite = utils.make.sprite(
+                img,
+                img.get_rect(center=pos.coords),
+                pygame.mask.from_surface(img),
+            )
 
             if sprite not in location.sprites:
                 location.sprites.add(sprite, layer=pos.layer.value)
 
             render.sprite = sprite
+            render._old_sprite = sprite
+
+        solid_sprites.empty()
 
         if screen is not None:
             location.sprites.draw(screen)
-
-        pygame.display.flip()
