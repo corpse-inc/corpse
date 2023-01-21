@@ -19,6 +19,7 @@
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "summer_island/tilesets/boats.tsx": {
@@ -56,6 +57,7 @@
             "scaleInEditor": 1
         },
         "summer_island/tilesets/objects.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
