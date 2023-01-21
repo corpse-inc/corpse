@@ -84,12 +84,13 @@ class InitLocationProcessor(esper.Processor):
                 if not object.visible:
                     self.world.add_component(entity, Invisible())
 
-                if object.image is not None:
+                if object.image:
+                    image = pygame.transform.scale(
+                        object.image.convert_alpha(), (object.width, object.height)
+                    )
                     self.world.add_component(
                         entity,
-                        utils.convert.animation_from_surface(
-                            object.image.convert_alpha()
-                        ),
+                        utils.convert.animation_from_surface(image),
                     )
 
                 if object.rotation != 0:

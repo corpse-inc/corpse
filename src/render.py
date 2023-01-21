@@ -28,6 +28,7 @@ class SpriteImageChangedMarker:
 
 class SpriteMakingProcessor(esper.Processor):
     def process(self, **_):
+        from object import Size
         from location import Position
         from animation import Animation
 
@@ -36,9 +37,26 @@ class SpriteMakingProcessor(esper.Processor):
         ):
             if self.world.has_component(entity, Sprite):
                 continue
-            self.world.add_component(entity, utils.make.sprite_component(ani, pos))
+
+            sprite = utils.make.sprite_component(ani, pos)
+
+            if size := self.world.try_component(entity, Size):
+                sprite.original_image = pygame.transform.scale(
+                    sprite.original_image, (size.w, size.h)
+                )
+
+            self.world.add_component(entity, sprite)
             self.world.add_component(entity, SpriteImageChangedMarker())
             self.world.remove_component(entity, MakeRenderableRequest)
+
+
+class SpriteAnimationSyncingProcessor(esper.Processor):
+    def process(self, **_):
+        from animation import Animation
+
+        for entity, (ani, sprite) in self.world.get_components(Animation, Sprite):
+            sprite.original_image = utils.convert.surface_from_animation(ani)
+            self.world.add_component(entity, SpriteImageChangedMarker)
 
 
 class SpriteSortingProcessor(esper.Processor):
@@ -138,9 +156,7 @@ class SpriteRectUpdatingProcessor(esper.Processor):
     def process(self, **_):
         from location import Position
 
-        for _, (_, sprite, pos) in self.world.get_components(
-            SpriteImageChangedMarker, Sprite, Position
-        ):
+        for _, (sprite, pos) in self.world.get_components(Sprite, Position):
             sprite.sprite.rect = sprite.sprite.image.get_rect(center=pos.coords)
 
 

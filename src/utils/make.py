@@ -145,7 +145,7 @@ def creature(
     from creature import Creature, Health
     from movement import Direction, Velocity
     from render import MakeRenderableRequest
-    from animation import States, Animation, Part, PartType
+    from animation import States, Animation, PartType, Part
 
     def load_surface(path):
         prep = surface_preprocessor
@@ -185,6 +185,7 @@ def creature(
             part_frames.append(load_surface(ResourcePath.frame(id, part, idx=i + 1)))
 
         part_id = world.create_entity(
+            Id(f"{id}:{part}"),
             Animation(tuple(part_frames), animation_delay),
             MakeRenderableRequest(),
             Part(creature, PartType.from_str(part)),

@@ -85,7 +85,11 @@ class DirectionSettingProcessor(esper.Processor):
         for entity, (_, req) in self.world.get_components(
             SetDirectionRequestApprove, SetDirectionRequest
         ):
-            self.world.add_component(entity, Direction(req.angle))
+            if dir := self.world.try_component(entity, Direction):
+                dir.angle = req.angle
+            else:
+                self.world.add_component(entity, Direction(req.angle))
+
             self.world.remove_component(entity, SetDirectionRequestApprove)
 
 

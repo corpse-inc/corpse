@@ -30,8 +30,12 @@ class BindRequest:
 class BindingProcessor(esper.Processor):
     def process(self, **_):
         for entity, binding in self.world.get_component(BindRequest):
+            if not self.world.has_component(binding.consumed, binding.component):
+                continue
+
             self.world.add_component(
                 binding.applied,
                 self.world.component_for_entity(binding.consumed, binding.component),
             )
+
             self.world.delete_entity(entity)

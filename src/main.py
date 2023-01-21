@@ -59,6 +59,7 @@ PROCESSORS = (
     #
     # Render / Sprites / Applying Transformations
     SpriteMakingProcessor,
+    SpriteAnimationSyncingProcessor,
     SpriteSortingProcessor,
     SpriteRemovingProcessor,
     SizeApplyingProcessor,
