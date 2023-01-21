@@ -108,6 +108,8 @@ class InitLocationProcessor(esper.Processor):
                         self.world.add_component(entity, comp)
 
             case Layer.Creatures:
+                rot = -90
+
                 if not (id := object.properties.get("creature", None)):
                     return
 
@@ -123,7 +125,11 @@ class InitLocationProcessor(esper.Processor):
                 if image and object.properties.get(
                     "consume_image", DEFAULT_CONSUME_IMAGE
                 ):
-                    extra_comps.append(utils.convert.animation_from_surface(image))
+                    extra_comps.append(
+                        utils.convert.animation_from_surface(
+                            pygame.transform.rotate(image, rot)
+                        )
+                    )
 
                 # Использовать размер, заданный в Tiled, вместо размера,
                 # указанного в регистре существ. Неявно включает consume_image.
@@ -131,7 +137,11 @@ class InitLocationProcessor(esper.Processor):
                     "consume_size", DEFAULT_CONSUME_SIZE
                 ):
                     image = pygame.transform.scale(image, (object.width, object.height))
-                    extra_comps.append(utils.convert.animation_from_surface(image))
+                    extra_comps.append(
+                        utils.convert.animation_from_surface(
+                            pygame.transform.rotate(image, rot)
+                        )
+                    )
 
                 utils.make.creature(
                     self.world,
@@ -139,7 +149,7 @@ class InitLocationProcessor(esper.Processor):
                     position,
                     *extra_comps,
                     *deepcopy(CREATURES[id]),
-                    surface_preprocessor=lambda s: pygame.transform.rotate(s, -90),
+                    surface_preprocessor=lambda s: pygame.transform.rotate(s, rot),
                 )
 
     def _fill_objects(self, tilemap: pytmx.TiledMap, location: int):
