@@ -91,6 +91,7 @@ class DirectionSettingProcessor(esper.Processor):
                 self.world.add_component(entity, Direction(req.angle))
 
             self.world.remove_component(entity, SetDirectionRequestApprove)
+            self.world.remove_component(entity, SetDirectionRequest)
 
 
 class RotationProcessor(esper.Processor):

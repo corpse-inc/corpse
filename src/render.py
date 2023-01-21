@@ -2,6 +2,7 @@ import pygame
 import esper
 import utils
 
+from copy import copy
 from dataclasses import dataclass as component
 
 
@@ -100,12 +101,9 @@ class SizeApplyingProcessor(esper.Processor):
 
 class DirectionApplyingProcessor(esper.Processor):
     def process(self, **_):
+        from location import Position
         from object import BumpMarker, Solid
-        from movement import (
-            Direction,
-            SetDirectionRequest,
-            SetDirectionRequestApprove,
-        )
+        from movement import Direction, SetDirectionRequest, SetDirectionRequestApprove
 
         for _, (dir, sprite) in self.world.get_components(Direction, Sprite):
             sprite.sprite.image = pygame.transform.rotate(
@@ -115,9 +113,18 @@ class DirectionApplyingProcessor(esper.Processor):
         for entity, (sprite, dir_req) in self.world.get_components(
             Sprite, SetDirectionRequest
         ):
+            old_image = sprite.sprite.image.copy()
+            old_rect = sprite.sprite.rect.copy()
+            old_mask = copy(sprite.sprite.mask)
+
             sprite.sprite.image = pygame.transform.rotate(
                 sprite.original_image, -dir_req.angle
             )
+            sprite.sprite.rect = sprite.sprite.image.get_rect()
+            sprite.sprite.mask = pygame.mask.from_surface(sprite.sprite.image)
+
+            if pos := self.world.try_component(entity, Position):
+                sprite.sprite.rect.center = pos.coords
 
             for other_entity, (_, other_sprite) in self.world.get_components(
                 Solid, Sprite
@@ -129,19 +136,14 @@ class DirectionApplyingProcessor(esper.Processor):
                     self.world.add_component(entity, BumpMarker(other_entity))
                     self.world.add_component(other_entity, BumpMarker(entity))
 
-                    if (
-                        dir := self.world.try_component(entity, Direction)
-                    ) and dir.angle != 0:
-                        sprite.sprite.image = pygame.transform.rotate(
-                            sprite.original_image, -dir.angle
-                        )
-                    else:
-                        sprite.sprite.image = sprite.original_image
+                    sprite.sprite.image = old_image
+                    sprite.sprite.rect = old_rect
+                    sprite.sprite.mask = old_mask
 
                     break
             else:
-                self.world.add_component(entity, SpriteImageChangedMarker())
                 self.world.add_component(entity, SetDirectionRequestApprove())
+                self.world.add_component(entity, SpriteImageChangedMarker())
 
 
 class SpriteMaskComputingProcessor(esper.Processor):
