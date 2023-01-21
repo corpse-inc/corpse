@@ -1,6 +1,5 @@
 import sys
 import esper
-from meta import Id
 import utils
 import pygame
 import pygame_gui
@@ -8,101 +7,92 @@ import pygame_gui
 from copy import deepcopy
 from utils.consts import FPS
 
-from movement import (
-    DirectionAngleCalculationProcessor,
-    MovementProcessor,
-    RotationProcessor,
-    Velocity,
-)
-from animation import (
-    FrameCyclingProcessor,
-    StateChangingProcessor,
-    StateHandlingProcessor,
-)
-from location import (
-    InitLocationProcessor,
-    LocationInitRequest,
-    SpawnPoint,
-    SpawnablePositioningProcessor,
-)
-from menu import (
-    MenuDrawingProcessor,
-    MenuUpdatingProcessor,
-    MenuTogglingProcessor,
-    MenuCreationProcessor,
-)
-from creature import (
-    Damage,
-    DamageLocker,
-    PlayerMarker,
-    ZombieMarker,
-    DamageMakingProcessor,
-    DamageDelayingProcessor,
-    DamageMarkerRemovingProcessor,
-)
-from ai import (
-    Enemy,
-    EnemyRoutingProcessor,
-    EnemyRotationProcessor,
-    InstructingProcessor,
-    InstructionExecutingProcessor,
-    EnemyDamagingProcessor,
-)
-from item import (
-    Equipment,
-    Inventory,
-    ItemGroundingProcessor,
-    ItemsGroup,
-    ItemsGroupingProcessor,
-    ItemCollisionDetectingProcessor,
-    RemoveItemCollidingMarker,
-    ItemsTakingProcessor,
-    InventoryInitializingProcessor,
-    InventoryFillingProcessor,
-)
+from ai import *
+from menu import *
+from item import *
+from render import *
+from movement import *
+from location import *
+from creature import *
+from animation import *
 from event import EventProcessor
 from bind import BindingProcessor
 from ui import UiDrawingProcessor
 from camera import CameraProcessor
-from render import RenderProcessor
 from roof import RoofTogglingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
+from object import BumpMarkerRemovingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
 
 
 PROCESSORS = (
+    # Location / Positioning
     InitLocationProcessor,
     SpawnablePositioningProcessor,
+    #
+    # Bindings
     BindingProcessor,
-    SolidGroupingProcessor,
-    DirectionAngleCalculationProcessor,
-    RotationProcessor,
+    #
+    # Movement / Deformations
     MovementProcessor,
+    RotationProcessor,
+    DirectionSettingProcessor,
+    #
+    # Animation
     FrameCyclingProcessor,
     StateChangingProcessor,
     StateHandlingProcessor,
-    CameraProcessor,
-    RoofTogglingProcessor,
+    #
+    # Damage
     DamageMakingProcessor,
     DamageDelayingProcessor,
+    #
+    # Enemy
     EnemyRoutingProcessor,
     EnemyRotationProcessor,
     EnemyDamagingProcessor,
+    #
+    # Bot instructions
     InstructingProcessor,
     InstructionExecutingProcessor,
+    #
+    # Render / Sprites / Applying Transformations
+    SpriteMakingProcessor,
+    SpriteSortingProcessor,
+    SpriteRemovingProcessor,
+    SizeApplyingProcessor,
+    DirectionApplyingProcessor,
+    SpriteMaskComputingProcessor,
+    SpriteRectUpdatingProcessor,
+    SpriteImageChangedMarkerRemovingProcessor,
+    InvisibilityApplyingProcessor,
+    SpriteDrawingProcessor,
+    #
+    # Inventory / Items
     InventoryInitializingProcessor,
     ItemCollisionDetectingProcessor,
     ItemsTakingProcessor,
-    ItemsGroupingProcessor,
     ItemGroundingProcessor,
     InventoryFillingProcessor,
-    RenderProcessor,
+    #
+    # Camera focus
+    CameraProcessor,
+    #
+    # Roofs
+    RoofTogglingProcessor,
+    #
+    # Events
     EventProcessor,
+    #
+    # Time
     DayNightCyclingProcessor,
+    #
+    # UI
     UiDrawingProcessor,
     ScreenReddingProcessor,
+    #
+    # Removers
     DamageMarkerRemovingProcessor,
     BumpMarkerRemovingProcessor,
     RemoveItemCollidingMarker,
@@ -123,8 +113,6 @@ MENU_MANAGER_PROCESSORS = (
 
 def fill_world(world: esper.World):
     world.create_entity(LocationInitRequest("test"))
-
-    sprite_groups = world.create_entity(SolidGroup(), ItemsGroup())
 
     player = utils.make.creature(
         world,

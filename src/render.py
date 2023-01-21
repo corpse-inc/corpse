@@ -2,74 +2,162 @@ import pygame
 import esper
 import utils
 
-from typing import Optional
 from dataclasses import dataclass as component
 
 
 @component
-class Renderable:
-    sprite: Optional[pygame.sprite.Sprite] = None
-    _old_sprite: Optional[pygame.sprite.Sprite] = None
+class MakeRenderableRequest:
+    pass
 
 
-class RenderProcessor(esper.Processor):
-    """Добавляет все недобавленные в локацию анимированные сущности с
-    координатами и отрисовывает все спрайты на локации, повернув их на нужное
-    количество градусов при наличии компонента Direction."""
+@component
+class MakeUnrenderableRequest:
+    pass
 
-    def process(self, screen=None, **_):
+
+@component
+class Sprite:
+    original_image: pygame.surface.Surface
+    sprite: pygame.sprite.Sprite
+
+
+@component
+class SpriteImageChangedMarker:
+    pass
+
+
+class SpriteMakingProcessor(esper.Processor):
+    def process(self, **_):
         from location import Position
-        from movement import Direction
         from animation import Animation
-        from object import Size, Invisible, BumpMarker
+
+        for entity, (_, ani, pos) in self.world.get_components(
+            MakeRenderableRequest, Animation, Position
+        ):
+            if self.world.has_component(entity, Sprite):
+                continue
+            self.world.add_component(entity, utils.make.sprite_component(ani, pos))
+            self.world.add_component(entity, SpriteImageChangedMarker())
+            self.world.remove_component(entity, MakeRenderableRequest)
+
+
+class SpriteSortingProcessor(esper.Processor):
+    def process(self, **_):
+        from location import Position
 
         location = utils.get.location(self)
-        location.sprites.empty()
 
-        solid_sprites = utils.get.solid_group(self).group
+        for _, (sprite, pos) in self.world.get_components(Sprite, Position):
+            if sprite.sprite not in location.sprites:
+                location.sprites.add(sprite.sprite, layer=pos.layer.value)
 
-        for entity, (render, ani, pos) in self.world.get_components(
-            Renderable, Animation, Position
-        ):
-            if self.world.try_component(entity, Invisible):
+
+class SpriteRemovingProcessor(esper.Processor):
+    def process(self, **_):
+        location = utils.get.location(self)
+
+        for entity, _ in self.world.get_component(MakeUnrenderableRequest):
+            if not (sprite := self.world.try_component(entity, Sprite)):
                 continue
 
-            img = utils.convert.surface_from_animation(ani)
+            location.sprites.remove(sprite.sprite)
+            self.world.remove_component(entity, Sprite)
+            self.world.remove_component(entity, MakeUnrenderableRequest)
 
-            if size := self.world.try_component(entity, Size):
-                img = pygame.transform.scale(img, (size.w, size.h))
 
-            if (dir := self.world.try_component(entity, Direction)) and dir.angle != 0:
-                rotate_img = pygame.transform.rotate(img.convert_alpha(), -dir.angle)
+class SizeApplyingProcessor(esper.Processor):
+    def process(self, **_):
+        from object import Size
 
-                sprite = utils.make.sprite(
-                    rotate_img,
-                    rotate_img.get_rect(center=pos.coords),
-                    pygame.mask.from_surface(rotate_img),
-                )
+        for entity, (sprite, size) in self.world.get_components(Sprite, Size):
+            if sprite.sprite.image.get_size() == (size.w, size.h):
+                continue
 
-                solid_sprites.remove(render._old_sprite)
-                if not pygame.sprite.spritecollideany(
-                    sprite, solid_sprites, collided=pygame.sprite.collide_mask
-                ):
-                    img = rotate_img
-                elif render._old_sprite is not None:
-                    self.world.add_component(entity, BumpMarker())
-                    img = render._old_sprite.image
-
-            sprite = utils.make.sprite(
-                img,
-                img.get_rect(center=pos.coords),
-                pygame.mask.from_surface(img),
+            sprite.sprite.image = pygame.transform.scale(
+                sprite.original_image, (size.w, size.h)
             )
 
-            if sprite not in location.sprites:
-                location.sprites.add(sprite, layer=pos.layer.value)
+            self.world.add_component(entity, SpriteImageChangedMarker())
 
-            render.sprite = sprite
-            render._old_sprite = sprite
 
-        solid_sprites.empty()
+class DirectionApplyingProcessor(esper.Processor):
+    def process(self, **_):
+        from object import BumpMarker, Solid
+        from movement import (
+            Direction,
+            SetDirectionRequest,
+            SetDirectionRequestApprove,
+        )
 
-        if screen is not None:
-            location.sprites.draw(screen)
+        for _, (dir, sprite) in self.world.get_components(Direction, Sprite):
+            sprite.sprite.image = pygame.transform.rotate(
+                sprite.original_image, -dir.angle
+            )
+
+        for entity, (sprite, dir_req) in self.world.get_components(
+            Sprite, SetDirectionRequest
+        ):
+            sprite.sprite.image = pygame.transform.rotate(
+                sprite.original_image, -dir_req.angle
+            )
+
+            for other_entity, (_, other_sprite) in self.world.get_components(
+                Solid, Sprite
+            ):
+                if entity == other_entity:
+                    continue
+
+                if pygame.sprite.collide_mask(sprite.sprite, other_sprite.sprite):
+                    self.world.add_component(entity, BumpMarker(other_entity))
+                    self.world.add_component(other_entity, BumpMarker(entity))
+
+                    if (
+                        dir := self.world.try_component(entity, Direction)
+                    ) and dir.angle != 0:
+                        sprite.sprite.image = pygame.transform.rotate(
+                            sprite.original_image, -dir.angle
+                        )
+                    else:
+                        sprite.sprite.image = sprite.original_image
+
+                    break
+            else:
+                self.world.add_component(entity, SpriteImageChangedMarker())
+                self.world.add_component(entity, SetDirectionRequestApprove())
+
+
+class SpriteMaskComputingProcessor(esper.Processor):
+    def process(self, **_):
+        for _, (_, sprite) in self.world.get_components(
+            SpriteImageChangedMarker, Sprite
+        ):
+            sprite.sprite.mask = pygame.mask.from_surface(sprite.sprite.image)
+
+
+class SpriteRectUpdatingProcessor(esper.Processor):
+    def process(self, **_):
+        from location import Position
+
+        for _, (_, sprite, pos) in self.world.get_components(
+            SpriteImageChangedMarker, Sprite, Position
+        ):
+            sprite.sprite.rect = sprite.sprite.image.get_rect(center=pos.coords)
+
+
+class SpriteImageChangedMarkerRemovingProcessor(esper.Processor):
+    def process(self, **_):
+        for entity, _ in self.world.get_component(SpriteImageChangedMarker):
+            self.world.remove_component(entity, SpriteImageChangedMarker)
+
+
+class InvisibilityApplyingProcessor(esper.Processor):
+    def process(self, **_):
+        from object import Invisible
+
+        for _, (_, sprite) in self.world.get_components(Invisible, Sprite):
+            sprite.sprite.image.set_alpha(0)
+
+
+class SpriteDrawingProcessor(esper.Processor):
+    def process(self, screen=None, **_):
+        utils.get.location(self).sprites.draw(screen)

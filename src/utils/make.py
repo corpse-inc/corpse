@@ -1,15 +1,16 @@
-from copy import deepcopy
 import os
+import utils
 import esper
 import pygame
 import pygame_menu
 
+
+from copy import deepcopy
 from utils.fs import ResourcePath, dir_count
+from typing import Optional, Callable, Iterable
 
 from location import Position, SpawnPoint
 from animation import StateType
-
-from typing import Optional, Callable, Iterable
 
 
 def main_menu_theme(settings) -> pygame_menu.Theme:
@@ -82,6 +83,20 @@ def sprite(
     return sprite
 
 
+def sprite_component(animation, position):
+    from render import Sprite
+
+    img = utils.convert.surface_from_animation(animation)
+
+    sprite = utils.make.sprite(
+        img,
+        img.get_rect(center=position.coords),
+        pygame.mask.from_surface(img),
+    )
+
+    return Sprite(img, sprite)
+
+
 def creature(
     world: esper.World,
     id: str,
@@ -127,9 +142,9 @@ def creature(
     from meta import Id
     from object import Solid
     from bind import BindRequest
-    from render import Renderable
     from creature import Creature, Health
     from movement import Direction, Velocity
+    from render import MakeRenderableRequest
     from animation import States, Animation, Part, PartType
 
     def load_surface(path):
@@ -150,8 +165,8 @@ def creature(
         Creature(),
         Health(),
         Solid(),
-        Direction(),
-        Renderable(),
+        Direction(0),
+        MakeRenderableRequest(),
         Velocity(pygame.Vector2(0)),
         States(states),
         position,
@@ -171,7 +186,7 @@ def creature(
 
         part_id = world.create_entity(
             Animation(tuple(part_frames), animation_delay),
-            Renderable(),
+            MakeRenderableRequest(),
             Part(creature, PartType.from_str(part)),
         )
 
