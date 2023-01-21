@@ -11,12 +11,15 @@
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.2507,
-            "selectedLayer": 4,
+            "scale": 0.43,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 3925.0099720781814,
-                "y": 1260.4706820901479
+                "x": 4854.651162790698,
+                "y": 2327.906976744186
             }
+        },
+        "summer_island/map.tmx#Ground_as_tiles": {
+            "scaleInDock": 1
         },
         "summer_island/tilesets/boats.tsx": {
             "dynamicWrapping": true,
@@ -31,7 +34,7 @@
         "summer_island/tilesets/ground.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
-            "scaleInEditor": 0.0627
+            "scaleInEditor": 0.4261
         },
         "summer_island/tilesets/ground_as_tiles.tsx": {
             "dynamicWrapping": false,
@@ -128,6 +131,7 @@
             "scaleInEditor": 0.6818
         }
     },
+    "last.imagePath": "C:/Users/Anton/AsepriteProjects",
     "openFiles": [
         "winter_island/map.tmx",
         "winter_island/tilesets/autumn_ground.tsx",
@@ -143,17 +147,17 @@
     ],
     "project": "corpse.tiled-project",
     "recentFiles": [
+        "summer_island/map.tmx",
+        "summer_island/tilesets/objects.tsx",
+        "summer_island/tilesets/ground.tsx",
         "summer_island/tilesets/trees.tsx",
         "summer_island/tilesets/roof.tsx",
-        "summer_island/tilesets/objects.tsx",
         "summer_island/tilesets/interior.tsx",
         "summer_island/tilesets/house_floor.tsx",
         "summer_island/tilesets/ground_as_tiles.tsx",
-        "summer_island/tilesets/ground.tsx",
         "summer_island/tilesets/creatures.tsx",
         "summer_island/tilesets/boats.tsx",
         "winter_island/map.tmx",
-        "summer_island/map.tmx",
         "winter_island/tilesets/winter_graund.tsx"
     ]
 }
