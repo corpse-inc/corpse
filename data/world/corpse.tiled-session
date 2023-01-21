@@ -66,8 +66,8 @@
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4080,
-                "y": 4192
+                "x": 3998,
+                "y": 3996
             }
         },
         "winter_island/map.tmx#autumn_trees.tsx": {
@@ -139,9 +139,8 @@
     ],
     "project": "corpse.tiled-project",
     "recentFiles": [
-        "winter_island/map.tmx",
+        "summer_island/tilesets/creatures.tsx",
         "winter_island/tilesets/autumn_ground.tsx",
-        "winter_island/tilesets/boats.tsx",
         "winter_island/tilesets/creatures.tsx",
         "winter_island/tilesets/interior.tsx",
         "winter_island/tilesets/machine.tsx",
@@ -150,6 +149,7 @@
         "winter_island/tilesets/tileset.tsx",
         "winter_island/tilesets/trees.tsx",
         "winter_island/tilesets/winter_graund.tsx",
-        "summer_island/tilesets/trees.tsx"
+        "winter_island/map.tmx",
+        "winter_island/tilesets/boats.tsx"
     ]
 }
