@@ -133,13 +133,14 @@ def fill_world(world: esper.World):
         world,
         "zombie",
         SpawnPoint("zombie"),
-        Velocity(pygame.Vector2(0), 3),
         Enemy(player),
-        Damage(50),
-        DamageLocker(50),
-        ZombieMarker(),
+        *CREATURES["zombie"],
         surface_preprocessor=lambda s: pygame.transform.rotate(s, -90),
     )
+
+
+def fill_registers(world: esper.World):
+    init_creatures_registry(world)
 
 
 if __name__ == "__main__":
@@ -155,6 +156,7 @@ if __name__ == "__main__":
     world = esper.World()
 
     fill_world(world)
+    fill_registers(world)
 
     for processor in PROCESSORS:
         world.add_processor(processor())

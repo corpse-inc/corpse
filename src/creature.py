@@ -1,6 +1,8 @@
-from typing import Optional
 import esper
+import utils
+import pygame
 
+from typing import Optional
 from dataclasses import dataclass as component
 
 
@@ -90,6 +92,27 @@ class PlayerMarker:
     pass
 
 
-@component
-class ZombieMarker:
+CREATURES = {}
+
+
+def init_creatures_registry(world: esper.World):
+    from ai import Enemy
+    from movement import Velocity
+
+    player = utils.get.player(world)
+
+    registry = {
+        "zombie": (
+            Damage(5),
+            DamageLocker(50),
+            Enemy(player),
+            Velocity(pygame.Vector2(0), 3),
+        )
+    }
+
+    for key, val in registry.items():
+        CREATURES[key] = val
+
+
+class CreatureNotFoundError(Exception):
     pass

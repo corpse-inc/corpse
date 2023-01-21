@@ -2,8 +2,9 @@ import pygame
 import esper
 import pytmx
 import pyscroll
-from movement import SetDirectionRequest
-from render import MakeRenderableRequest
+from ai import Enemy
+from creature import CREATURES, CreatureNotFoundError
+from movement import Direction
 import utils
 
 from typing import Tuple
@@ -11,7 +12,9 @@ from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
 from meta import Id
+from render import MakeRenderableRequest
 from object import Invisible, ObjectNotFoundError, Size, Solid
+from utils.consts import DEFAULT_CONSUME_IMAGE, DEFAULT_CONSUME_SIZE
 
 
 class Layer(IntEnum):
@@ -64,30 +67,27 @@ class SpawnPoint:
 class InitLocationProcessor(esper.Processor):
     """Инициализирует локации."""
 
-    def _fill_objects(self, tilemap: pytmx.TiledMap, location: int):
-        from movement import Direction
+    def _fill_object(
+        self, group: pytmx.TiledObjectGroup, object: pytmx.TiledObject, location: int
+    ):
+        layer = Layer.from_str(group.name)
+        position = Position(location, pygame.Vector2(object.as_points[1]), layer)
+        size = Size(object.width, object.height)
+        image = object.image.convert_alpha() if object.image else None
 
-        for group in tilemap.objectgroups:
-            for object in group:
-                object: pytmx.TiledObject
-
+        match layer:
+            case Layer.Items | Layer.Objects | Layer.Roofs:
                 entity = self.world.create_entity(
-                    Position(
-                        location,
-                        pygame.Vector2(object.as_points[1]),
-                        Layer.from_str(group.name),
-                    ),
-                    Size(object.width, object.height),
+                    position,
+                    size,
                     MakeRenderableRequest(),
                 )
 
                 if not object.visible:
                     self.world.add_component(entity, Invisible())
 
-                if object.image:
-                    image = pygame.transform.scale(
-                        object.image.convert_alpha(), (object.width, object.height)
-                    )
+                if image:
+                    image = pygame.transform.scale(image, (object.width, object.height))
                     self.world.add_component(
                         entity,
                         utils.convert.animation_from_surface(image),
@@ -99,12 +99,47 @@ class InitLocationProcessor(esper.Processor):
                         Direction(angle=object.rotation),
                     )
 
-                if object.properties.get("is_solid", False):
+                if not object.properties.get("soft", False) and layer == Layer.Objects:
                     self.world.add_component(entity, Solid())
 
-                if item_id := object.properties.get("item", False):
-                    for comp in utils.make.item_comps(item_id):
+                if id := object.properties.get("item", False):
+                    for comp in utils.make.item_comps(id):
                         self.world.add_component(entity, comp)
+
+            case Layer.Creatures:
+                if not (id := object.properties.get("creature", None)):
+                    return
+
+                if id not in CREATURES:
+                    raise CreatureNotFoundError(
+                        f"Существо c идентификатором {id} не найдено в регистре существ."
+                    )
+
+                extra_comps = []
+
+                # Использовать картинку, заданную в Tiled, вместо картинки,
+                # указанной в регистре существ.
+                if image and object.properties.get(
+                    "consume_image", DEFAULT_CONSUME_IMAGE
+                ):
+                    extra_comps.append(utils.convert.animation_from_surface(image))
+
+                # Использовать размер, заданный в Tiled, вместо размера,
+                # указанного в регистре существ. Неявно включает consume_image.
+                if image and object.properties.get(
+                    "consume_size", DEFAULT_CONSUME_SIZE
+                ):
+                    image = pygame.transform.scale(image, (object.width, object.height))
+                    extra_comps.append(utils.convert.animation_from_surface(image))
+
+                utils.make.creature(
+                    self.world, id, position, *extra_comps, *CREATURES[id]
+                )
+
+    def _fill_objects(self, tilemap: pytmx.TiledMap, location: int):
+        for group in tilemap.objectgroups:
+            for object in group:
+                self._fill_object(group, object, location)
 
     def _make_location(
         self, location: int, location_id: str, camera_size: Tuple[int, int]

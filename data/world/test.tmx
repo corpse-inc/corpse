@@ -18,20 +18,13 @@
 2,2,2,2,2,2,2,2,2,2
 </data>
  </layer>
- <objectgroup id="5" name="items">
-  <object id="8" gid="14" x="237.516" y="371.806" width="44.266" height="49.7101">
-   <properties>
-    <property name="item" value="gun"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="5" name="items"/>
  <objectgroup id="2" name="objects">
-  <object id="1" gid="6" x="253.333" y="174.667" width="64" height="64" rotation="312.445">
+  <object id="1" gid="6" x="255.941" y="238.664" width="64" height="64" rotation="312.445">
    <properties>
-    <property name="is_solid" type="bool" value="true"/>
+    <property name="soft" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="1" gid="6" x="96" y="96" width="64" height="64" rotation="47"/>
  </objectgroup>
  <objectgroup id="3" name="creatures">
   <object id="5" name="player" x="110" y="320">
@@ -39,6 +32,13 @@
   </object>
   <object id="7" name="zombie" x="400" y="320">
    <point/>
+  </object>
+  <object id="8" name="creature" gid="14" x="285.516" y="453.139" width="44.266" height="49.7101">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="consume_size" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup id="4" name="roofs">

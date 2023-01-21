@@ -147,19 +147,6 @@ def creature(
     from render import MakeRenderableRequest
     from animation import States, Animation, PartType, Part
 
-    def load_surface(path):
-        prep = surface_preprocessor
-        surf = pygame.image.load(path).convert_alpha()
-
-        if prep:
-            return prep(surf)
-
-        return surf
-
-    frames = []
-    for i in range(dir_count(ResourcePath.frame(id, "body"))):
-        frames.append(load_surface(ResourcePath.frame(id, "body", idx=i + 1)))
-
     creature = world.create_entity(
         Id(id),
         Creature(),
@@ -172,6 +159,24 @@ def creature(
         position,
         *extra_comps,
     )
+
+    # Если Animation уже указано, то значит разработчик имплицитно указывает,
+    # что он позаботится об обработке анимаций сам.
+    if Animation in map(type, extra_comps):
+        return creature
+
+    def load_surface(path):
+        prep = surface_preprocessor
+        surf = pygame.image.load(path).convert_alpha()
+
+        if prep:
+            return prep(surf)
+
+        return surf
+
+    frames = []
+    for i in range(dir_count(ResourcePath.frame(id, "body"))):
+        frames.append(load_surface(ResourcePath.frame(id, "body", idx=i + 1)))
 
     parts = []
     for part in extra_parts:
