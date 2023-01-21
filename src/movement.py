@@ -1,4 +1,5 @@
 import esper
+from creature import DeadMarker
 import utils
 import pygame
 
@@ -80,6 +81,11 @@ class SetDirectionRequestApprove:
     pass
 
 
+@component
+class LookAfterMouseCursor:
+    pass
+
+
 class DirectionSettingProcessor(esper.Processor):
     def process(self, **_):
         for entity, (_, req) in self.world.get_components(
@@ -87,8 +93,6 @@ class DirectionSettingProcessor(esper.Processor):
         ):
             if dir := self.world.try_component(entity, Direction):
                 dir.angle = req.angle
-            else:
-                self.world.add_component(entity, Direction(req.angle))
 
             self.world.remove_component(entity, SetDirectionRequestApprove)
             self.world.remove_component(entity, SetDirectionRequest)
@@ -97,22 +101,19 @@ class DirectionSettingProcessor(esper.Processor):
 class RotationProcessor(esper.Processor):
     """Вращает объекты при необходимости."""
 
-    def _rotate_player(self):
-        """Поворачивает игрока так, чтобы он смотрел на курсор мыши."""
-
+    def process(self, **_):
         from location import Position
 
-        player, pos = utils.get.player(self, Position, id=True)
         location = utils.get.location(self)
-
         mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
-        player_pos = pygame.Vector2(location.renderer.translate_point(pos.coords))
 
-        rotation_vector = mouse_pos - player_pos
+        for entity, (_, pos) in self.world.get_components(
+            LookAfterMouseCursor, Position
+        ):
+            rotation_vector = mouse_pos - pygame.Vector2(
+                location.renderer.translate_point(pos.coords)
+            )
 
-        self.world.add_component(
-            player, SetDirectionRequest(utils.math.vector_angle(rotation_vector))
-        )
-
-    def process(self, **_):
-        self._rotate_player()
+            self.world.add_component(
+                entity, SetDirectionRequest(utils.math.vector_angle(rotation_vector))
+            )
