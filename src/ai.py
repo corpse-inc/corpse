@@ -170,7 +170,7 @@ class Command:
 
 @component
 class FollowInstructions:
-    commands: Sequence[Cmd]
+    commands: Sequence[Command]
     _cmds = None
     _consumed: float = 0
     _current: Optional[Command] = None

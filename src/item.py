@@ -31,19 +31,15 @@ class ItemNotFoundError(Exception):
 
 class ItemCollisionDetectingProcessor(esper.Processor):
     def process(self, **_):
-        from render import Sprite
+        from render import Collision
 
-        try:
-            player, player_render = utils.get.player(self, Sprite, id=True)
-        except TypeError:
+        if not (ret := utils.get.player(self, Collision, id=True)):
             return
 
-        if not (player and player_render):
-            return
+        player, collision = ret
 
-        for item, (_, item_render) in self.world.get_components(Item, Sprite):
-            if pygame.sprite.collide_mask(player_render.sprite, item_render.sprite):
-                self.world.add_component(player, CollidedItem(item))
+        if self.world.has_component(collision.entity, Item):
+            self.world.add_component(player, CollidedItem(collision.entity))
 
 
 class RemoveItemCollidingMarker(esper.Processor):
@@ -157,7 +153,6 @@ class GunReloadingProcessor(esper.Processor):
                     if gun.ammo != gun.ammo_capacity:
                         inv.slots[i] = None
                         gun.ammo += ammo.amount
-                        break
 
                     if gun.ammo > gun.ammo_capacity:
                         gun.ammo = gun.ammo_capacity
@@ -166,14 +161,33 @@ class GunReloadingProcessor(esper.Processor):
 
 
 @component
+class FireRate:
+    # Скорострельность. Задержка между временем выхода пуль из ствола в мс.
+    delay: int
+
+    _delay: Optional[int] = None
+
+
+@component
 class Gun:
+    # Строковый id предмета патрона.
     ammo_id: str
+
+    # Максимальное коль-во патронов в обойме
     ammo_capacity: int
+
+    # Текущее коль-во патронов в обойме
     ammo: int = 0
+
+    # Отдача оружия. Насколько градусов будет повёрнуто существо при выстрее.
+    recoil: int = 10
+
+    _fire_rate: Optional[int] = None
 
 
 @component
 class Ammo:
+    # Коль-во патронов в одном предмете
     amount: int
 
 
@@ -182,6 +196,7 @@ ITEMS = {}
 
 def init_items_registry(world: esper.World):
     from creature import PlayerUninitialized, Damage
+    from shoot import FireRate
 
     if not (player := utils.get.player(world)):
         raise PlayerUninitialized("Игрок не инициализирован")
@@ -189,6 +204,7 @@ def init_items_registry(world: esper.World):
     registry = {
         "pistol": (
             Gun("pistol_ammo", 8),
+            FireRate(400),
             About(
                 "Armscor",
                 "Старенький пистолет филиппинского производства.<br>Старый, но надёжный!",
@@ -203,22 +219,24 @@ def init_items_registry(world: esper.World):
             ),
         ),
         "machine_gun": (
-            Gun("machine_gun_ammo", 50),
+            Gun("machine_gun_ammo", 5000, recoil=90),
+            FireRate(50),
             About(
                 "Миниган",
                 "Эта пушка способна уничтожать зомби пачками.",
             ),
         ),
         "machine_gun_ammo": (
-            Ammo(50),
-            Damage(15),
+            Ammo(5000),
+            Damage(25),
             About(
                 "Патроны 7.62×51мм",
                 f"50 патронов, которыми можно зарядить, например, {ITEM_NAME_FORMATTING.format('Миниган')}",
             ),
         ),
         "sniper_rifle": (
-            Gun("sniper_rifle_ammo", 5),
+            Gun("sniper_rifle_ammo", 5, recoil=180),
+            FireRate(1000),
             About(
                 "AWP",
                 "Cнайперская винтовка британского производства.",
@@ -226,7 +244,7 @@ def init_items_registry(world: esper.World):
         ),
         "sniper_rifle_ammo": (
             Ammo(5),
-            Damage(15),
+            Damage(50),
             About(
                 "Патроны .300 калибра",
                 f"5 патронов, которыми можно зарядить, например, {ITEM_NAME_FORMATTING.format('AWP')}",

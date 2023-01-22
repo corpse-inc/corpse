@@ -2,6 +2,7 @@ import pygame
 import esper
 import pytmx
 import pyscroll
+from roof import Roof
 import utils
 
 from typing import Tuple
@@ -82,6 +83,9 @@ class InitLocationProcessor(esper.Processor):
                     size,
                     MakeRenderableRequest(),
                 )
+
+                if layer == Layer.Roofs:
+                    self.world.add_component(entity, Roof())
 
                 if not object.visible:
                     self.world.add_component(entity, Invisible())

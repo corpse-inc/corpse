@@ -15,10 +15,10 @@ from movement import *
 from location import *
 from creature import *
 from animation import *
+from shoot import *
 from event import EventProcessor
 from bind import BindingProcessor
 from camera import CameraProcessor
-from shoot import ShootingProcessor
 from roof import RoofTogglingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
@@ -34,6 +34,23 @@ PROCESSORS = (
     #
     # Bindings
     BindingProcessor,
+    #
+    # Rendering Sprites / Applying Transformations
+    CollisionHandlingProcessor,
+    SpriteMakingProcessor,
+    SpriteAnimationSyncingProcessor,
+    SpriteSortingProcessor,
+    SpriteRemovingProcessor,
+    SizeApplyingProcessor,
+    DirectionApplyingProcessor,
+    SpriteMaskComputingProcessor,
+    SpriteRectUpdatingProcessor,
+    SpriteImageChangedMarkerRemovingProcessor,
+    InvisibilityApplyingProcessor,
+    SpriteDrawingProcessor,
+    # Shooting
+    ShootingProcessor,
+    ShotDelayingProcessor,
     #
     # Movement / Deformations
     MovementProcessor,
@@ -53,19 +70,6 @@ PROCESSORS = (
     InstructingProcessor,
     InstructionExecutingProcessor,
     #
-    # Render / Sprites / Applying Transformations
-    SpriteMakingProcessor,
-    SpriteAnimationSyncingProcessor,
-    SpriteSortingProcessor,
-    SpriteRemovingProcessor,
-    SizeApplyingProcessor,
-    DirectionApplyingProcessor,
-    SpriteMaskComputingProcessor,
-    SpriteRectUpdatingProcessor,
-    SpriteImageChangedMarkerRemovingProcessor,
-    InvisibilityApplyingProcessor,
-    SpriteDrawingProcessor,
-    #
     # Inventory / Items
     InventoryInitializingProcessor,
     ItemCollisionDetectingProcessor,
@@ -82,9 +86,6 @@ PROCESSORS = (
     #
     # Events
     EventProcessor,
-    #
-    # Shooting
-    ShootingProcessor,
     #
     # Animation
     FrameCyclingProcessor,
@@ -104,6 +105,8 @@ PROCESSORS = (
     DamageMarkerRemovingProcessor,
     BumpMarkerRemovingProcessor,
     RemoveItemCollidingMarker,
+    ShotMarkerRemovingProcessor,
+    CollisionRemovingProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (

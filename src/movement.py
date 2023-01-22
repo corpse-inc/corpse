@@ -15,20 +15,16 @@ class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
     def process(self, **_):
-        from render import Sprite
+        from render import Collision
         from object import Solid, BumpMarker
         from location import Location, Position
 
         player = utils.get.player(self)
 
-        for moving, (vel, pos, render) in self.world.get_components(
+        for moving, (vel, pos) in self.world.get_components(
             Velocity,
             Position,
-            Sprite,
         ):
-            if not (moving_sprite := render.sprite):
-                continue
-
             vec = vel.vector
             if (vec.x, vec.y) == (0, 0):
                 continue
@@ -49,20 +45,14 @@ class MovementProcessor(esper.Processor):
                 if new_coords.y >= map_y or new_coords.y <= map_bounds:
                     new_coords.y = pos.coords.y
 
-            for object, (_, render) in self.world.get_components(Solid, Sprite):
-                if moving == object or not (object_sprite := render.sprite):
+            for object, (_, collision) in self.world.get_components(Solid, Collision):
+                if moving == object:
                     continue
 
-                moving_sprite.rect.center = new_coords
-
-                if object_sprite is not None and pygame.sprite.collide_mask(
-                    moving_sprite, object_sprite
-                ):
+                if collision.entity == moving:
                     new_coords = pos.coords
                     self.world.add_component(moving, BumpMarker(object))
                     self.world.add_component(object, BumpMarker(moving))
-
-                moving_sprite.rect.center = pos.coords
 
             pos.coords = new_coords
 

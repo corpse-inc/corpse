@@ -3,6 +3,7 @@ import esper
 import utils
 
 from copy import copy
+from typing import Tuple
 from dataclasses import dataclass as component
 
 
@@ -25,6 +26,12 @@ class Sprite:
 @component
 class SpriteImageChangedMarker:
     pass
+
+
+@component
+class Collision:
+    entity: int
+    collision: Tuple[int, int]
 
 
 class SpriteMakingProcessor(esper.Processor):
@@ -126,13 +133,13 @@ class DirectionApplyingProcessor(esper.Processor):
             if pos := self.world.try_component(entity, Position):
                 render.sprite.rect.center = pos.coords
 
-            for other_entity, (_, other_render) in self.world.get_components(
-                Solid, Sprite
+            for other_entity, (_, other_render, collision) in self.world.get_components(
+                Solid, Sprite, Collision
             ):
                 if entity == other_entity:
                     continue
 
-                if pygame.sprite.collide_mask(render.sprite, other_render.sprite):
+                if collision.entity == entity:
                     self.world.add_component(entity, BumpMarker(other_entity))
                     self.world.add_component(other_entity, BumpMarker(entity))
 
@@ -152,6 +159,25 @@ class SpriteMaskComputingProcessor(esper.Processor):
             SpriteImageChangedMarker, Sprite
         ):
             render.sprite.mask = pygame.mask.from_surface(render.sprite.image)
+
+
+class CollisionHandlingProcessor(esper.Processor):
+    def process(self, **_):
+        for entity1, render1 in self.world.get_component(Sprite):
+            for entity2, render2 in self.world.get_component(Sprite):
+                if entity1 == entity2:
+                    continue
+                if collision := pygame.sprite.collide_mask(
+                    render1.sprite, render2.sprite
+                ):
+                    self.world.add_component(entity1, Collision(entity2, collision))
+                    self.world.add_component(entity2, Collision(entity1, collision))
+
+
+class CollisionRemovingProcessor(esper.Processor):
+    def process(self, **_):
+        for entity, _ in self.world.get_component(Collision):
+            self.world.remove_component(entity, Collision)
 
 
 class SpriteRectUpdatingProcessor(esper.Processor):
