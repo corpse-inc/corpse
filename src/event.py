@@ -111,8 +111,10 @@ class EventProcessor(esper.Processor):
                     if not (player := utils.get.player(self)):
                         break
 
-                    if event.ui_object_id.startswith("slot"):
+                    if event.ui_object_id.startswith("slot") and (
+                        equip := self.world.try_component(player, Equipment)
+                    ):
                         slot = int(event.ui_object_id.split("slot")[-1]) - 1
-                        self.world.component_for_entity(player, Equipment).item = slot
+                        equip.item = slot
 
         self._handle_key_press(paused, settings, wheel_up, wheel_down)
