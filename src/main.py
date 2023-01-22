@@ -17,12 +17,12 @@ from creature import *
 from animation import *
 from event import EventProcessor
 from bind import BindingProcessor
-from ui import UiDrawingProcessor
 from camera import CameraProcessor
 from roof import RoofTogglingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
 from object import BumpMarkerRemovingProcessor
+from ui import UiDrawingProcessor, UiMakingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
 
 
@@ -90,6 +90,7 @@ PROCESSORS = (
     DayNightCyclingProcessor,
     #
     # UI
+    UiMakingProcessor,
     UiDrawingProcessor,
     ScreenReddingProcessor,
     #
@@ -152,6 +153,7 @@ if __name__ == "__main__":
 
     clock = pygame.time.Clock()
     uimanager = pygame_gui.UIManager(screen.get_size())
+    uistorage = {}
 
     world = esper.World()
 
@@ -199,6 +201,7 @@ if __name__ == "__main__":
             settings=settings,
             dt=clock.tick(FPS),
             uimanager=uimanager,
+            uistorage=uistorage,
         )
         chunkloader.process(settings["resolution"], world)
 
