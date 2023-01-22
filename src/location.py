@@ -2,6 +2,7 @@ import pygame
 import esper
 import pytmx
 import pyscroll
+from finish import FinishItem
 import utils
 
 from typing import Tuple
@@ -15,6 +16,7 @@ from render import MakeRenderableRequest
 from creature import CREATURES, CreatureNotFoundError
 from object import Invisible, ObjectNotFoundError, Size, Solid
 from utils.consts import DEFAULT_CONSUME_IMAGE, DEFAULT_CONSUME_SIZE
+from finish import FinishItem
 
 
 class Layer(IntEnum):
