@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.9" tiledversion="1.9.2" name="Objects" tilewidth="85" tileheight="64" tilecount="14" columns="0" objectalignment="center">
+<tileset version="1.9" tiledversion="1.9.2" name="Objects" tilewidth="151" tileheight="64" tilecount="15" columns="0" objectalignment="center">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="30" height="31" source="../../../assets/summer/objects/box/TDS04_0013_Box-02.png"/>
@@ -42,5 +42,8 @@
  </tile>
  <tile id="13">
   <image width="60" height="30" source="../../../assets/summer/objects/beach/shizlong2.png"/>
+ </tile>
+ <tile id="14">
+  <image width="151" height="45" source="../../../assets/summer/objects/dead/3843b382ffdb2d144c1057e6b0e695de (1).png"/>
  </tile>
 </tileset>

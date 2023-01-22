@@ -2,19 +2,19 @@
     "activeFile": "summer_island/map.tmx",
     "expandedProjectPaths": [
         ".",
-        "summer_island",
-        "summer_island/tilesets"
+        "summer_island/tilesets",
+        "summer_island"
     ],
     "fileStates": {
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.4505,
+            "scale": 0.2547,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 3862.375138734739,
-                "y": 5094.33962264151
+                "x": 3345.111896348646,
+                "y": 1947.3890851982724
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
@@ -57,7 +57,7 @@
         },
         "summer_island/tilesets/objects.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 1,
+            "scaleInDock": 0.1954,
             "scaleInEditor": 1
         },
         "summer_island/tilesets/roof.tsx": {
@@ -132,16 +132,17 @@
             "scaleInEditor": 0.6818
         }
     },
-    "last.imagePath": "C:/Users/Anton/AsepriteProjects",
+    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/data/assets/summer/objects/dead",
     "openFiles": [
         "summer_island/map.tmx",
-        "summer_island/tilesets/ground_as_tiles.tsx"
+        "summer_island/tilesets/ground_as_tiles.tsx",
+        "summer_island/tilesets/objects.tsx"
     ],
     "project": "corpse.tiled-project",
     "recentFiles": [
+        "summer_island/tilesets/objects.tsx",
         "summer_island/tilesets/ground_as_tiles.tsx",
         "summer_island/map.tmx",
-        "summer_island/tilesets/objects.tsx",
         "summer_island/tilesets/ground.tsx",
         "summer_island/tilesets/trees.tsx",
         "summer_island/tilesets/roof.tsx",
