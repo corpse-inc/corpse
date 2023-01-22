@@ -62,7 +62,9 @@ class UiMakingProcessor(esper.Processor):
                         sh - INV_SLOT_HEIGHT,
                     )
                     relative_rect = pygame.Rect(position, INV_SLOT_SIZE)
-                    slot["button"] = pygame_gui.elements.UIButton(relative_rect, "", ui)
+                    slot["button"] = pygame_gui.elements.UIButton(
+                        relative_rect, "", ui, object_id=f"slot{i}"
+                    )
 
                 button = slot["button"]
 

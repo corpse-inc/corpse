@@ -1,7 +1,6 @@
 import esper
 import utils
 import pygame
-
 import pygame_gui
 
 from movement import Velocity
@@ -68,10 +67,13 @@ class EventProcessor(esper.Processor):
                 case pygame.QUIT:
                     if running is not None:
                         running[0] = False
+                        break
                     else:
                         pygame.quit()
                 case pygame.KEYDOWN:
-                    player = utils.get.player(self, id=True)
+                    if not (player := utils.get.player(self)):
+                        break
+
                     if event.key == pygame.K_e and (
                         item := self.world.try_component(player, CollidedItem)
                     ):
@@ -104,5 +106,13 @@ class EventProcessor(esper.Processor):
                         wheel_up = True
                     elif event.y < 0:
                         wheel_down = True
+
+                case pygame_gui.UI_BUTTON_PRESSED:
+                    if not (player := utils.get.player(self)):
+                        break
+
+                    if event.ui_object_id.startswith("slot"):
+                        slot = int(event.ui_object_id.split("slot")[-1]) - 1
+                        self.world.component_for_entity(player, Equipment).item = slot
 
         self._handle_key_press(paused, settings, wheel_up, wheel_down)
