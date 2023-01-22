@@ -10,7 +10,7 @@ from utils.fs import ResourcePath, dir_count
 from typing import Optional, Callable, Iterable
 
 from location import Position, SpawnPoint
-from animation import StateType
+from animation import Animation, StateType
 
 
 def main_menu_theme(settings) -> pygame_menu.Theme:
@@ -225,14 +225,42 @@ def creature(
     return creature
 
 
-def item_comps(id: str, *extra_comps):
+def item_comps(
+    id: str,
+    *extra_comps,
+    surface_preprocessor: Optional[
+        Callable[[pygame.surface.Surface], pygame.surface.Surface]
+    ] = None,
+    own_surface=False,
+):
     from meta import Id
     from item import Item, ItemNotFoundError, ITEMS
 
     if id not in ITEMS:
         raise ItemNotFoundError(f"Предмет с идентификатором {id} не найден")
 
-    return Id(id), Item(), *deepcopy(ITEMS[id]), *extra_comps
+    comps = []
+
+    if not own_surface:
+
+        def load_surface(path):
+            prep = surface_preprocessor
+            surf = pygame.image.load(path).convert_alpha()
+
+            if prep:
+                return prep(surf)
+
+            return surf
+
+        comps.append(Animation((load_surface(ResourcePath.frame(id, idx=1)),)))
+
+    return (
+        Id(id),
+        Item(),
+        *deepcopy(ITEMS[id]),
+        *comps,
+        *extra_comps,
+    )
 
 
 def item(world: esper.World, id: str, *extra_comps):

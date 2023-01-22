@@ -39,11 +39,6 @@ PROCESSORS = (
     RotationProcessor,
     DirectionSettingProcessor,
     #
-    # Animation
-    FrameCyclingProcessor,
-    StateChangingProcessor,
-    StateHandlingProcessor,
-    #
     # Damage
     DamageMakingProcessor,
     DamageDelayingProcessor,
@@ -85,6 +80,11 @@ PROCESSORS = (
     #
     # Events
     EventProcessor,
+    #
+    # Animation
+    FrameCyclingProcessor,
+    StateChangingProcessor,
+    StateHandlingProcessor,
     #
     # Time
     DayNightCyclingProcessor,
@@ -129,19 +129,11 @@ def fill_world(world: esper.World):
             pygame.transform.scale2x(s), 90
         ),
     )
-    return
-    zombie = utils.make.creature(
-        world,
-        "zombie",
-        SpawnPoint("zombie"),
-        Enemy(player),
-        *CREATURES["zombie"],
-        surface_preprocessor=lambda s: pygame.transform.rotate(s, -90),
-    )
 
 
 def fill_registers(world: esper.World):
     init_creatures_registry(world)
+    init_items_registry(world)
 
 
 if __name__ == "__main__":

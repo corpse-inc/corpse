@@ -28,11 +28,6 @@ class ItemNotFoundError(Exception):
     pass
 
 
-ITEMS = {
-    "gun": (About("Оружие"),),
-}
-
-
 class ItemCollisionDetectingProcessor(esper.Processor):
     def process(self, **_):
         from render import Sprite
@@ -127,3 +122,45 @@ class ItemGroundingProcessor(esper.Processor):
             )
             self.world.add_component(item, MakeRenderableRequest())
             self.world.remove_component(ent, GroundItem)
+
+
+@component
+class Gun:
+    pass
+
+
+ITEMS = {}
+
+
+def init_items_registry(world: esper.World):
+    from creature import PlayerUninitialized
+
+    if not (player := utils.get.player(world)):
+        raise PlayerUninitialized("Игрок не инициализирован")
+
+    registry = {
+        "pistol": (
+            Gun(),
+            About(
+                "Armscor",
+                "Старенький пистолет филиппинского производства.<br>Старый, но надёжный!",
+            ),
+        ),
+        "machine_gun": (
+            Gun(),
+            About(
+                "Миниган",
+                "Эта пушка способна уничтожать зомби пачками.",
+            ),
+        ),
+        "sniper_rifle": (
+            Gun(),
+            About(
+                "AWP",
+                "Cнайперская винтовка британского производства.",
+            ),
+        ),
+    }
+
+    for key, val in registry.items():
+        ITEMS[key] = val

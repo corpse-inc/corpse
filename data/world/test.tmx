@@ -19,9 +19,10 @@
 </data>
  </layer>
  <objectgroup id="5" name="items">
-  <object id="8" gid="14" x="285.516" y="453.139" width="44.266" height="49.7101">
+  <object id="8" gid="14" x="181.516" y="431.806" width="32" height="32">
    <properties>
-    <property name="item" value="gun"/>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="item" value="pistol"/>
    </properties>
   </object>
  </objectgroup>

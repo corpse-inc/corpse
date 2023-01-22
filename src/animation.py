@@ -1,4 +1,4 @@
-from item import Inventory
+from item import Equipment, Gun, Inventory
 import utils
 import esper
 import pygame
@@ -99,6 +99,15 @@ class StateChangingProcessor(esper.Processor):
                     states.add(StateType.Stands)
                     health.value = 0
 
+            if (
+                (equip := self.world.try_component(entity, Equipment))
+                and (inv := self.world.try_component(entity, Inventory))
+                and inv.slots
+                and (item := inv.slots[equip.item])
+                and (self.world.has_component(item, Gun))
+            ):
+                states.add(StateType.HoldsGun)
+
             states_comp.value = states
 
 
@@ -133,6 +142,13 @@ class StateHandlingProcessor(esper.Processor):
                     elif ani._frame == (len(dead_frames) - 1):
                         ani.paused = True
                     ani.delay = 400 // len(ani.frames)
+
+                continue
+
+            if StateType.HoldsGun in states:
+                ani.frames = ani.state_based_frames[StateType.HoldsGun]
+            elif StateType.Stands in states:
+                ani.frames = ani.state_based_frames[StateType.Stands]
 
             for part_ent in ani.children:
                 part = self.world.component_for_entity(part_ent, Part).type
