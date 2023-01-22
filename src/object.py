@@ -22,9 +22,15 @@ class BumpMarkerRemovingProcessor(esper.Processor):
             self.world.remove_component(ent, BumpMarker)
 
 
-@component
-class SolidGroup:
-    group: pygame.sprite.Group = pygame.sprite.Group()
+class SizeComputingProcessor(esper.Processor):
+    def process(self, **_):
+        from animation import Animation
+
+        for ent, ani in self.world.get_component(Animation):
+            self.world.add_component(
+                ent, Size(*utils.convert.surface_from_animation(ani).get_size())
+            )
+
 
 @component
 class Size:

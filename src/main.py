@@ -18,12 +18,13 @@ from animation import *
 from event import EventProcessor
 from bind import BindingProcessor
 from camera import CameraProcessor
+from shoot import ShootingProcessor
 from roof import RoofTogglingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
-from object import BumpMarkerRemovingProcessor
 from ui import UiDrawingProcessor, UiMakingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
+from object import BumpMarkerRemovingProcessor, SizeComputingProcessor
 
 
 PROCESSORS = (
@@ -82,10 +83,14 @@ PROCESSORS = (
     # Events
     EventProcessor,
     #
+    # Shooting
+    ShootingProcessor,
+    #
     # Animation
     FrameCyclingProcessor,
     StateChangingProcessor,
     StateHandlingProcessor,
+    SizeComputingProcessor,
     #
     # Time
     DayNightCyclingProcessor,

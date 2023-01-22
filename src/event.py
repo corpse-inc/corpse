@@ -1,4 +1,5 @@
 import esper
+from shoot import ShootRequest
 import utils
 import pygame
 import pygame_gui
@@ -32,10 +33,18 @@ class EventProcessor(esper.Processor):
     def _handle_key_press(self, paused, settings, wheel_up, wheel_down):
         unlocked = len(self.world.get_component(EventProcessingLock)) == 0
         pressed = pygame.key.get_pressed()
+        (
+            left_clicked,
+            middle_clicked,
+            right_clicked,
+        ) = pygame.mouse.get_pressed()
 
         if pressed[pygame.K_ESCAPE]:
             paused[0] = True
             return
+
+        if left_clicked and (player := utils.get.player(self)):
+            self.world.add_component(player, ShootRequest())
 
         if (
             pressed[pygame.K_LCTRL]

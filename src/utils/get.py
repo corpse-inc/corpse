@@ -49,28 +49,21 @@ def player(source, *components, id=False, cache=True):
         return None
 
 
-def equips(source, entity, *components):
+def equips(source, entity):
     from item import Inventory, Equipment
 
     world: esper.World = (
         source if source.__class__.__name__ == "World" else source.world
     )
 
-    if not (ret := utils.get.player(world, Inventory, Equipment)):
-        return
+    if not (
+        (inv := world.try_component(entity, Inventory))
+        and inv.slots
+        and (equip := world.try_component(entity, Equipment))
+    ):
+        return None
 
-    inv, equip = ret
-
-    if not (inv.slots and (item := inv.slots[equip.item])):
-        return None, None, *([None] * len(components))
-
-    if len(components) == 0:
-        return inv, equip
-
-    if len(components) == 1:
-        return inv, equip, world.try_component(item, *components)
-
-    return inv, equip, *world.try_components(item, *components)
+    return inv.slots[equip.item]
 
 
 def player_equips(source, *components):
