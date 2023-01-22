@@ -16,7 +16,7 @@ class UiElement:
 
 
 class UiDrawingProcessor(esper.Processor):
-    """Рисует и обеовляет элементы ui, проверяет события, связанные с ui."""
+    """Рисует и обновляет элементы ui, проверяет события, связанные с ui."""
 
     def process(self, dt=None, screen=None, uimanager=None, **_):
         ui: pygame_gui.UIManager = uimanager
