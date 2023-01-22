@@ -1,4 +1,5 @@
 import esper
+import utils
 import pygame_menu
 
 _cache = {}
@@ -48,6 +49,54 @@ def player(source, *components, id=False, cache=True):
         return None
 
 
+def equips(source, entity, *components):
+    from item import Inventory, Equipment
+
+    world: esper.World = (
+        source if source.__class__.__name__ == "World" else source.world
+    )
+
+    if not (ret := utils.get.player(world, Inventory, Equipment)):
+        return
+
+    inv, equip = ret
+
+    if not (inv.slots and (item := inv.slots[equip.item])):
+        return None, None, *([None] * len(components))
+
+    if len(components) == 0:
+        return inv, equip
+
+    if len(components) == 1:
+        return inv, equip, world.try_component(item, *components)
+
+    return inv, equip, *world.try_components(item, *components)
+
+
+def player_equips(source, *components):
+    from item import Inventory, Equipment
+
+    world: esper.World = (
+        source if source.__class__.__name__ == "World" else source.world
+    )
+
+    if not (ret := utils.get.player(world, Inventory, Equipment)):
+        return
+
+    inv, equip = ret
+
+    if not (inv.slots and (item := inv.slots[equip.item])):
+        return
+
+    if len(components) == 0:
+        return inv, equip
+
+    if len(components) == 1:
+        return inv, equip, world.try_component(item, *components)
+
+    return inv, equip, *world.try_components(item, *components)
+
+
 def location(source, id=False):
     """Возвращает id сущности локации и компонент локации в виде кортежа."""
 
@@ -63,22 +112,6 @@ def location(source, id=False):
         return entity, location
 
     return location
-
-
-def solid_group(processor):
-    from object import SolidGroup
-
-    world: esper.World = processor.world
-    for _, group in world.get_component(SolidGroup):
-        return group
-
-
-def items_group(processor):
-    from item import ItemsGroup
-
-    world: esper.World = processor.world
-    for _, group in world.get_component(ItemsGroup):
-        return group
 
 
 def menu(source, id: str) -> pygame_menu.Menu:

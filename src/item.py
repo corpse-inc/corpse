@@ -2,11 +2,12 @@ import pygame
 import esper
 import utils
 
-from typing import Optional, Sequence
 from copy import deepcopy
+from typing import Optional, Sequence
 from dataclasses import dataclass as component
 
-from meta import About
+from meta import About, Id
+from utils.consts import ITEM_NAME_FORMATTING
 
 
 @component
@@ -125,39 +126,110 @@ class ItemGroundingProcessor(esper.Processor):
 
 
 @component
-class Gun:
+class ReloadGunRequest:
     pass
+
+
+class GunReloadingProcessor(esper.Processor):
+    def process(self, **_):
+        for entity, (_, inv, equip) in self.world.get_components(
+            ReloadGunRequest, Inventory, Equipment
+        ):
+            self.world.remove_component(entity, ReloadGunRequest)
+
+            if not (
+                inv.slots
+                and (current_item := inv.slots[equip.item])
+                and (gun := self.world.try_component(current_item, Gun))
+            ):
+                continue
+
+            for i, item in enumerate(inv.slots):
+                if not item:
+                    continue
+
+                id = self.world.component_for_entity(item, Id).id
+
+                if id == gun.ammo_id:
+
+                    ammo = self.world.component_for_entity(item, Ammo)
+
+                    if gun.ammo != gun.ammo_capacity:
+                        inv.slots[i] = None
+                        gun.ammo += ammo.amount
+                        break
+
+                    if gun.ammo > gun.ammo_capacity:
+                        gun.ammo = gun.ammo_capacity
+
+                    break
+
+
+@component
+class Gun:
+    ammo_id: str
+    ammo_capacity: int
+    ammo: int = 0
+
+
+@component
+class Ammo:
+    amount: int
 
 
 ITEMS = {}
 
 
 def init_items_registry(world: esper.World):
-    from creature import PlayerUninitialized
+    from creature import PlayerUninitialized, Damage
 
     if not (player := utils.get.player(world)):
         raise PlayerUninitialized("Игрок не инициализирован")
 
     registry = {
         "pistol": (
-            Gun(),
+            Gun("pistol_ammo", 8),
             About(
                 "Armscor",
                 "Старенький пистолет филиппинского производства.<br>Старый, но надёжный!",
             ),
         ),
+        "pistol_ammo": (
+            Ammo(8),
+            Damage(15),
+            About(
+                "Патроны .45 калибра",
+                f"8 патронов, которыми можно зарядить, например, {ITEM_NAME_FORMATTING.format('Armscor')}",
+            ),
+        ),
         "machine_gun": (
-            Gun(),
+            Gun("machine_gun_ammo", 50),
             About(
                 "Миниган",
                 "Эта пушка способна уничтожать зомби пачками.",
             ),
         ),
+        "machine_gun_ammo": (
+            Ammo(50),
+            Damage(15),
+            About(
+                "Патроны 7.62×51мм",
+                f"50 патронов, которыми можно зарядить, например, {ITEM_NAME_FORMATTING.format('Миниган')}",
+            ),
+        ),
         "sniper_rifle": (
-            Gun(),
+            Gun("sniper_rifle_ammo", 5),
             About(
                 "AWP",
                 "Cнайперская винтовка британского производства.",
+            ),
+        ),
+        "sniper_rifle_ammo": (
+            Ammo(5),
+            Damage(15),
+            About(
+                "Патроны .300 калибра",
+                f"5 патронов, которыми можно зарядить, например, {ITEM_NAME_FORMATTING.format('AWP')}",
             ),
         ),
     }

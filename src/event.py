@@ -6,7 +6,15 @@ import pygame_gui
 from movement import Velocity
 from creature import PlayerMarker
 from utils.consts import SLOT_KEYS
-from item import CollidedItem, Equipment, Inventory, TakeItemRequest, GroundItem
+from item import (
+    CollidedItem,
+    Equipment,
+    Gun,
+    Inventory,
+    ReloadGunRequest,
+    TakeItemRequest,
+    GroundItem,
+)
 
 from typing import Optional
 from dataclasses import dataclass as component
@@ -129,6 +137,9 @@ class EventProcessor(esper.Processor):
                                 self.world.component_for_entity(player, Equipment).item
                             ),
                         )
+
+                    if event.key == pygame.K_r and utils.get.player_equips(self, Gun):
+                        self.world.add_component(player, ReloadGunRequest())
 
                 case pygame.KEYUP:
                     self._handle_key_release(event)

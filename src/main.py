@@ -71,6 +71,7 @@ PROCESSORS = (
     ItemsTakingProcessor,
     ItemGroundingProcessor,
     InventoryFillingProcessor,
+    GunReloadingProcessor,
     #
     # Camera focus
     CameraProcessor,

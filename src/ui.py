@@ -18,8 +18,6 @@ from utils.consts import (
     SLOT_BUTTON_SELECTED_BORDER_COLOR,
 )
 
-from dataclasses import dataclass as component
-
 
 class UiMakingProcessor(esper.Processor):
     def process(self, uimanager=None, uistorage=None, screen=None, dt=None, **_):
