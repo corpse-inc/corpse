@@ -119,7 +119,8 @@ class ItemGroundingProcessor(esper.Processor):
         for ent, (ground, inv, pos) in self.world.get_components(
             GroundItem, Inventory, Position
         ):
-            item = inv.slots.pop(ground.item)
+            item = inv.slots[ground.item]
+            inv.slots[ground.item] = None
 
             self.world.add_component(
                 item, Position(pos.location, deepcopy(pos.coords), Layer.Items)

@@ -30,3 +30,11 @@ INV_SLOT_PADDING = 8
 
 SLOT_BUTTON_NORMAL_BORDER_COLOR = pygame.Color(92, 96, 98, 255)
 SLOT_BUTTON_SELECTED_BORDER_COLOR = pygame.Color(0, 50, 0, 200)
+
+SLOT_KEYS = (
+    pygame.K_1,
+    pygame.K_2,
+    pygame.K_3,
+    pygame.K_4,
+    pygame.K_5,
+)
