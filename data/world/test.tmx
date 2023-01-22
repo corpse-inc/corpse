@@ -34,7 +34,7 @@
   </object>
  </objectgroup>
  <objectgroup id="3" name="creatures">
-  <object id="5" name="player" x="110" y="320">
+  <object id="5" name="player" x="194" y="426.667">
    <point/>
   </object>
   <object id="7" name="zombie" x="400" y="320">

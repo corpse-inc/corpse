@@ -27,6 +27,8 @@ INV_SLOT_SIZE = INV_SLOT_WIDTH, INV_SLOT_HEIGHT
 # Внутренний отступ слотов.
 INV_SLOT_PADDING = 8
 
+ITEM_NAME_FORMATTING = "<font color='#55FFFF'><i>{}</i></font>"
+
 SLOT_BUTTON_NORMAL_BORDER_COLOR = pygame.Color(92, 96, 98, 255)
 SLOT_BUTTON_SELECTED_BORDER_COLOR = pygame.Color(0, 50, 0, 200)
 

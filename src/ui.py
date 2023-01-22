@@ -13,6 +13,7 @@ from utils.consts import (
     INV_SLOT_SIZE,
     INV_SLOT_WIDTH,
     INV_SLOT_HEIGHT,
+    ITEM_NAME_FORMATTING,
     SLOT_BUTTON_NORMAL_BORDER_COLOR,
     SLOT_BUTTON_SELECTED_BORDER_COLOR,
 )
@@ -47,7 +48,9 @@ class UiMakingProcessor(esper.Processor):
             if item := self.world.try_component(player, CollidedItem):
                 about = self.world.component_for_entity(item.entity, About)
                 elems["tooltips"]["take_item"] = ui.create_tool_tip(
-                    f"Взять <i>{about.name}</i> (<b>E</b>)", (sw / 2 - 50, 20), (0, 0)
+                    f"Взять {ITEM_NAME_FORMATTING.format(about.name)} (<b>E</b>)",
+                    (sw / 2 - 50, 20),
+                    (0, 0),
                 )
 
             for i in range(1, inv.capacity + 1):
@@ -110,14 +113,14 @@ class UiMakingProcessor(esper.Processor):
                     text = ""
 
                     if about := self.world.try_component(item, About):
-                        text = f"<i>{about.name}</i>"
+                        text = ITEM_NAME_FORMATTING.format(about.name)
                         if about.description:
-                            text += f"<br><br>{about.description}"
+                            text += f"<br>{about.description}"
                     else:
                         text = self.world.component_for_entity(item, Id).id
 
                     elems["tooltips"]["item_info"] = ui.create_tool_tip(
-                        text, pygame.mouse.get_pos(), (0, -INV_SLOT_HEIGHT)
+                        text, pygame.mouse.get_pos(), (0, 0)
                     )
 
 
