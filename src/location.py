@@ -12,9 +12,9 @@ from dataclasses import dataclass as component
 from meta import Id
 from movement import Direction
 from render import MakeRenderableRequest
+from utils.consts import DEFAULT_CONSUME_IMAGE
 from creature import CREATURES, CreatureNotFoundError
 from object import Invisible, ObjectNotFoundError, Size, Solid
-from utils.consts import DEFAULT_CONSUME_IMAGE, DEFAULT_CONSUME_SIZE
 
 
 class Layer(IntEnum):
