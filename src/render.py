@@ -76,7 +76,7 @@ class SpriteRemovingProcessor(esper.Processor):
         location = utils.get.location(self)
 
         for entity, _ in self.world.get_component(MakeUnrenderableRequest):
-            if not (sprite := self.world.try_component(entity, Sprite)):
+            if not (render := self.world.try_component(entity, Sprite)):
                 continue
 
             location.sprites.remove(render.sprite)
