@@ -140,6 +140,7 @@
     ],
     "project": "corpse.tiled-project",
     "recentFiles": [
+        "summer_island/tilesets/creatures.tsx",
         "summer_island/tilesets/objects.tsx",
         "summer_island/tilesets/ground_as_tiles.tsx",
         "summer_island/map.tmx",
@@ -148,7 +149,6 @@
         "summer_island/tilesets/roof.tsx",
         "summer_island/tilesets/interior.tsx",
         "summer_island/tilesets/house_floor.tsx",
-        "summer_island/tilesets/creatures.tsx",
         "summer_island/tilesets/boats.tsx",
         "winter_island/map.tmx",
         "winter_island/tilesets/winter_graund.tsx"
