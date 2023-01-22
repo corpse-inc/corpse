@@ -1,20 +1,20 @@
 {
-    "activeFile": "summer_island/map.tmx",
+    "activeFile": "summer_island/tilesets/items.tsx",
     "expandedProjectPaths": [
         ".",
-        "summer_island",
-        "summer_island/tilesets"
+        "summer_island/tilesets",
+        "summer_island"
     ],
     "fileStates": {
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 0.4505,
+            "scale": 1.06,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 3862.375138734739,
-                "y": 5094.33962264151
+                "x": 3701.88679245283,
+                "y": 1663.207547169811
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
@@ -50,6 +50,11 @@
             "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 0.0302
+        },
+        "summer_island/tilesets/items.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.312,
+            "scaleInEditor": 1
         },
         "summer_island/tilesets/machine.tsx": {
             "scaleInDock": 0.1914,
@@ -132,15 +137,17 @@
             "scaleInEditor": 0.6818
         }
     },
-    "last.imagePath": "C:/Users/Anton/AsepriteProjects",
+    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/data/assets/summer/items",
     "openFiles": [
         "summer_island/map.tmx",
-        "summer_island/tilesets/ground_as_tiles.tsx"
+        "summer_island/tilesets/items.tsx"
     ],
     "project": "corpse.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "summer_island/tilesets/ground_as_tiles.tsx",
         "summer_island/map.tmx",
+        "summer_island/tilesets/items.tsx",
+        "summer_island/tilesets/ground_as_tiles.tsx",
         "summer_island/tilesets/objects.tsx",
         "summer_island/tilesets/ground.tsx",
         "summer_island/tilesets/trees.tsx",
@@ -149,7 +156,8 @@
         "summer_island/tilesets/house_floor.tsx",
         "summer_island/tilesets/creatures.tsx",
         "summer_island/tilesets/boats.tsx",
-        "winter_island/map.tmx",
-        "winter_island/tilesets/winter_graund.tsx"
-    ]
+        "winter_island/map.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 1
 }

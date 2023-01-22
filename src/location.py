@@ -66,6 +66,7 @@ class InitLocationProcessor(esper.Processor):
 
     def _fill_objects(self, tilemap: pytmx.TiledMap, location: int):
         from movement import Direction
+        from finish import FinishItem
 
         for group in tilemap.objectgroups:
             for object in group:
@@ -100,6 +101,9 @@ class InitLocationProcessor(esper.Processor):
 
                 if object.properties.get("is_solid", False):
                     self.world.add_component(entity, Solid())
+
+                if object.properties.get('finish_item', True):
+                    self.world.add_component(entity, FinishItem())
 
                 if item_id := object.properties.get("item", False):
                     for comp in utils.make.item_comps(item_id):

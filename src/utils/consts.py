@@ -9,3 +9,6 @@ FPS = 60
 CAMERA_ZOOM = 1
 
 DEFAULT_SPEED = 3
+
+LEVELS = ['summer_island', 'winter_island']
+CURRENT_MAP = 0

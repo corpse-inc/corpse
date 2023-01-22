@@ -6,7 +6,7 @@ import pygame
 import pygame_gui
 
 from copy import deepcopy
-from utils.consts import FPS
+from utils.consts import FPS, CURRENT_MAP, LEVELS
 
 from movement import (
     DirectionAngleCalculationProcessor,
@@ -60,6 +60,7 @@ from item import (
     InventoryInitializingProcessor,
     InventoryFillingProcessor,
 )
+from finish import ComplitingLevelProcessor
 from event import EventProcessor
 from bind import BindingProcessor
 from ui import UiDrawingProcessor
@@ -106,6 +107,7 @@ PROCESSORS = (
     DamageMarkerRemovingProcessor,
     BumpMarkerRemovingProcessor,
     RemoveItemCollidingMarker,
+    ComplitingLevelProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -122,7 +124,7 @@ MENU_MANAGER_PROCESSORS = (
 
 
 def fill_world(world: esper.World):
-    world.create_entity(LocationInitRequest("summer_island/map"))
+    world.create_entity(LocationInitRequest(f'{LEVELS[CURRENT_MAP]}/map'))
 
     sprite_groups = world.create_entity(SolidGroup(), ItemsGroup())
 
