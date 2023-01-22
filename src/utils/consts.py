@@ -17,7 +17,6 @@ MAX_ZOOM = 5.0
 MIN_ZOOM = 1.0
 ZOOM_STEP = 0.1
 
-DEFAULT_CONSUME_SIZE = False
 DEFAULT_CONSUME_IMAGE = True
 
 # Размер слотов инвентаря.

@@ -86,7 +86,12 @@ class InitLocationProcessor(esper.Processor):
                 if not object.visible:
                     self.world.add_component(entity, Invisible())
 
-                if image:
+                if image and (
+                    consume_image := object.properties.get(
+                        "consume_image", DEFAULT_CONSUME_IMAGE
+                    )
+                    or layer == Layer.Objects
+                ):
                     image = pygame.transform.scale(image, (object.width, object.height))
                     self.world.add_component(
                         entity,
@@ -103,7 +108,7 @@ class InitLocationProcessor(esper.Processor):
                     self.world.add_component(entity, Solid())
 
                 if id := object.properties.get("item", False):
-                    for comp in utils.make.item_comps(id):
+                    for comp in utils.make.item_comps(id, own_surface=consume_image):
                         self.world.add_component(entity, comp)
 
             case Layer.Creatures:
@@ -119,17 +124,9 @@ class InitLocationProcessor(esper.Processor):
 
                 # Использовать картинку, заданную в Tiled, вместо картинки,
                 # указанной в регистре существ.
-                if image and object.properties.get(
-                    "consume_image", DEFAULT_CONSUME_IMAGE
+                if image and (
+                    object.properties.get("consume_image", DEFAULT_CONSUME_IMAGE)
                 ):
-                    extra_comps.append(utils.convert.animation_from_surface(image))
-
-                # Использовать размер, заданный в Tiled, вместо размера,
-                # указанного в регистре существ. Неявно включает consume_image.
-                if image and object.properties.get(
-                    "consume_size", DEFAULT_CONSUME_SIZE
-                ):
-                    image = pygame.transform.scale(image, (object.width, object.height))
                     extra_comps.append(utils.convert.animation_from_surface(image))
 
                 utils.make.creature(
