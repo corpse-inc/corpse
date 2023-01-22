@@ -80,6 +80,7 @@
             }
         },
         "winter_island/map.tmx#Ground_as_tiles": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "winter_island/map.tmx#autumn_trees.tsx": {
