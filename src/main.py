@@ -20,11 +20,11 @@ from event import EventProcessor
 from bind import BindingProcessor
 from camera import CameraProcessor
 from roof import RoofTogglingProcessor
+from object import SizeComputingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
 from ui import UiDrawingProcessor, UiMakingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-from object import BumpMarkerRemovingProcessor, SizeComputingProcessor
 
 
 PROCESSORS = (
@@ -40,7 +40,6 @@ PROCESSORS = (
     SpriteMakingProcessor,
     SpriteAnimationSyncingProcessor,
     SpriteSortingProcessor,
-    SpriteRemovingProcessor,
     SizeApplyingProcessor,
     DirectionApplyingProcessor,
     SpriteMaskComputingProcessor,
@@ -102,8 +101,8 @@ PROCESSORS = (
     ScreenReddingProcessor,
     #
     # Removers
+    SpriteRemovingProcessor,
     DamageMarkerRemovingProcessor,
-    BumpMarkerRemovingProcessor,
     RemoveItemCollidingMarker,
     ShotMarkerRemovingProcessor,
     CollisionRemovingProcessor,

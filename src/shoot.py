@@ -1,12 +1,9 @@
 import esper
-from creature import DamageRequest
-from meta import Id
-from object import BumpMarker, Solid
 import utils
 import pygame
 
 from item import FireRate
-from render import MakeRenderableRequest
+from render import MakeRenderableRequest, MakeUnrenderableRequest
 from ai import Cmd, Command, FollowInstructions
 
 from dataclasses import dataclass as component
@@ -47,17 +44,18 @@ class ShotDelayingProcessor(esper.Processor):
 
 
 class ShootingProcessor(esper.Processor):
-    def process(self, dt=None, **_):
-        from utils.fs import ResourcePath
-        from item import ITEMS
-        from animation import Animation
-        from creature import Damage
+    def process(self, **_):
         from location import Layer
+        from item import Gun, ITEMS
+        from creature import Health
+        from render import Collision
         from movement import Velocity
-        from item import Gun
-        from object import Size
         from location import Position
         from movement import Direction
+        from object import Size, Solid
+        from animation import Animation
+        from utils.fs import ResourcePath
+        from creature import Damage, DamageRequest
 
         for ent, (_, pos, dir, size) in self.world.get_components(
             ShootRequest,
@@ -106,13 +104,14 @@ class ShootingProcessor(esper.Processor):
 
             self.world.add_component(ent, ShotMarker())
 
-        for ent, (bullet, bump) in self.world.get_components(Bullet, BumpMarker):
-            print(f"player damaged bump.entity")
-
-            if damage := self.world.try_component(ent, Damage):
+        for ent, (bullet, collision) in self.world.get_components(Bullet, Collision):
+            if self.world.has_component(collision.entity, Health) and (
+                damage := self.world.try_component(ent, Damage)
+            ):
                 self.world.create_entity(
-                    DamageRequest(bullet.owner, bump.entity, damage.value)
+                    DamageRequest(bullet.owner, collision.entity, damage.value)
                 )
+            self.world.add_component(ent, MakeUnrenderableRequest)
             self.world.delete_entity(ent)
 
 

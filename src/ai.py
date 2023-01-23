@@ -19,10 +19,11 @@ class EnemyRoutingProcessor(esper.Processor):
     """Маршрутизирует враждебных существ."""
 
     def process(self, **_):
+        from object import Solid
+        from render import Collision
         from location import Position
-        from object import BumpMarker
-        from creature import DeadMarker
         from movement import Velocity
+        from creature import DeadMarker
 
         for ent, (enemy, pos, vel) in self.world.get_components(
             Enemy, Position, Velocity
@@ -60,7 +61,9 @@ class EnemyRoutingProcessor(esper.Processor):
             elif ey > y:
                 vel.vector.y = vel.value
 
-            if object := self.world.try_component(ent, BumpMarker):
+            if (
+                object := self.world.try_component(ent, Collision)
+            ) and self.world.has_component(ent, Solid):
                 self.world.add_component(
                     ent,
                     FollowInstructions(
@@ -98,16 +101,16 @@ class EnemyRotationProcessor(esper.Processor):
 
 class EnemyDamagingProcessor(esper.Processor):
     def process(self, **_):
+        from render import Collision
         from creature import Damage, DamageLock, DamageRequest
-        from object import BumpMarker
 
-        for entity, (enemy, bump, damage) in self.world.get_components(
-            Enemy, BumpMarker, Damage
+        for entity, (enemy, collision, damage) in self.world.get_components(
+            Enemy, Collision, Damage
         ):
             if self.world.has_component(entity, DamageLock):
                 continue
 
-            if enemy.entity == bump.entity:
+            if enemy.entity == collision.entity:
                 self.world.create_entity(
                     DamageRequest(entity, enemy.entity, damage.value)
                 )

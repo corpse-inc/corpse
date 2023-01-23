@@ -15,8 +15,8 @@ class MovementProcessor(esper.Processor):
     """Перемещает каждую перемещаемую сущность на заданный вектор скорости."""
 
     def process(self, **_):
+        from object import Solid
         from render import Collision
-        from object import Solid, BumpMarker
         from location import Location, Position
 
         player = utils.get.player(self)
@@ -45,14 +45,37 @@ class MovementProcessor(esper.Processor):
                 if new_coords.y >= map_y or new_coords.y <= map_bounds:
                     new_coords.y = pos.coords.y
 
-            for object, (_, collision) in self.world.get_components(Solid, Collision):
+            if not (
+                (moving_collision := self.world.try_component(moving, Collision))
+                and self.world.has_component(moving_collision.entity, Solid)
+            ):
+                pos.coords = new_coords
+                continue
+
+            goback = 1
+            x, y = pos.coords
+            for object, (_, _, objpos) in self.world.get_components(
+                Solid, Collision, Position
+            ):
                 if moving == object:
                     continue
 
-                if collision.entity == moving:
+                if moving_collision.entity == object:
+                    ox, oy = objpos.coords
+
                     new_coords = pos.coords
-                    self.world.add_component(moving, BumpMarker(object))
-                    self.world.add_component(object, BumpMarker(moving))
+
+                    if x < ox:
+                        new_coords.x -= goback
+                    elif x > ox:
+                        new_coords.x += goback
+
+                    if y < oy:
+                        new_coords.y -= goback
+                    elif y > oy:
+                        new_coords.y += goback
+
+                    break
 
             pos.coords = new_coords
 

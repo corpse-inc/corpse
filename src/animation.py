@@ -38,7 +38,7 @@ class Animation:
     frames: Tuple[pygame.surface.Surface]
     delay: int = 0
     paused: bool = False
-    children: Tuple[int] = ()
+    children: Tuple[int] = None
     state_based_frames: Optional[Dict[StateType, Tuple[pygame.surface.Surface]]] = None
     _frame: int = 0
     _delay: int = 0
@@ -68,6 +68,12 @@ class FrameCyclingProcessor(esper.Processor):
         for _, ani in self.world.get_component(Animation):
             if ani.paused:
                 continue
+
+            if ani.state_based_frames is None:
+                ani.state_based_frames = {}
+
+            if ani.children is None:
+                ani.children = ()
 
             if ani.delay:
                 if ani._delay <= 0:
@@ -147,7 +153,10 @@ class StateHandlingProcessor(esper.Processor):
 
             if StateType.HoldsGun in states:
                 ani.frames = ani.state_based_frames[StateType.HoldsGun]
-            elif StateType.Stands in states:
+            elif (
+                StateType.Stands in states
+                and StateType.Stands in ani.state_based_frames
+            ):
                 ani.frames = ani.state_based_frames[StateType.Stands]
 
             for part_ent in ani.children:

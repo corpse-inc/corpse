@@ -109,7 +109,7 @@ class SizeApplyingProcessor(esper.Processor):
 class DirectionApplyingProcessor(esper.Processor):
     def process(self, **_):
         from location import Position
-        from object import BumpMarker, Solid
+        from object import Solid
         from movement import Direction, SetDirectionRequest, SetDirectionRequestApprove
 
         for _, (dir, render) in self.world.get_components(Direction, Sprite):
@@ -133,16 +133,13 @@ class DirectionApplyingProcessor(esper.Processor):
             if pos := self.world.try_component(entity, Position):
                 render.sprite.rect.center = pos.coords
 
-            for other_entity, (_, other_render, collision) in self.world.get_components(
-                Solid, Sprite, Collision
+            for other_entity, (_, collision) in self.world.get_components(
+                Solid, Collision
             ):
                 if entity == other_entity:
                     continue
 
                 if collision.entity == entity:
-                    self.world.add_component(entity, BumpMarker(other_entity))
-                    self.world.add_component(other_entity, BumpMarker(entity))
-
                     render.sprite.image = old_image
                     render.sprite.rect = old_rect
                     render.sprite.mask = old_mask
