@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="6019">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="6054">
  <tileset firstgid="1" source="tilesets/roof.tsx"/>
  <tileset firstgid="26" name="Ground_as_tiles" tilewidth="32" tileheight="32" tilecount="1440" columns="45" objectalignment="center">
-  <image source="../../assets/winter/background/source/default.png" width="1440" height="1024"/>
+  <image source="../../assets/winter/background/Source/default.png" width="1440" height="1024"/>
   <tile id="92">
    <properties>
     <property name="is_solid" type="bool" value="true"/>
@@ -1513,7 +1513,7 @@
   <object id="1427" gid="1485" x="6757.53" y="2801.58" width="85" height="23"/>
   <object id="1428" gid="1485" x="6878.53" y="2809.58" width="85" height="23"/>
   <object id="1429" gid="1485" x="6997.49" y="2778.87" width="85" height="23" rotation="322.209"/>
-  <object id="1430" gid="1485" x="7109.61" y="2682.07" width="85" height="23" rotation="268.99"/>
+  <object id="1430" gid="1485" x="7080.28" y="2680.74" width="85" height="23" rotation="268.99"/>
   <object id="1431" gid="1485" x="6330.05" y="2589.79" width="85" height="23" rotation="339.939"/>
   <object id="1433" gid="1479" x="6941.48" y="2420.27" width="20" height="20"/>
   <object id="1434" gid="1479" x="6969.59" y="2433.49" width="20" height="20"/>
@@ -5021,6 +5021,9 @@
   <object id="6015" gid="1529" x="4973.42" y="3202.26" width="47" height="58"/>
   <object id="6016" gid="1529" x="4989.9" y="3082.18" width="47" height="58"/>
   <object id="6017" gid="1533" x="4709.41" y="3111.25" width="70.9688" height="86.3438"/>
+  <object id="6020" gid="1531" x="6933.33" y="2712.33" width="67.9729" height="100.685" rotation="182.023"/>
+  <object id="6021" gid="1529" x="6761.83" y="2434.67" width="47" height="58"/>
+  <object id="6022" gid="1529" x="6843.17" y="2440" width="47" height="58"/>
  </objectgroup>
  <objectgroup id="4" name="roofs">
   <object id="1233" gid="21" x="3601.26" y="1604.64" width="367.63" height="280.27" rotation="180"/>
@@ -5054,5 +5057,34 @@
   <object id="4004" gid="14" x="3009.48" y="2944.55" width="132.333" height="132.667" rotation="270.382"/>
   <object id="4814" gid="14" x="6082.39" y="3745.85" width="134.93" height="133.76" rotation="270.382"/>
   <object id="4873" gid="14" x="6078.22" y="3968.01" width="134.93" height="133.76" rotation="270.382"/>
+  <object id="6025" gid="1525" x="6724.5" y="2664.5" width="41" height="39"/>
+  <object id="6026" gid="1525" x="6943.17" y="2640.5" width="41" height="39"/>
+  <object id="6027" gid="1525" x="6640.5" y="2603.17" width="41" height="39"/>
+  <object id="6028" gid="1525" x="7251.17" y="2932.5" width="41" height="39"/>
+  <object id="6029" gid="1525" x="7031.17" y="3165.83" width="41" height="39"/>
+  <object id="6030" gid="1525" x="6787.17" y="3143.17" width="41" height="39"/>
+  <object id="6031" gid="1525" x="6579.17" y="3000.5" width="41" height="39"/>
+  <object id="6032" gid="1525" x="6448.5" y="3055.17" width="41" height="39"/>
+  <object id="6033" gid="1525" x="6444.5" y="2833.83" width="41" height="39"/>
+  <object id="6034" gid="1525" x="6779.17" y="2880.5" width="41" height="39"/>
+  <object id="6035" gid="1526" x="7111.17" y="2882.67" width="41" height="48"/>
+  <object id="6036" gid="1526" x="7225.83" y="3038.67" width="41" height="48"/>
+  <object id="6037" gid="1526" x="7281.83" y="2797.33" width="41" height="48"/>
+  <object id="6038" gid="1526" x="6775.17" y="3038.67" width="41" height="48"/>
+  <object id="6039" gid="1526" x="6521.83" y="2734.67" width="41" height="48"/>
+  <object id="6040" gid="1546" x="6527.17" y="3166.67" width="41" height="44"/>
+  <object id="6041" gid="1546" x="6523.17" y="2930.67" width="41" height="44"/>
+  <object id="6042" gid="1546" x="6376.5" y="2928" width="41" height="44"/>
+  <object id="6043" gid="1546" x="7013.83" y="2972" width="41" height="44"/>
+  <object id="6044" gid="1547" x="7208.5" y="3178.67" width="41" height="44"/>
+  <object id="6045" gid="1547" x="6965.83" y="2893.33" width="41" height="44"/>
+  <object id="6046" gid="1547" x="7215.17" y="2717.33" width="41" height="44"/>
+  <object id="6047" gid="1545" x="7144" y="3016" width="44" height="42"/>
+  <object id="6048" gid="1528" x="7367.17" y="2904" width="35" height="62"/>
+  <object id="6049" gid="1528" x="6636.5" y="2814.67" width="35" height="62"/>
+  <object id="6050" gid="1528" x="6924.5" y="3173.33" width="35" height="62"/>
+  <object id="6051" gid="1527" x="6597.83" y="3271.17" width="35" height="65"/>
+  <object id="6052" gid="1527" x="6636.5" y="2927.17" width="35" height="65"/>
+  <object id="6053" gid="1527" x="7013.83" y="2615.17" width="35" height="65"/>
  </objectgroup>
 </map>

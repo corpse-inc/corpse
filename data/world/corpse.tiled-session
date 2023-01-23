@@ -81,7 +81,8 @@
         },
         "winter_island/map.tmx#Ground_as_tiles": {
             "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "winter_island/map.tmx#autumn_trees.tsx": {
             "scaleInDock": 1
@@ -152,7 +153,7 @@
         }
     },
     "last.externalTilesetPath": "C:/Users/Anton/PycharmProjects/corpse/data/world/winter_island/tilesets",
-    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/data/assets/zombi",
+    "last.imagePath": "/home/AD.SCH1357.COM/user36672/PycharmProjects/corpse/data/assets/winter/background/Source",
     "openFiles": [
         "winter_island/map.tmx",
         "winter_island/tilesets/autumn_trees.tsx",
