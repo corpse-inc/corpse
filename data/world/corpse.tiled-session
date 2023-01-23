@@ -72,11 +72,11 @@
             "scaleInEditor": 1
         },
         "winter_island/map.tmx": {
-            "scale": 0.184,
-            "selectedLayer": 0,
+            "scale": 0.33,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1206.5217391304345,
-                "y": 1358.6956521739132
+                "x": 3763.636363636364,
+                "y": 4845.454545454546
             }
         },
         "winter_island/map.tmx#Ground_as_tiles": {
