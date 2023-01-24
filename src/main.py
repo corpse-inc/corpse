@@ -36,17 +36,17 @@ PROCESSORS = (
     BindingProcessor,
     #
     # Rendering Sprites / Applying Transformations
-    CollisionHandlingProcessor,
     SpriteMakingProcessor,
     SpriteAnimationSyncingProcessor,
     SpriteSortingProcessor,
     SizeApplyingProcessor,
     DirectionApplyingProcessor,
-    SpriteMaskComputingProcessor,
-    SpriteRectUpdatingProcessor,
-    SpriteImageChangedMarkerRemovingProcessor,
     InvisibilityApplyingProcessor,
+    SpriteRectUpdatingProcessor,
+    SpriteMaskComputingProcessor,
+    CollisionHandlingProcessor,
     SpriteDrawingProcessor,
+    #
     # Shooting
     ShootingProcessor,
     ShotDelayingProcessor,
@@ -105,6 +105,7 @@ PROCESSORS = (
     DamageMarkerRemovingProcessor,
     RemoveItemCollidingMarker,
     ShotMarkerRemovingProcessor,
+    SpriteImageChangedMarkerRemovingProcessor,
     CollisionRemovingProcessor,
 )
 

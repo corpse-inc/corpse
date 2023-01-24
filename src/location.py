@@ -26,8 +26,8 @@ class Layer(IntEnum):
     # Порядок имеет значение!
     Ground = auto()
     Items = auto()
-    Objects = auto()
     Creatures = auto()
+    Objects = auto()
     Roofs = auto()
 
     def __str__(self):

@@ -23,7 +23,6 @@ class MovementProcessor(esper.Processor):
 
         player = utils.get.player(self)
 
-        print()
         for moving, (vel, pos) in self.world.get_components(
             Velocity,
             Position,
@@ -64,7 +63,6 @@ class MovementProcessor(esper.Processor):
                     continue
 
                 if moving_collision.entity == object:
-                    print(self.world.try_component(object, Id))
                     ox, oy = objpos.coords
 
                     new_coords = pos.coords

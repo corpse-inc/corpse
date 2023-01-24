@@ -1,7 +1,3 @@
-from ai import Enemy
-from item import Equipment, Gun, Inventory
-from location import Layer, Position
-from render import MakeUnrenderableRequest
 import utils
 import esper
 import pygame
@@ -10,9 +6,13 @@ from enum import Enum, auto
 from typing import Dict, Optional, Set, Tuple
 from dataclasses import dataclass as component
 
+from ai import Enemy
 from object import Invisible, Solid
+from location import Layer, Position
+from item import Inventory, Equipment, Gun
+from render import MakeUnrenderableRequest
 from creature import Creature, Damage, Health, DeadMarker
-from movement import LookAfterMouseCursor, Velocity
+from movement import LookAfterMouseCursor, SetDirectionRequest, Velocity, Direction
 
 
 class StateType(Enum):
@@ -133,13 +133,15 @@ class StateHandlingProcessor(esper.Processor):
                     Creature,
                     Velocity,
                     Solid,
+                    SetDirectionRequest,
                     LookAfterMouseCursor,
+                    Enemy,
                     Inventory,
                     Damage,
                 )
 
                 if pos := self.world.try_component(entity, Position):
-                    pos.layer = Layer.Objects
+                    pos.layer = Layer.Creatures
 
                 for comp in remove_comps:
                     if self.world.has_component(entity, comp):

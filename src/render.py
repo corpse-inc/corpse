@@ -110,8 +110,6 @@ class SizeApplyingProcessor(esper.Processor):
 
 class DirectionApplyingProcessor(esper.Processor):
     def process(self, **_):
-        from location import Position
-        from object import Solid
         from movement import Direction, SetDirectionRequest, SetDirectionRequestApprove
 
         for _, (dir, render) in self.world.get_components(Direction, Sprite):
@@ -119,37 +117,11 @@ class DirectionApplyingProcessor(esper.Processor):
                 render.original_image, -dir.angle
             )
 
-        for entity, (render, dir_req) in self.world.get_components(
+        for entity, (render, _) in self.world.get_components(
             Sprite, SetDirectionRequest
         ):
-            old_image = render.sprite.image.copy()
-            old_rect = render.sprite.rect.copy()
-            old_mask = copy(render.sprite.mask)
-
-            render.sprite.image = pygame.transform.rotate(
-                render.original_image, -dir_req.angle
-            )
-            render.sprite.rect = render.sprite.image.get_rect()
-            render.sprite.mask = pygame.mask.from_surface(render.sprite.image)
-
-            if pos := self.world.try_component(entity, Position):
-                render.sprite.rect.center = pos.coords
-
-            for other_entity, (_, collision) in self.world.get_components(
-                Solid, Collision
-            ):
-                if entity == other_entity:
-                    continue
-
-                if collision.entity == entity:
-                    render.sprite.image = old_image
-                    render.sprite.rect = old_rect
-                    render.sprite.mask = old_mask
-
-                    break
-            else:
-                self.world.add_component(entity, SetDirectionRequestApprove())
-                self.world.add_component(entity, SpriteImageChangedMarker())
+            self.world.add_component(entity, SetDirectionRequestApprove())
+            self.world.add_component(entity, SpriteImageChangedMarker())
 
 
 class SpriteMaskComputingProcessor(esper.Processor):

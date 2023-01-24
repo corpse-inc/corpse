@@ -87,7 +87,7 @@ class ShootingProcessor(esper.Processor):
                     pos.location,
                     pos.coords.copy()
                     + pygame.Vector2(size.w // 3, 0).rotate(dir.angle),
-                    Layer.Objects,
+                    Layer.Creatures,
                 ),
                 Velocity(
                     utils.math.angle_vector(dir.angle) * utils.consts.BULLET_SPEED

@@ -148,8 +148,10 @@ class InstructionExecutingProcessor(esper.Processor):
                 continue
 
             if (
-                ins := self.world.try_component(ent, FollowInstructions)
-            ) and cmd == Cmd.Rotate:
+                dir
+                and (ins := self.world.try_component(ent, FollowInstructions))
+                and cmd == Cmd.Rotate
+            ):
                 consume = cons / 10
                 dir.angle += consume
                 dir.vector = None
