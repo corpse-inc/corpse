@@ -141,7 +141,7 @@ class StateHandlingProcessor(esper.Processor):
                 )
 
                 if pos := self.world.try_component(entity, Position):
-                    pos.layer = Layer.Creatures
+                    pos.layer = Layer.Ground
 
                 for comp in remove_comps:
                     if self.world.has_component(entity, comp):

@@ -17,6 +17,8 @@ class ShootRequest:
 @component
 class Bullet:
     owner: int
+    gun: int
+    start_coords: pygame.Vector2
 
 
 @component
@@ -80,13 +82,16 @@ class ShootingProcessor(esper.Processor):
 
             damage = next(filter(lambda c: type(c) is Damage, ITEMS[gun.ammo_id])).value
 
+            coords = pygame.Vector2(
+                pos.coords.copy() + pygame.Vector2(size.w // 3, 0).rotate(dir.angle),
+            )
+
             self.world.create_entity(
-                Bullet(ent),
+                Bullet(ent, equips, coords.copy()),
                 Direction(dir.angle),
                 Position(
                     pos.location,
-                    pos.coords.copy()
-                    + pygame.Vector2(size.w // 3, 0).rotate(dir.angle),
+                    coords,
                     Layer.Creatures,
                 ),
                 Velocity(
@@ -104,15 +109,24 @@ class ShootingProcessor(esper.Processor):
 
             self.world.add_component(ent, ShotMarker())
 
-        for ent, (bullet, collision) in self.world.get_components(Bullet, Collision):
-            if self.world.has_component(collision.entity, Health) and (
-                damage := self.world.try_component(ent, Damage)
-            ):
+        for ent, (bullet, damage, pos) in self.world.get_components(
+            Bullet, Damage, Position
+        ):
+            collision = self.world.try_component(ent, Collision)
+
+            if collision and self.world.has_component(collision.entity, Health):
                 self.world.create_entity(
                     DamageRequest(bullet.owner, collision.entity, damage.value)
                 )
-            self.world.add_component(ent, MakeUnrenderableRequest())
-            self.world.delete_entity(ent)
+
+            if (
+                collision
+                and self.world.has_component(collision.entity, Solid)
+                or bullet.start_coords.distance_to(pos.coords)
+                > self.world.component_for_entity(bullet.gun, Gun).range
+            ):
+                self.world.add_component(ent, MakeUnrenderableRequest())
+                self.world.delete_entity(ent)
 
 
 class ShotMarkerRemovingProcessor(esper.Processor):

@@ -10,13 +10,6 @@ from copy import deepcopy
 from enum import IntEnum, auto
 from dataclasses import dataclass as component
 
-from meta import Id
-from movement import Direction
-from render import MakeRenderableRequest
-from utils.consts import DEFAULT_CONSUME_IMAGE
-from creature import CREATURES, CreatureNotFoundError
-from object import Invisible, ObjectNotFoundError, Size, Solid
-
 
 class Layer(IntEnum):
     """Каждая локация имеет три слоя: земля, объекты и крыши. На земле
@@ -71,6 +64,12 @@ class InitLocationProcessor(esper.Processor):
     def _fill_object(
         self, group: pytmx.TiledObjectGroup, object: pytmx.TiledObject, location: int
     ):
+        from movement import Direction
+        from render import MakeRenderableRequest
+        from object import Invisible, Size, Solid
+        from utils.consts import DEFAULT_CONSUME_IMAGE
+        from creature import CREATURES, CreatureNotFoundError
+
         layer = Layer.from_str(group.name)
         position = Position(location, pygame.Vector2(object.as_points[1]), layer)
         size = Size(object.width, object.height)
@@ -164,6 +163,8 @@ class InitLocationProcessor(esper.Processor):
         return Location(tilemap, renderer, sprites)
 
     def process(self, location=None, settings=None, **_):
+        from meta import Id
+
         for entity, request in self.world.get_component(LocationInitRequest):
             location = self._make_location(entity, request.id, settings["resolution"])
             self.world.add_component(entity, location)
@@ -173,6 +174,8 @@ class InitLocationProcessor(esper.Processor):
 
 class SpawnablePositioningProcessor(esper.Processor):
     def process(self, **_):
+        from object import ObjectNotFoundError
+
         location_id, location = utils.get.location(self, id=True)
 
         for ent, point in self.world.get_component(SpawnPoint):

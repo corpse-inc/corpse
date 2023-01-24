@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="330">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="393">
  <tileset firstgid="1" source="ground.tsx"/>
  <tileset firstgid="6" source="storages.tsx"/>
  <tileset firstgid="12" source="roofs.tsx"/>
@@ -20,19 +20,19 @@
 </data>
  </layer>
  <objectgroup id="5" name="items">
-  <object id="62" gid="17" x="203.667" y="198" width="100" height="35">
+  <object id="62" gid="17" x="76.1816" y="557.064" width="100" height="35">
    <properties>
     <property name="item" value="machine_gun"/>
    </properties>
   </object>
-  <object id="63" gid="18" x="156.667" y="197" width="32" height="32">
+  <object id="63" gid="18" x="81.8132" y="539.69" width="32" height="32">
    <properties>
     <property name="item" value="machine_gun_ammo"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="3" name="creatures">
-  <object id="5" name="player" x="223.333" y="189.333">
+  <object id="5" name="player" x="86.4909" y="553.076">
    <point/>
   </object>
   <object id="310" gid="14" x="474.642" y="330.433" width="32" height="32">
@@ -65,7 +65,7 @@
     <property name="creature" value="zombie"/>
    </properties>
   </object>
-  <object id="320" gid="14" x="571.135" y="510.316" width="32" height="32">
+  <object id="320" gid="14" x="424.936" y="396.865" width="32" height="32">
    <properties>
     <property name="consume_image" type="bool" value="false"/>
     <property name="creature" value="zombie"/>
@@ -101,7 +101,7 @@
     <property name="creature" value="zombie"/>
    </properties>
   </object>
-  <object id="326" gid="14" x="571.135" y="564.117" width="32" height="32">
+  <object id="326" gid="14" x="424.936" y="450.667" width="32" height="32">
    <properties>
     <property name="consume_image" type="bool" value="false"/>
     <property name="creature" value="zombie"/>
@@ -125,9 +125,366 @@
     <property name="creature" value="zombie"/>
    </properties>
   </object>
+  <object id="333" gid="14" x="424.349" y="192.422" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="334" gid="14" x="400.374" y="165.286" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="335" gid="14" x="503.298" y="143.064" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="336" gid="14" x="503.298" y="138.387" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="337" gid="14" x="492.771" y="268.211" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="338" gid="14" x="520.842" y="372.305" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="339" gid="14" x="408.561" y="394.527" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="340" gid="14" x="379.321" y="283.416" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="341" gid="14" x="357.099" y="180.492" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="342" gid="14" x="463.532" y="207.392" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="343" gid="14" x="458.853" y="338.387" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="344" gid="14" x="520.842" y="426.106" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="345" gid="14" x="437.801" y="441.311" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="346" gid="14" x="372.303" y="448.328" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="347" gid="14" x="347.742" y="352.422" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="348" gid="14" x="466.455" y="311.72" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="349" gid="14" x="410.901" y="178.152" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="350" gid="14" x="513.825" y="155.93" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="351" gid="14" x="545.404" y="257.685" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="352" gid="14" x="534.877" y="387.509" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="353" gid="14" x="416.749" y="378.152" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="354" gid="14" x="450.667" y="513.825" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="355" gid="14" x="421.427" y="402.714" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="356" gid="14" x="399.205" y="299.79" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="357" gid="14" x="474.059" y="220.258" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="358" gid="14" x="500.959" y="457.685" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="359" gid="14" x="416.749" y="431.953" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="360" gid="14" x="479.907" y="560.609" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="361" gid="14" x="414.409" y="567.626" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="362" gid="14" x="389.848" y="471.72" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="363" gid="14" x="337.8" y="162.012" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="364" gid="14" x="313.825" y="134.877" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="365" gid="14" x="416.749" y="112.655" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="366" gid="14" x="448.328" y="214.41" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="367" gid="14" x="406.222" y="237.801" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="368" gid="14" x="434.293" y="341.895" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="369" gid="14" x="322.012" y="364.117" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="370" gid="14" x="292.772" y="253.006" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="371" gid="14" x="270.55" y="150.082" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="372" gid="14" x="376.983" y="176.983" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="373" gid="14" x="372.304" y="307.977" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="374" gid="14" x="434.293" y="395.696" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="375" gid="14" x="351.252" y="410.901" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="377" gid="14" x="261.193" y="322.012" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="378" gid="14" x="523.765" y="312.889" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="379" gid="14" x="468.211" y="179.321" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="380" gid="14" x="571.135" y="157.099" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="381" gid="14" x="602.714" y="258.854" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="382" gid="14" x="445.988" y="275.228" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="383" gid="14" x="474.059" y="379.322" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="384" gid="14" x="507.977" y="514.994" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="385" gid="14" x="478.737" y="403.883" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="386" gid="14" x="456.515" y="300.959" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="387" gid="14" x="531.369" y="221.427" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="388" gid="14" x="412.07" y="345.404" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="389" gid="14" x="474.059" y="433.123" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="390" gid="14" x="537.217" y="561.778" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="391" gid="14" x="471.719" y="568.795" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
+  <object id="392" gid="14" x="447.158" y="472.889" width="32" height="32">
+   <properties>
+    <property name="consume_image" type="bool" value="false"/>
+    <property name="creature" value="zombie"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="objects">
-  <object id="60" gid="6" x="350" y="385.333" width="64" height="500"/>
+  <object id="60" gid="6" x="292.69" y="475.976" width="64" height="63.7427"/>
+  <object id="330" gid="6" x="224.14" y="281.579" width="64" height="63.7427"/>
+  <object id="331" gid="6" x="284.959" y="378.655" width="64" height="63.7427"/>
+  <object id="332" gid="6" x="321.216" y="570.468" width="64" height="63.7427"/>
  </objectgroup>
  <objectgroup id="4" name="roofs"/>
 </map>
