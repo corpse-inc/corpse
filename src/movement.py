@@ -16,11 +16,14 @@ class MovementProcessor(esper.Processor):
 
     def process(self, **_):
         from object import Solid
+        from animation import Part
+        from meta import Id
         from render import Collision
         from location import Location, Position
 
         player = utils.get.player(self)
 
+        print()
         for moving, (vel, pos) in self.world.get_components(
             Velocity,
             Position,
@@ -57,10 +60,11 @@ class MovementProcessor(esper.Processor):
             for object, (_, _, objpos) in self.world.get_components(
                 Solid, Collision, Position
             ):
-                if moving == object:
+                if moving == object or self.world.has_component(object, Part):
                     continue
 
                 if moving_collision.entity == object:
+                    print(self.world.try_component(object, Id))
                     ox, oy = objpos.coords
 
                     new_coords = pos.coords

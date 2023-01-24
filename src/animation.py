@@ -1,4 +1,7 @@
+from ai import Enemy
 from item import Equipment, Gun, Inventory
+from location import Layer, Position
+from render import MakeUnrenderableRequest
 import utils
 import esper
 import pygame
@@ -8,7 +11,7 @@ from typing import Dict, Optional, Set, Tuple
 from dataclasses import dataclass as component
 
 from object import Invisible, Solid
-from creature import Health, DeadMarker
+from creature import Creature, Damage, Health, DeadMarker
 from movement import LookAfterMouseCursor, Velocity
 
 
@@ -127,11 +130,16 @@ class StateHandlingProcessor(esper.Processor):
 
             if StateType.Dead in states:
                 remove_comps = (
+                    Creature,
                     Velocity,
+                    Solid,
                     LookAfterMouseCursor,
                     Inventory,
-                    Solid,
+                    Damage,
                 )
+
+                if pos := self.world.try_component(entity, Position):
+                    pos.layer = Layer.Objects
 
                 for comp in remove_comps:
                     if self.world.has_component(entity, comp):
@@ -148,6 +156,8 @@ class StateHandlingProcessor(esper.Processor):
                     elif ani._frame == (len(dead_frames) - 1):
                         ani.paused = True
                     ani.delay = 400 // len(ani.frames)
+                else:
+                    self.world.add_component(entity, MakeUnrenderableRequest())
 
                 continue
 

@@ -111,7 +111,7 @@ class ShootingProcessor(esper.Processor):
                 self.world.create_entity(
                     DamageRequest(bullet.owner, collision.entity, damage.value)
                 )
-            self.world.add_component(ent, MakeUnrenderableRequest)
+            self.world.add_component(ent, MakeUnrenderableRequest())
             self.world.delete_entity(ent)
 
 

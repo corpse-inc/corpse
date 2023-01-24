@@ -76,6 +76,8 @@ class SpriteSortingProcessor(esper.Processor):
         for _, (render, pos) in self.world.get_components(Sprite, Position):
             if render.sprite not in location.sprites:
                 location.sprites.add(render.sprite, layer=pos.layer.value)
+            if location.sprites.get_layer_of_sprite(render.sprite) != pos.layer.value:
+                location.sprites.change_layer(render.sprite, pos.layer.value)
 
 
 class SpriteRemovingProcessor(esper.Processor):
