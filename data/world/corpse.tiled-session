@@ -1,23 +1,24 @@
 {
     "activeFile": "summer_island/map.tmx",
     "expandedProjectPaths": [
-        "summer_island/tilesets",
-        ".",
-        "summer_island",
         "winter_island/tilesets",
-        "winter_island"
+        "winter_island",
+        "summer_island/tilesets",
+        "summer_island",
+        "."
     ],
     "fileStates": {
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
                 4,
+                5,
                 3
             ],
-            "scale": 0.265,
+            "scale": 1.0073,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 3239.622641509434,
-                "y": 852.8301886792451
+                "x": 4777.6233495482975,
+                "y": 8004.56666335749
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
