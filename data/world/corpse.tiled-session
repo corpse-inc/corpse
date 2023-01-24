@@ -1,22 +1,23 @@
 {
-    "activeFile": "winter_island/map.tmx",
+    "activeFile": "winter_island/map - Copy.tmx",
     "expandedProjectPaths": [
-        "summer_island/tilesets",
         "winter_island/tilesets",
         ".",
         "winter_island",
+        "summer_island/tilesets",
         "summer_island"
     ],
     "fileStates": {
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
-                4
+                4,
+                3
             ],
-            "scale": 0.33,
+            "scale": 0.8237,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 5189.39393939394,
-                "y": 3030.30303030303
+                "x": 7035.328396260775,
+                "y": 6668.690057059609
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
@@ -71,12 +72,26 @@
             "scaleInDock": 0.3314,
             "scaleInEditor": 1
         },
-        "winter_island/map.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 1,
+        "winter_island/map - Copy.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 3763.636363636364,
-                "y": 4845.454545454546
+                "x": 5992,
+                "y": 5096
+            }
+        },
+        "winter_island/map - Copy.tmx#Ground_as_tiles": {
+            "scaleInDock": 1
+        },
+        "winter_island/map.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.8942,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 4317.825989711474,
+                "y": 4013.6434802057706
             }
         },
         "winter_island/map.tmx#Ground_as_tiles": {
@@ -99,7 +114,7 @@
         },
         "winter_island/tilesets/boats.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 1,
+            "scaleInDock": 0.7482,
             "scaleInEditor": 0.4984
         },
         "winter_island/tilesets/creatures.tsx": {
@@ -165,21 +180,23 @@
         "winter_island/tilesets/objects.tsx",
         "winter_island/tilesets/trees.tsx",
         "winter_island/tilesets/tileset.tsx",
-        "winter_island/tilesets/winter_graund.tsx"
+        "winter_island/tilesets/winter_graund.tsx",
+        "summer_island/map.tmx",
+        "winter_island/map - Copy.tmx"
     ],
     "project": "corpse.tiled-project",
     "recentFiles": [
-        "winter_island/map.tmx",
-        "summer_island/map.tmx",
-        "winter_island/tilesets/creatures.tsx",
         "winter_island/tilesets/winter_graund.tsx",
-        "winter_island/tilesets/tileset.tsx",
-        "winter_island/tilesets/trees.tsx",
-        "winter_island/tilesets/objects.tsx",
-        "winter_island/tilesets/roof.tsx",
-        "winter_island/tilesets/boats.tsx",
-        "winter_island/tilesets/interior.tsx",
+        "winter_island/map.tmx",
+        "winter_island/tilesets/autumn_trees.tsx",
         "winter_island/tilesets/autumn_ground.tsx",
-        "winter_island/tilesets/autumn_trees.tsx"
+        "winter_island/tilesets/interior.tsx",
+        "winter_island/tilesets/creatures.tsx",
+        "winter_island/tilesets/boats.tsx",
+        "winter_island/tilesets/roof.tsx",
+        "winter_island/tilesets/objects.tsx",
+        "winter_island/tilesets/trees.tsx",
+        "winter_island/tilesets/tileset.tsx",
+        "summer_island/map.tmx"
     ]
 }
