@@ -112,7 +112,6 @@ class ShootingProcessor(esper.Processor):
         for ent, (bullet, damage, pos) in self.world.get_components(
             Bullet, Damage, Position
         ):
-            print(len(self.world._entities))
             collision = self.world.try_component(ent, Collision)
 
             if collision and self.world.has_component(collision.entity, Health):
