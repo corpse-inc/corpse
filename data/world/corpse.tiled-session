@@ -22,11 +22,11 @@
                 2,
                 3
             ],
-            "scale": 0.5847,
+            "scale": 2.2768,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 949.2047203694202,
-                "y": 492.56028732683427
+                "x": 1447.6458186929021,
+                "y": 1029.0758959943778
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
@@ -41,8 +41,8 @@
             "scale": 0.4569,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 6808.929743926461,
-                "y": 6708.251258481068
+                "x": 6806.741081199387,
+                "y": 6706.062595753994
             }
         },
         "summer_island/map_bog.tmx#Ground_as_tiles": {
@@ -310,7 +310,7 @@
         "summer_island/map.tmx"
     ],
     "project": "corpse.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "summer_island/tilesets/item.tsx",
         "summer_island/map.tmx",
