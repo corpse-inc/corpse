@@ -18,7 +18,7 @@ class RoofTogglingProcessor(esper.Processor):
             return
 
         for roof, _ in self.world.get_component(Roof):
-            if roof == player_collision.entity:
+            if roof in player_collision.entities:
                 self.world.add_component(roof, Invisible())
             elif self.world.try_component(roof, Invisible):
                 self.world.remove_component(roof, Invisible)

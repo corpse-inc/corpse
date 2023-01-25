@@ -109,24 +109,23 @@ class ShootingProcessor(esper.Processor):
 
             self.world.add_component(ent, ShotMarker())
 
-        for ent, (bullet, damage, pos) in self.world.get_components(
-            Bullet, Damage, Position
+        for ent, (bullet, damage, pos, collision) in self.world.get_components(
+            Bullet, Damage, Position, Collision
         ):
-            collision = self.world.try_component(ent, Collision)
+            for collides in collision.entities:
+                if self.world.has_component(collides, Health):
+                    self.world.create_entity(
+                        DamageRequest(bullet.owner, collides, damage.value)
+                    )
 
-            if collision and self.world.has_component(collision.entity, Health):
-                self.world.create_entity(
-                    DamageRequest(bullet.owner, collision.entity, damage.value)
-                )
-
-            if (
-                collision
-                and self.world.has_component(collision.entity, Solid)
-                or bullet.start_coords.distance_to(pos.coords)
-                > self.world.component_for_entity(bullet.gun, Gun).range
-            ):
-                self.world.add_component(ent, MakeUnrenderableRequest())
-                self.world.delete_entity(ent)
+                if (
+                    self.world.has_component(collides, Solid)
+                    or bullet.start_coords.distance_to(pos.coords)
+                    > self.world.component_for_entity(bullet.gun, Gun).range
+                ):
+                    self.world.add_component(ent, MakeUnrenderableRequest())
+                    self.world.delete_entity(ent)
+                    break
 
 
 class ShotMarkerRemovingProcessor(esper.Processor):

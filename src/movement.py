@@ -49,20 +49,25 @@ class MovementProcessor(esper.Processor):
 
             if not (
                 (moving_collision := self.world.try_component(moving, Collision))
-                and self.world.has_component(moving_collision.entity, Solid)
+                and any(
+                    [
+                        self.world.has_component(collides, Solid)
+                        for collides in moving_collision.entities
+                    ]
+                )
             ):
                 pos.coords = new_coords
                 continue
 
             goback = 1
             x, y = pos.coords
-            for object, (_, _, objpos) in self.world.get_components(
+            for object, (_, object_collision, objpos) in self.world.get_components(
                 Solid, Collision, Position
             ):
                 if moving == object or self.world.has_component(object, Part):
                     continue
 
-                if moving_collision.entity == object:
+                if moving in object_collision.entities:
                     ox, oy = objpos.coords
 
                     new_coords = pos.coords

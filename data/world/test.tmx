@@ -125,7 +125,7 @@
     <property name="creature" value="zombie"/>
    </properties>
   </object>
-  <object id="377" gid="14" x="332.538" y="337.217" width="32" height="32">
+  <object id="377" gid="14" x="105.637" y="329.03" width="32" height="32">
    <properties>
     <property name="consume_image" type="bool" value="false"/>
     <property name="creature" value="zombie"/>

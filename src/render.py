@@ -2,8 +2,7 @@ import pygame
 import esper
 import utils
 
-from copy import copy
-from typing import Tuple
+from typing import List
 from dataclasses import dataclass as component
 
 
@@ -30,8 +29,7 @@ class SpriteImageChangedMarker:
 
 @component
 class Collision:
-    entity: int
-    collision: Tuple[int, int]
+    entities: List[int]
 
 
 class SpriteMakingProcessor(esper.Processor):
@@ -135,14 +133,13 @@ class SpriteMaskComputingProcessor(esper.Processor):
 class CollisionHandlingProcessor(esper.Processor):
     def process(self, **_):
         for entity1, render1 in self.world.get_component(Sprite):
+            collides = []
             for entity2, render2 in self.world.get_component(Sprite):
                 if entity1 == entity2:
                     continue
-                if collision := pygame.sprite.collide_mask(
-                    render1.sprite, render2.sprite
-                ):
-                    self.world.add_component(entity1, Collision(entity2, collision))
-                    self.world.add_component(entity2, Collision(entity1, collision))
+                if pygame.sprite.collide_mask(render1.sprite, render2.sprite):
+                    collides.append(entity2)
+            self.world.add_component(entity1, Collision(collides))
 
 
 class CollisionRemovingProcessor(esper.Processor):

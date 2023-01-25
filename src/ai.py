@@ -68,7 +68,7 @@ class EnemyRoutingProcessor(esper.Processor):
                     ent,
                     FollowInstructions(
                         (Command(Cmd.StepBackward, 5),)
-                        if object.entity == enemy.entity
+                        if enemy.entity in object.entities
                         else (
                             Command(Cmd.StepBackward, 10),
                             Command(Cmd.Rotate, 70),
@@ -110,7 +110,7 @@ class EnemyDamagingProcessor(esper.Processor):
             if self.world.has_component(entity, DamageLock):
                 continue
 
-            if enemy.entity == collision.entity:
+            if enemy.entity in collision.entities:
                 self.world.create_entity(
                     DamageRequest(entity, enemy.entity, damage.value)
                 )

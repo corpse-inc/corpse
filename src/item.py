@@ -38,8 +38,9 @@ class ItemCollisionDetectingProcessor(esper.Processor):
 
         player, collision = ret
 
-        if self.world.has_component(collision.entity, Item):
-            self.world.add_component(player, CollidedItem(collision.entity))
+        for collides in collision.entities:
+            if self.world.has_component(collides, Item):
+                self.world.add_component(player, CollidedItem(collides))
 
 
 class RemoveItemCollidingMarker(esper.Processor):
