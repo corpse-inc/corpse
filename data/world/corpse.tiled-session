@@ -3,12 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "summer_island/small/map.tmx",
+    "activeFile": "summer_island/map.tmx",
     "expandedProjectPaths": [
+        "summer_island/tilesets",
         "winter_island",
-        ".",
         "winter_island/tilesets",
-        "summer_island/tilesets"
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -19,19 +19,33 @@
         },
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
-                3,
-                5,
-                4
+                2,
+                3
             ],
-            "scale": 0.3813,
+            "scale": 0.8286,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": -456.3335955940206,
-                "y": 4065.040650406505
+                "x": 2557.3256094617427,
+                "y": 2247.163890900314
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
             "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "summer_island/map_bog.tmx": {
+            "expandedObjectLayers": [
+                4,
+                3
+            ],
+            "scale": 0.4569,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 6811.118406653535,
+                "y": 5725.541694024951
+            }
+        },
+        "summer_island/map_bog.tmx#Ground_as_tiles": {
             "scaleInDock": 1
         },
         "summer_island/smal_map.tmx": {
@@ -134,12 +148,17 @@
             "scaleInDock": 1,
             "scaleInEditor": 0.0302
         },
+        "summer_island/tilesets/item.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
         "summer_island/tilesets/items.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 0.4031,
             "scaleInEditor": 1
         },
         "summer_island/tilesets/machine.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 0.1914,
             "scaleInEditor": 1
         },
@@ -157,6 +176,30 @@
             "dynamicWrapping": true,
             "scaleInDock": 0.3314,
             "scaleInEditor": 1
+        },
+        "tilesets/creatures.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/ground_as_tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/interior.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/items.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/machine.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/objects.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/roof.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/trees.tsx": {
+            "scaleInDock": 1
         },
         "winter_island/map - Copy.tmx": {
             "expandedObjectLayers": [
@@ -263,12 +306,12 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 90,
     "openFiles": [
-        "summer_island/small/map.tmx",
-        "summer_island/small/tilesets/interior.tsx"
+        "summer_island/map.tmx"
     ],
     "project": "corpse.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "summer_island/map.tmx",
         "summer_island/small/tilesets/interior.tsx",
         "summer_island/small/map.tmx",
         "summer_island/small/tilesets/items.tsx",
@@ -279,7 +322,6 @@
         "summer_island/small/tilesets/ground_as_tiles.tsx",
         "summer_island/small/tilesets/item.tsx",
         "summer_island/tilesets/ground_as_tiles.tsx",
-        "summer_island/map.tmx",
         "summer_island/smal_map.tmx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)"
