@@ -11,8 +11,8 @@ from object import Invisible, Solid
 from location import Layer, Position
 from item import Inventory, Equipment, Gun
 from render import MakeUnrenderableRequest
-from creature import Creature, Damage, Health, DeadMarker
-from movement import LookAfterMouseCursor, SetDirectionRequest, Velocity, Direction
+from creature import Creature, Damage, Health, DeadMarker, PlayerMarker
+from movement import LookAfterMouseCursor, SetDirectionRequest, Velocity
 
 
 class StateType(Enum):
@@ -157,6 +157,11 @@ class StateHandlingProcessor(esper.Processor):
                         ani.frames = dead_frames
                     elif ani._frame == (len(dead_frames) - 1):
                         ani.paused = True
+                        if not self.world.has_component(entity, PlayerMarker):
+                            self.world.add_component(entity, MakeUnrenderableRequest())
+                            for part in ani.children:
+                                self.world.delete_entity(part)
+                            self.world.delete_entity(entity)
                     ani.delay = 400 // len(ani.frames)
                 else:
                     self.world.add_component(entity, MakeUnrenderableRequest())
