@@ -222,19 +222,19 @@ def init_items_registry(world: esper.World):
             ),
         ),
         "machine_gun": (
-            Gun("machine_gun_ammo", 5000, recoil=90),
-            # FireRate(50),
+            Gun("machine_gun_ammo", 500, recoil=90),
+            FireRate(50),
             About(
                 "Миниган",
                 "Эта пушка способна уничтожать зомби пачками.",
             ),
         ),
         "machine_gun_ammo": (
-            Ammo(5000),
-            Damage(100),
+            Ammo(100),
+            Damage(10),
             About(
                 "Патроны 7.62×51мм",
-                f"50 патронов, которыми можно зарядить, например, {ITEM_NAME_FORMATTING.format('Миниган')}",
+                f"100 патронов, которыми можно зарядить, например, {ITEM_NAME_FORMATTING.format('Миниган')}",
             ),
         ),
         "sniper_rifle": (
