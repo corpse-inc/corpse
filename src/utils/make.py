@@ -1,15 +1,16 @@
-from copy import deepcopy
 import os
+import utils
 import esper
 import pygame
 import pygame_menu
 
+
+from copy import deepcopy
 from utils.fs import ResourcePath, dir_count
+from typing import Optional, Callable, Iterable
 
 from location import Position, SpawnPoint
-from animation import StateType
-
-from typing import Optional, Callable, Iterable
+from animation import Animation, StateType
 
 
 def main_menu_theme(settings) -> pygame_menu.Theme:
@@ -82,6 +83,20 @@ def sprite(
     return sprite
 
 
+def sprite_component(animation, position):
+    from render import Sprite
+
+    img = utils.convert.surface_from_animation(animation)
+
+    sprite = utils.make.sprite(
+        img,
+        img.get_rect(center=position.coords),
+        pygame.mask.from_surface(img),
+    )
+
+    return Sprite(img, sprite)
+
+
 def creature(
     world: esper.World,
     id: str,
@@ -127,10 +142,28 @@ def creature(
     from meta import Id
     from object import Solid
     from bind import BindRequest
-    from render import Renderable
     from creature import Creature, Health
     from movement import Direction, Velocity
-    from animation import States, Animation, Part, PartType
+    from render import MakeRenderableRequest
+    from animation import States, Animation, PartType, Part
+
+    creature = world.create_entity(
+        Id(id),
+        Creature(),
+        Health(),
+        Solid(),
+        Direction(0),
+        MakeRenderableRequest(),
+        Velocity(pygame.Vector2(0)),
+        States(states),
+        position,
+        *extra_comps,
+    )
+
+    # Если Animation уже указано, то значит разработчик имплицитно указывает,
+    # что он позаботится об обработке анимаций сам.
+    if Animation in map(type, extra_comps):
+        return creature
 
     def load_surface(path):
         prep = surface_preprocessor
@@ -145,19 +178,6 @@ def creature(
     for i in range(dir_count(ResourcePath.frame(id, "body"))):
         frames.append(load_surface(ResourcePath.frame(id, "body", idx=i + 1)))
 
-    creature = world.create_entity(
-        Id(id),
-        Creature(),
-        Health(),
-        Solid(),
-        Direction(),
-        Renderable(),
-        Velocity(pygame.Vector2(0)),
-        States(states),
-        position,
-        *extra_comps,
-    )
-
     parts = []
     for part in extra_parts:
         part_frames = []
@@ -170,8 +190,9 @@ def creature(
             part_frames.append(load_surface(ResourcePath.frame(id, part, idx=i + 1)))
 
         part_id = world.create_entity(
+            Id(f"{id}:{part}"),
             Animation(tuple(part_frames), animation_delay),
-            Renderable(),
+            MakeRenderableRequest(),
             Part(creature, PartType.from_str(part)),
         )
 
@@ -204,14 +225,42 @@ def creature(
     return creature
 
 
-def item_comps(id: str, *extra_comps):
+def item_comps(
+    id: str,
+    *extra_comps,
+    surface_preprocessor: Optional[
+        Callable[[pygame.surface.Surface], pygame.surface.Surface]
+    ] = None,
+    own_surface=False,
+):
     from meta import Id
     from item import Item, ItemNotFoundError, ITEMS
 
     if id not in ITEMS:
         raise ItemNotFoundError(f"Предмет с идентификатором {id} не найден")
 
-    return Id(id), Item(), *deepcopy(ITEMS[id]), *extra_comps
+    comps = []
+
+    if not own_surface:
+
+        def load_surface(path):
+            prep = surface_preprocessor
+            surf = pygame.image.load(path).convert_alpha()
+
+            if prep:
+                return prep(surf)
+
+            return surf
+
+        comps.append(Animation((load_surface(ResourcePath.frame(id, idx=1)),)))
+
+    return (
+        Id(id),
+        Item(),
+        *deepcopy(ITEMS[id]),
+        *comps,
+        *extra_comps,
+    )
 
 
 def item(world: esper.World, id: str, *extra_comps):

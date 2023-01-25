@@ -3,7 +3,7 @@ import esper
 import pygame
 
 from enum import IntEnum, auto
-from typing import Any, Optional, Sequence, Tuple
+from typing import Any, Optional, Sequence
 from dataclasses import dataclass as component
 from dataclasses import dataclass
 
@@ -19,10 +19,11 @@ class EnemyRoutingProcessor(esper.Processor):
     """Маршрутизирует враждебных существ."""
 
     def process(self, **_):
+        from object import Solid
+        from render import Collision
         from location import Position
-        from object import BumpMarker
-        from creature import DeadMarker
         from movement import Velocity
+        from creature import DeadMarker
 
         for ent, (enemy, pos, vel) in self.world.get_components(
             Enemy, Position, Velocity
@@ -60,7 +61,9 @@ class EnemyRoutingProcessor(esper.Processor):
             elif ey > y:
                 vel.vector.y = vel.value
 
-            if object := self.world.try_component(ent, BumpMarker):
+            if (
+                object := self.world.try_component(ent, Collision)
+            ) and self.world.has_component(ent, Solid):
                 self.world.add_component(
                     ent,
                     FollowInstructions(
@@ -80,31 +83,34 @@ class EnemyRotationProcessor(esper.Processor):
 
     def process(self, **_):
         from location import Position
-        from movement import Direction
+        from movement import SetDirectionRequest
 
-        for ent, (enemy, dir, pos) in self.world.get_components(
-            Enemy, Direction, Position
-        ):
+        for ent, (enemy, pos) in self.world.get_components(Enemy, Position):
             if self.world.has_component(ent, FollowInstructions):
                 continue
 
             enemy_pos = self.world.component_for_entity(enemy.entity, Position)
 
-            dir.vector = enemy_pos.coords - pos.coords
+            self.world.add_component(
+                ent,
+                SetDirectionRequest(
+                    utils.math.vector_angle(enemy_pos.coords - pos.coords)
+                ),
+            )
 
 
 class EnemyDamagingProcessor(esper.Processor):
     def process(self, **_):
+        from render import Collision
         from creature import Damage, DamageLock, DamageRequest
-        from object import BumpMarker
 
-        for entity, (enemy, bump, damage) in self.world.get_components(
-            Enemy, BumpMarker, Damage
+        for entity, (enemy, collision, damage) in self.world.get_components(
+            Enemy, Collision, Damage
         ):
             if self.world.has_component(entity, DamageLock):
                 continue
 
-            if enemy.entity == bump.entity:
+            if enemy.entity == collision.entity:
                 self.world.create_entity(
                     DamageRequest(entity, enemy.entity, damage.value)
                 )
@@ -142,8 +148,10 @@ class InstructionExecutingProcessor(esper.Processor):
                 continue
 
             if (
-                ins := self.world.try_component(ent, FollowInstructions)
-            ) and cmd == Cmd.Rotate:
+                dir
+                and (ins := self.world.try_component(ent, FollowInstructions))
+                and cmd == Cmd.Rotate
+            ):
                 consume = cons / 10
                 dir.angle += consume
                 dir.vector = None
@@ -167,7 +175,7 @@ class Command:
 
 @component
 class FollowInstructions:
-    commands: Sequence[Cmd]
+    commands: Sequence[Command]
     _cmds = None
     _consumed: float = 0
     _current: Optional[Command] = None

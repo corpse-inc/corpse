@@ -1,113 +1,112 @@
 import sys
 import esper
-from meta import Id
 import utils
 import pygame
 import pygame_gui
 
 from copy import deepcopy
-from utils.consts import FPS, CURRENT_MAP, LEVELS
+from utils.consts import FPS
 
-from movement import (
-    DirectionAngleCalculationProcessor,
-    MovementProcessor,
-    RotationProcessor,
-    Velocity,
-)
-from animation import (
-    FrameCyclingProcessor,
-    StateChangingProcessor,
-    StateHandlingProcessor,
-)
-from location import (
-    InitLocationProcessor,
-    LocationInitRequest,
-    SpawnPoint,
-    SpawnablePositioningProcessor,
-)
-from menu import (
-    MenuDrawingProcessor,
-    MenuUpdatingProcessor,
-    MenuTogglingProcessor,
-    MenuCreationProcessor,
-)
-from creature import (
-    Damage,
-    DamageLocker,
-    PlayerMarker,
-    ZombieMarker,
-    DamageMakingProcessor,
-    DamageDelayingProcessor,
-    DamageMarkerRemovingProcessor,
-)
-from ai import (
-    Enemy,
-    EnemyRoutingProcessor,
-    EnemyRotationProcessor,
-    InstructingProcessor,
-    InstructionExecutingProcessor,
-    EnemyDamagingProcessor,
-)
-from item import (
-    Equipment,
-    Inventory,
-    ItemGroundingProcessor,
-    ItemsGroup,
-    ItemsGroupingProcessor,
-    ItemCollisionDetectingProcessor,
-    RemoveItemCollidingMarker,
-    ItemsTakingProcessor,
-    InventoryInitializingProcessor,
-    InventoryFillingProcessor,
-)
-from finish import ComplitingLevelProcessor
+from ai import *
+from menu import *
+from item import *
+from shoot import *
+from render import *
+from movement import *
+from location import *
+from creature import *
+from animation import *
 from event import EventProcessor
 from bind import BindingProcessor
-from ui import UiDrawingProcessor
 from camera import CameraProcessor
-from render import RenderProcessor
 from roof import RoofTogglingProcessor
+from object import SizeComputingProcessor
 from effect import ScreenReddingProcessor
 from chrono import DayNightCyclingProcessor
+from ui import UiDrawingProcessor, UiMakingProcessor
 from chunk import ChunkUnloadingProcessor, ChunkLoadingProcessor
-from object import SolidGroup, SolidGroupingProcessor, BumpMarkerRemovingProcessor
 
 
 PROCESSORS = (
+    # Location / Positioning
     InitLocationProcessor,
     SpawnablePositioningProcessor,
+    #
+    # Bindings
     BindingProcessor,
-    SolidGroupingProcessor,
-    DirectionAngleCalculationProcessor,
-    RotationProcessor,
+    #
+    # Rendering Sprites / Applying Transformations
+    SpriteMakingProcessor,
+    SpriteAnimationSyncingProcessor,
+    SpriteSortingProcessor,
+    SizeApplyingProcessor,
+    DirectionApplyingProcessor,
+    InvisibilityApplyingProcessor,
+    SpriteRectUpdatingProcessor,
+    SpriteMaskComputingProcessor,
+    CollisionHandlingProcessor,
+    SpriteDrawingProcessor,
+    #
+    # Shooting
+    ShootingProcessor,
+    ShotDelayingProcessor,
+    #
+    # Movement / Deformations
     MovementProcessor,
-    FrameCyclingProcessor,
-    StateChangingProcessor,
-    StateHandlingProcessor,
-    CameraProcessor,
-    RoofTogglingProcessor,
+    RotationProcessor,
+    DirectionSettingProcessor,
+    #
+    # Damage
     DamageMakingProcessor,
     DamageDelayingProcessor,
+    #
+    # Enemy
     EnemyRoutingProcessor,
     EnemyRotationProcessor,
     EnemyDamagingProcessor,
+    #
+    # Bot instructions
     InstructingProcessor,
     InstructionExecutingProcessor,
+    #
+    # Inventory / Items
     InventoryInitializingProcessor,
     ItemCollisionDetectingProcessor,
     ItemsTakingProcessor,
-    ItemsGroupingProcessor,
     ItemGroundingProcessor,
     InventoryFillingProcessor,
-    RenderProcessor,
+    GunReloadingProcessor,
+    #
+    # Camera focus
+    CameraProcessor,
+    #
+    # Roofs
+    RoofTogglingProcessor,
+    #
+    # Events
     EventProcessor,
+    #
+    # Animation
+    FrameCyclingProcessor,
+    StateChangingProcessor,
+    StateHandlingProcessor,
+    SizeComputingProcessor,
+    #
+    # Time
     DayNightCyclingProcessor,
+    #
+    # UI
+    UiMakingProcessor,
     UiDrawingProcessor,
     ScreenReddingProcessor,
+    #
+    # Removers
+    SpriteRemovingProcessor,
     DamageMarkerRemovingProcessor,
-    BumpMarkerRemovingProcessor,
     RemoveItemCollidingMarker,
-    ComplitingLevelProcessor,
+    ShotMarkerRemovingProcessor,
+    SpriteImageChangedMarkerRemovingProcessor,
+    CollisionRemovingProcessor,
 )
 
 CHUNK_LOADER_PROCESSORS = (
@@ -124,15 +123,14 @@ MENU_MANAGER_PROCESSORS = (
 
 
 def fill_world(world: esper.World):
-    world.create_entity(LocationInitRequest(f'{LEVELS[CURRENT_MAP]}/map'))
-
-    sprite_groups = world.create_entity(SolidGroup(), ItemsGroup())
+    world.create_entity(LocationInitRequest(f"summer_island/map"))
 
     player = utils.make.creature(
         world,
         "player",
         SpawnPoint("player"),
         PlayerMarker(),
+        LookAfterMouseCursor(),
         Inventory(5),
         Equipment(),
         extra_parts={"legs"},
@@ -140,18 +138,11 @@ def fill_world(world: esper.World):
             pygame.transform.scale2x(s), 90
         ),
     )
-    return
-    zombie = utils.make.creature(
-        world,
-        "zombie",
-        SpawnPoint("zombie"),
-        Velocity(pygame.Vector2(0), 3),
-        Enemy(player),
-        Damage(5),
-        DamageLocker(50),
-        ZombieMarker(),
-        surface_preprocessor=lambda s: pygame.transform.rotate(s, -90),
-    )
+
+
+def fill_registers(world: esper.World):
+    init_creatures_registry(world)
+    init_items_registry(world)
 
 
 if __name__ == "__main__":
@@ -163,10 +154,12 @@ if __name__ == "__main__":
 
     clock = pygame.time.Clock()
     uimanager = pygame_gui.UIManager(screen.get_size())
+    uistorage = {}
 
     world = esper.World()
 
     fill_world(world)
+    fill_registers(world)
 
     for processor in PROCESSORS:
         world.add_processor(processor())
@@ -209,8 +202,10 @@ if __name__ == "__main__":
             settings=settings,
             dt=clock.tick(FPS),
             uimanager=uimanager,
+            uistorage=uistorage,
         )
-        chunkloader.process(settings["resolution"], world)
+        print(len(world._entities))
+        # chunkloader.process(settings["resolution"], world)
 
         pygame.display.flip()
 

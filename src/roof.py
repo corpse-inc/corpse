@@ -1,23 +1,24 @@
 import esper
-import pygame
 import utils
 
-from location import Layer, Position
+from render import Collision
 from object import Invisible
-from render import Renderable
+
+from dataclasses import dataclass as component
+
+
+@component
+class Roof:
+    pass
 
 
 class RoofTogglingProcessor(esper.Processor):
     def process(self, **_):
-        player_sprite = utils.get.player(self, Renderable).sprite
+        if not (player_collision := utils.get.player(self, Collision)):
+            return
 
-        for roof, (render, pos) in self.world.get_components(Renderable, Position):
-            roof_sprite = render.sprite
-
-            if pos.layer != Layer.Roofs or roof_sprite is None:
-                continue
-
-            if pygame.sprite.collide_mask(player_sprite, roof_sprite):
+        for roof, _ in self.world.get_component(Roof):
+            if roof == player_collision.entity:
                 self.world.add_component(roof, Invisible())
             elif self.world.try_component(roof, Invisible):
                 self.world.remove_component(roof, Invisible)

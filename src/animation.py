@@ -6,9 +6,13 @@ from enum import Enum, auto
 from typing import Dict, Optional, Set, Tuple
 from dataclasses import dataclass as component
 
+from ai import Enemy
 from object import Invisible, Solid
-from creature import Health, DeadMarker
-from movement import Direction, Velocity
+from location import Layer, Position
+from item import Inventory, Equipment, Gun
+from render import MakeUnrenderableRequest
+from creature import Creature, Damage, Health, DeadMarker, PlayerMarker
+from movement import LookAfterMouseCursor, SetDirectionRequest, Velocity
 
 
 class StateType(Enum):
@@ -37,7 +41,7 @@ class Animation:
     frames: Tuple[pygame.surface.Surface]
     delay: int = 0
     paused: bool = False
-    children: Tuple[int] = ()
+    children: Tuple[int] = None
     state_based_frames: Optional[Dict[StateType, Tuple[pygame.surface.Surface]]] = None
     _frame: int = 0
     _delay: int = 0
@@ -67,6 +71,12 @@ class FrameCyclingProcessor(esper.Processor):
         for _, ani in self.world.get_component(Animation):
             if ani.paused:
                 continue
+
+            if ani.state_based_frames is None:
+                ani.state_based_frames = {}
+
+            if ani.children is None:
+                ani.children = ()
 
             if ani.delay:
                 if ani._delay <= 0:
@@ -98,16 +108,40 @@ class StateChangingProcessor(esper.Processor):
                     states.add(StateType.Stands)
                     health.value = 0
 
+            if (
+                (equip := self.world.try_component(entity, Equipment))
+                and (inv := self.world.try_component(entity, Inventory))
+                and inv.slots
+                and (item := inv.slots[equip.item])
+                and (self.world.has_component(item, Gun))
+            ):
+                states.add(StateType.HoldsGun)
+
             states_comp.value = states
 
 
 class StateHandlingProcessor(esper.Processor):
     def process(self, **_):
         for entity, (ani, states) in self.world.get_components(Animation, States):
+            if self.world.has_component(entity, Part):
+                continue
+
             states = states.value
 
             if StateType.Dead in states:
-                remove_comps = (Velocity, Direction, Solid)
+                remove_comps = (
+                    Creature,
+                    Velocity,
+                    Solid,
+                    SetDirectionRequest,
+                    LookAfterMouseCursor,
+                    Enemy,
+                    Inventory,
+                    Damage,
+                )
+
+                if pos := self.world.try_component(entity, Position):
+                    pos.layer = Layer.Ground
 
                 for comp in remove_comps:
                     if self.world.has_component(entity, comp):
@@ -123,7 +157,24 @@ class StateHandlingProcessor(esper.Processor):
                         ani.frames = dead_frames
                     elif ani._frame == (len(dead_frames) - 1):
                         ani.paused = True
+                        if not self.world.has_component(entity, PlayerMarker):
+                            self.world.add_component(entity, MakeUnrenderableRequest())
+                            for part in ani.children:
+                                self.world.delete_entity(part)
+                            self.world.delete_entity(entity)
                     ani.delay = 400 // len(ani.frames)
+                else:
+                    self.world.add_component(entity, MakeUnrenderableRequest())
+
+                continue
+
+            if StateType.HoldsGun in states:
+                ani.frames = ani.state_based_frames[StateType.HoldsGun]
+            elif (
+                StateType.Stands in states
+                and StateType.Stands in ani.state_based_frames
+            ):
+                ani.frames = ani.state_based_frames[StateType.Stands]
 
             for part_ent in ani.children:
                 part = self.world.component_for_entity(part_ent, Part).type

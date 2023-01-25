@@ -7,17 +7,22 @@
         "."
     ],
     "fileStates": {
+        "guns.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
+                5,
                 4,
-                3,
-                5
+                3
             ],
-            "scale": 0.2625,
-            "selectedLayer": 2,
+            "scale": 0.75,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 4853.333333333333,
-                "y": 6083.809523809523
+                "x": 3613.333333333333,
+                "y": 1862
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
@@ -54,6 +59,9 @@
             "scaleInDock": 1,
             "scaleInEditor": 0.0302
         },
+        "summer_island/tilesets/items.tsx": {
+            "dynamicWrapping": false
+        },
         "summer_island/tilesets/machine.tsx": {
             "scaleInDock": 0.1914,
             "scaleInEditor": 1
@@ -64,7 +72,8 @@
             "scaleInEditor": 1
         },
         "summer_island/tilesets/roof.tsx": {
-            "scaleInDock": 0.2164,
+            "dynamicWrapping": true,
+            "scaleInDock": 0.12,
             "scaleInEditor": 0.0519
         },
         "summer_island/tilesets/trees.tsx": {
@@ -79,8 +88,8 @@
             "scale": 0.1622,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 5274.352651048088,
-                "y": 5635.01849568434
+                "x": 5271.270036991368,
+                "y": 5635.0184956843395
             }
         },
         "winter_island/map - Copy.tmx#Ground_as_tiles": {
@@ -94,8 +103,8 @@
             "scale": 0.1941,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 5051.519835136527,
-                "y": 6635.75476558475
+                "x": 4430.7058217413705,
+                "y": 6249.356002060793
             }
         },
         "winter_island/map.tmx#Ground_as_tiles": {
@@ -172,16 +181,18 @@
         }
     },
     "last.externalTilesetPath": "C:/Users/Anton/PycharmProjects/corpse/data/world/winter_island/tilesets",
-    "last.imagePath": "/home/AD.SCH1357.COM/user36672/PycharmProjects/corpse/data/assets/winter/background/Source",
+    "last.imagePath": "/home/mark/code/proj/corpse/data/frames/machine_gun",
     "openFiles": [
         "winter_island/map - Copy.tmx",
         "winter_island/map.tmx"
     ],
     "project": "corpse.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
+        "summer_island/map.tmx",
         "winter_island/map - Copy.tmx",
         "winter_island/map.tmx",
-        "summer_island/map.tmx",
+        "guns.tsx",
         "summer_island/tilesets/creatures.tsx",
         "winter_island/tilesets/tileset.tsx",
         "winter_island/tilesets/winter_graund.tsx",
@@ -189,7 +200,6 @@
         "winter_island/tilesets/autumn_ground.tsx",
         "winter_island/tilesets/interior.tsx",
         "winter_island/tilesets/creatures.tsx",
-        "winter_island/tilesets/boats.tsx",
-        "winter_island/tilesets/roof.tsx"
+        "winter_island/tilesets/boats.tsx"
     ]
 }

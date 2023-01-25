@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="5194">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="5200">
  <tileset firstgid="1" source="tilesets/ground.tsx"/>
  <tileset firstgid="18" source="tilesets/roof.tsx"/>
  <tileset firstgid="43" name="Ground_as_tiles" tilewidth="32" tileheight="32" tilecount="1440" columns="45" objectalignment="center">
@@ -455,7 +455,7 @@
  </layer>
  <objectgroup id="7" name="items"/>
  <objectgroup id="5" name="creatures">
-  <object id="1473" gid="1545" x="3817.28" y="1901.42" width="35" height="65" rotation="1.13247"/>
+  <object id="1473" gid="1545" x="3981.28" y="1450.75" width="35" height="65" rotation="1.13247"/>
   <object id="1476" gid="1549" x="6965.68" y="2695.22" width="67" height="103.333"/>
   <object id="1477" gid="1544" x="7003.02" y="2952.1" width="40.934" height="47.9227"/>
   <object id="1480" gid="1546" x="7232.61" y="2604.79" width="34.9437" height="61.9002"/>
@@ -655,7 +655,7 @@
   <object id="4273" gid="1564" x="1156.33" y="7725.56" width="41" height="44"/>
   <object id="4274" gid="1564" x="287.852" y="7679.48" width="41" height="44"/>
   <object id="4275" gid="1564" x="1727.04" y="7923.93" width="41" height="44"/>
-  <object id="4435" name="player" x="3509.79" y="1542.79">
+  <object id="4435" name="player" x="3507.79" y="1870.79">
    <point/>
   </object>
   <object id="4450" gid="1550" x="4828.02" y="2487.17" width="39" height="41"/>
@@ -4278,6 +4278,8 @@
   <object id="5185" gid="1483" x="5917.84" y="3056.42" width="29" height="28"/>
   <object id="5186" gid="1500" x="6111.84" y="3007.49" width="48" height="62"/>
   <object id="5187" gid="1491" x="6086.27" y="2765.83" width="104" height="106"/>
+  <object id="5196" gid="1671" x="3666" y="1849.48" width="30" height="103.03"/>
+  <object id="5198" gid="1671" x="3668" y="1862.48" width="30" height="103.03" rotation="67.4359"/>
  </objectgroup>
  <objectgroup id="4" name="roofs">
   <object id="1233" gid="38" x="3601.26" y="1604.64" width="367.63" height="280.27" rotation="180"/>
@@ -4311,5 +4313,6 @@
   <object id="4004" gid="31" x="3009.48" y="2944.55" width="132.333" height="132.667" rotation="270.382"/>
   <object id="4814" gid="31" x="6082.39" y="3745.85" width="134.93" height="133.76" rotation="270.382"/>
   <object id="4873" gid="31" x="6078.22" y="3968.01" width="134.93" height="133.76" rotation="270.382"/>
+  <object id="5199" gid="38" x="3660.67" y="1849.34" width="188" height="144.656"/>
  </objectgroup>
 </map>
