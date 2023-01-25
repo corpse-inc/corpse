@@ -4339,7 +4339,7 @@
   <object id="5259" gid="4679" x="6801.48" y="2244.06" width="38.0288" height="13.4897"/>
   <object id="5274" gid="4661" x="3097.96" y="2440.86" width="22.8539" height="22.0658"/>
  </objectgroup>
- <objectgroup id="4" name="roofs" visible="0">
+ <objectgroup id="4" name="roofs">
   <object id="1233" gid="38" x="3601.26" y="1604.64" width="367.63" height="280.27" rotation="180"/>
   <object id="1250" gid="33" x="5757.29" y="3804.34" width="278" height="283"/>
   <object id="1254" gid="36" x="5230.76" y="2914.12" width="330.762" height="235.762" rotation="-90"/>

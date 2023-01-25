@@ -22,11 +22,11 @@
                 2,
                 3
             ],
-            "scale": 0.8286,
+            "scale": 0.399,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 2557.3256094617427,
-                "y": 2247.163890900314
+                "x": 1398.4962406015038,
+                "y": 498.7468671679198
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
@@ -41,8 +41,8 @@
             "scale": 0.4569,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 6811.118406653535,
-                "y": 5725.541694024951
+                "x": 6808.929743926461,
+                "y": 6708.251258481068
             }
         },
         "summer_island/map_bog.tmx#Ground_as_tiles": {
