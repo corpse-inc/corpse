@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="8299">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="250" height="250" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="8322">
  <tileset firstgid="1" source="tilesets/roof.tsx"/>
  <tileset firstgid="26" name="Ground_as_tiles" tilewidth="32" tileheight="32" tilecount="1440" columns="45" objectalignment="center">
   <image source="../../assets/winter/background/Source/default.png" width="1440" height="1024"/>
@@ -200,6 +200,7 @@
  <tileset firstgid="3203" source="tilesets/autumn_ground.tsx"/>
  <tileset firstgid="4643" source="tilesets/winter_graund.tsx"/>
  <tileset firstgid="6083" source="tilesets/autumn_trees.tsx"/>
+ <tileset firstgid="6100" source="../summer_island/tilesets/machine.tsx"/>
  <layer id="1" name="ground" width="250" height="250">
   <data encoding="csv">
 3439,3439,3439,3439,3439,3439,3439,3394,3394,3439,3438,3439,3393,3393,3394,3393,3394,3393,3394,3394,3393,3393,3393,3393,3393,3393,3438,3438,3439,1953,1953,1954,1999,1954,1954,217,217,2178,261,261,261,261,261,262,126,4834,126,126,171,172,172,126,127,127,172,127,127,172,172,172,126,127,171,126,171,171,171,171,126,126,127,127,127,172,261,261,261,216,262,216,262,262,261,261,261,261,262,262,261,216,217,261,261,261,216,217,217,217,217,216,216,216,217,261,217,217,217,217,217,217,217,217,217,217,217,217,217,262,217,217,217,217,261,217,217,217,217,261,261,261,216,261,262,262,261,261,216,262,261,216,217,217,217,262,262,262,261,217,261,261,261,261,261,261,261,261,217,217,217,217,217,261,261,261,261,261,216,216,216,217,261,261,261,261,261,261,261,261,261,261,261,261,261,261,216,261,261,217,216,217,261,217,261,261,261,261,261,261,261,261,261,261,261,261,261,217,261,216,261,262,261,261,262,262,261,261,261,261,216,261,261,261,216,217,261,262,262,216,261,261,261,217,261,261,261,217,217,216,216,261,261,216,261,261,261,261,261,261,261,261,
@@ -1106,7 +1107,6 @@
   <object id="1559" gid="1476" x="5758.53" y="208.915" width="30" height="31"/>
   <object id="1560" gid="1477" x="1636.53" y="1866.91" width="19" height="19"/>
   <object id="1561" gid="1477" x="2064.53" y="2018.91" width="19" height="19"/>
-  <object id="1569" gid="1515" x="6500.85" y="3580.05" width="128" height="128" rotation="332.957"/>
   <object id="1712" gid="5" x="6517.42" y="354.652" width="196" height="196" rotation="314.405"/>
   <object id="1713" gid="12" x="7413.2" y="943.485" width="198" height="196" rotation="217.505"/>
   <object id="1714" gid="5" x="513.09" y="7616.24" width="196" height="196" rotation="333.575"/>
@@ -3232,6 +3232,8 @@
   <object id="8012" gid="1477" x="5726.83" y="4740.46" width="19" height="19" rotation="270.4"/>
   <object id="8013" gid="1477" x="5698.56" y="4739.74" width="19" height="19" rotation="270.4"/>
   <object id="8014" gid="1480" x="5727.89" y="4717.24" width="19" height="19" rotation="270.4"/>
+  <object id="8320" gid="6133" x="5689.69" y="4866.87" width="128" height="128" rotation="29.5613"/>
+  <object id="8321" gid="6126" x="5283.28" y="5831.83" width="128" height="128" rotation="328.445"/>
  </objectgroup>
  <objectgroup id="4" name="roofs">
   <object id="6076" name="player" x="7882.08" y="7888.87">
@@ -3457,7 +3459,6 @@
   <object id="8265" gid="1546" x="5090.18" y="4368.03" width="41" height="44"/>
   <object id="8266" gid="1546" x="5158.53" y="2460.99" width="41" height="44"/>
   <object id="8267" gid="1546" x="4099.06" y="1545.07" width="41" height="44"/>
-  <object id="8268" gid="1546" x="3613.76" y="1599.75" width="41" height="44"/>
   <object id="8269" gid="1546" x="3894" y="1606.59" width="41" height="44"/>
   <object id="8270" gid="1526" x="3073.77" y="1531.4" width="41" height="48"/>
   <object id="8271" gid="1527" x="2116.83" y="6371.27" width="35" height="65"/>
@@ -3482,5 +3483,24 @@
   <object id="8294" gid="1529" x="4949.34" y="2795.2" width="47" height="58"/>
   <object id="8295" gid="1533" x="4150.83" y="2884.5" width="70.9688" height="86.3438"/>
   <object id="8296" gid="1531" x="6554.79" y="2418.71" width="67.9729" height="100.685" rotation="182.023"/>
+  <object id="8299" gid="6133" x="1813.19" y="6598.9" width="128" height="128" rotation="304.814"/>
+  <object id="8300" gid="6114" x="2590.46" y="5856.22" width="199.365" height="211.259"/>
+  <object id="8301" gid="6115" x="2606.8" y="5862.82" width="183.506" height="191.435" rotation="306.309"/>
+  <object id="8302" gid="6131" x="2713.69" y="6261.46" width="128" height="128" rotation="-342.252"/>
+  <object id="8303" gid="6128" x="2577.16" y="5426.95" width="128" height="128"/>
+  <object id="8305" gid="6127" x="1815.84" y="4933.13" width="128" height="128"/>
+  <object id="8306" gid="6128" x="2680.04" y="4943.42" width="128" height="128" rotation="71.6094"/>
+  <object id="8307" gid="6133" x="3168.72" y="5588.99" width="128" height="128" rotation="53.7629"/>
+  <object id="8308" gid="6130" x="3193.72" y="4924.42" width="128" height="128" rotation="147.3"/>
+  <object id="8309" gid="6132" x="2893.79" y="2872.11" width="128" height="128" rotation="57.4405"/>
+  <object id="8310" gid="6129" x="2228.65" y="2510.85" width="128" height="128" rotation="305.996"/>
+  <object id="8311" gid="6126" x="2539.8" y="2185.24" width="128" height="128" rotation="317.43"/>
+  <object id="8312" gid="6125" x="3874.82" y="1678.73" width="128" height="128" rotation="39.4389"/>
+  <object id="8313" gid="6129" x="3328.51" y="2894.36" width="128" height="128"/>
+  <object id="8315" gid="6126" x="3657.74" y="2308.25" width="128" height="128"/>
+  <object id="8316" gid="6131" x="6641.44" y="3094.72" width="136.651" height="136.651" rotation="25.801"/>
+  <object id="8317" gid="6128" x="6853.37" y="2495.67" width="128" height="128"/>
+  <object id="8318" gid="6132" x="5936.42" y="2482.7" width="128" height="128"/>
+  <object id="8319" gid="6127" x="5503.89" y="3142.3" width="128" height="128" rotation="90.6834"/>
  </objectgroup>
 </map>
