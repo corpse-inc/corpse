@@ -56,6 +56,15 @@
                 "y": 251.04602510460268
             }
         },
+        "summer_island/small/tilesets/ground.tsx": {
+            "dynamicWrapping": true
+        },
+        "summer_island/small/tilesets/ground_as_tiles.tsx": {
+            "dynamicWrapping": false
+        },
+        "summer_island/small/tilesets/item.tsx": {
+            "dynamicWrapping": true
+        },
         "summer_island/tilesets/boats.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
@@ -209,8 +218,8 @@
             "scaleInEditor": 0.6818
         }
     },
-    "last.externalTilesetPath": "C:/Users/Anton/PycharmProjects/corpse/data/world/winter_island/tilesets",
-    "last.imagePath": "/home/mark/code/proj/corpse/data/frames/machine_gun",
+    "last.externalTilesetPath": "C:/Users/Anton/PycharmProjects/corpse/data/world/summer_island/small/tilesets",
+    "last.imagePath": "C:/Users/Anton/PycharmProjects/corpse/data/assets/summer/creatures/Hero_Pistol",
     "map.height": 90,
     "map.lastUsedFormat": "tmx",
     "map.width": 90,
@@ -232,5 +241,6 @@
         "winter_island/tilesets/tileset.tsx",
         "winter_island/tilesets/winter_graund.tsx",
         "winter_island/tilesets/autumn_trees.tsx"
-    ]
+    ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)"
 }
