@@ -625,7 +625,7 @@
   <object id="4228" gid="1552" x="5666.19" y="3056.25" width="37" height="40"/>
   <object id="4232" gid="1544" x="3233.75" y="3130.08" width="41" height="48"/>
   <object id="4233" gid="1544" x="4965.8" y="2555.43" width="41" height="48"/>
-  <object id="4236" gid="1555" x="2868.5" y="2160.75" width="33.9226" height="35.2292"/>
+  <object id="4236" gid="1555" x="2391.6" y="2424.04" width="33.9226" height="35.2292"/>
   <object id="4237" gid="1550" x="6138.86" y="1626.95" width="39" height="41"/>
   <object id="4238" gid="1544" x="5631.63" y="1903.87" width="41" height="48"/>
   <object id="4240" gid="1552" x="5687.25" y="1879.02" width="37" height="40"/>
@@ -655,7 +655,7 @@
   <object id="4273" gid="1564" x="1156.33" y="7725.56" width="41" height="44"/>
   <object id="4274" gid="1564" x="287.852" y="7679.48" width="41" height="44"/>
   <object id="4275" gid="1564" x="1727.04" y="7923.93" width="41" height="44"/>
-  <object id="4435" name="player" x="3497.07" y="1533.47">
+  <object id="4435" name="player" x="3509.79" y="1542.79">
    <point/>
   </object>
   <object id="4450" gid="1550" x="4828.02" y="2487.17" width="39" height="41"/>

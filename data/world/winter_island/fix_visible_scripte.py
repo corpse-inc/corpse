@@ -1,4 +1,4 @@
-with open("map.txt", mode='r', encoding='utf-8') as map:
+with open("map.tmx", mode='r', encoding='utf-8') as map:
     lines = map.readlines() 
     refactor_lines = []
     for i in lines:
@@ -9,3 +9,4 @@ with open("map.txt", mode='r', encoding='utf-8') as map:
 
 with open('map.tmx', mode='w', encoding='utf-8') as new_map:
     new_map.write(''.join(refactor_lines))
+
