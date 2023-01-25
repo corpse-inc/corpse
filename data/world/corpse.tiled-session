@@ -10,15 +10,15 @@
     "fileStates": {
         "summer_island/map.tmx": {
             "expandedObjectLayers": [
+                3,
                 4,
-                5,
-                3
+                5
             ],
-            "scale": 1.0073,
+            "scale": 0.25,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 4777.6233495482975,
-                "y": 8004.56666335749
+                "x": 4664,
+                "y": 5672
             }
         },
         "summer_island/map.tmx#Ground_as_tiles": {
@@ -74,11 +74,14 @@
             "scaleInEditor": 1
         },
         "winter_island/map - Copy.tmx": {
-            "scale": 0.125,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 5992,
-                "y": 5096
+                "x": 6831,
+                "y": 6478
             }
         },
         "winter_island/map - Copy.tmx#Ground_as_tiles": {
@@ -86,13 +89,14 @@
         },
         "winter_island/map.tmx": {
             "expandedObjectLayers": [
-                3
+                3,
+                4
             ],
-            "scale": 0.1103,
-            "selectedLayer": 1,
+            "scale": 0.25,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 6133.27289211242,
-                "y": 2810.5167724388034
+                "x": 5310,
+                "y": 6800
             }
         },
         "winter_island/map.tmx#Ground_as_tiles": {
@@ -175,17 +179,17 @@
     ],
     "project": "corpse.tiled-project",
     "recentFiles": [
+        "winter_island/map.tmx",
+        "winter_island/map - Copy.tmx",
         "summer_island/map.tmx",
         "summer_island/tilesets/creatures.tsx",
         "winter_island/tilesets/tileset.tsx",
-        "winter_island/map.tmx",
         "winter_island/tilesets/winter_graund.tsx",
         "winter_island/tilesets/autumn_trees.tsx",
         "winter_island/tilesets/autumn_ground.tsx",
         "winter_island/tilesets/interior.tsx",
         "winter_island/tilesets/creatures.tsx",
         "winter_island/tilesets/boats.tsx",
-        "winter_island/tilesets/roof.tsx",
-        "winter_island/tilesets/objects.tsx"
+        "winter_island/tilesets/roof.tsx"
     ]
 }
