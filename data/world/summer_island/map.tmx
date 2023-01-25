@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="90" height="90" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="705">
- <tileset firstgid="1" source="../tilesets/ground_as_tiles.tsx"/>
- <tileset firstgid="1441" source="../tilesets/objects.tsx"/>
- <tileset firstgid="1456" source="../tilesets/machine.tsx"/>
- <tileset firstgid="1490" source="../tilesets/items.tsx"/>
- <tileset firstgid="1510" source="../tilesets/creatures.tsx"/>
- <tileset firstgid="1534" source="../tilesets/interior.tsx"/>
- <tileset firstgid="1647" source="../tilesets/trees.tsx"/>
- <tileset firstgid="1657" source="../tilesets/roof.tsx"/>
+ <tileset firstgid="1" source="tilesets/ground_as_tiles.tsx"/>
+ <tileset firstgid="1441" source="tilesets/objects.tsx"/>
+ <tileset firstgid="1456" source="tilesets/machine.tsx"/>
+ <tileset firstgid="1490" source="tilesets/items.tsx"/>
+ <tileset firstgid="1510" source="tilesets/creatures.tsx"/>
+ <tileset firstgid="1534" source="tilesets/interior.tsx"/>
+ <tileset firstgid="1647" source="tilesets/trees.tsx"/>
+ <tileset firstgid="1657" source="tilesets/roof.tsx"/>
  <tileset firstgid="1682" source="tilesets/boats.tsx"/>
  <tileset firstgid="1784" source="tilesets/creatures.tsx"/>
  <tileset firstgid="1808" source="tilesets/ground.tsx"/>
