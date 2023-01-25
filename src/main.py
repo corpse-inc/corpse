@@ -197,6 +197,7 @@ if __name__ == "__main__":
         world.process(
             screen=screen,
             paused=paused,
+            started=started,
             events=events,
             running=running,
             settings=settings,

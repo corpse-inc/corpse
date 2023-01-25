@@ -4,7 +4,9 @@ import pygame
 import pygame_menu
 
 from pygame_menu import Menu
+
 from meta import Id
+from creature import DeadMarker
 
 
 class MenuCreationProcessor(esper.Processor):
@@ -42,20 +44,32 @@ class MenuCreationProcessor(esper.Processor):
             onreturn=change_resolution,
         )
 
-        main_menu = Menu(
-            "Corpse inc.",
-            *settings["resolution"],
-            center_content=False,
-            theme=utils.make.main_menu_theme(settings),
-        )
+        if dead := utils.get.player(self, DeadMarker):
+            main_menu = Menu(
+                "Мёртв",
+                *settings["resolution"],
+                center_content=True,
+                theme=utils.make.main_menu_dead_theme(settings),
+            )
+        else:
+            main_menu = Menu(
+                "Corpse inc.",
+                *settings["resolution"],
+                center_content=False,
+                theme=utils.make.main_menu_theme(settings),
+            )
 
         def play():
             started[0] = True
+            self.world.clear_cache()
+            self.world.clear_database()
 
         def open_settings():
             current_menu[0] = "settings_menu"
 
-        main_menu.add.button("Играть", play)
+        if not dead:
+            main_menu.add.button("Играть", play)
+
         main_menu.add.button("Настройки", open_settings)
         main_menu.add.button("Выйти", pygame_menu.events.EXIT)
 

@@ -1,3 +1,5 @@
+from pygame_menu import Menu
+from meta import Id
 import utils
 import esper
 import pygame
@@ -91,7 +93,7 @@ class FrameCyclingProcessor(esper.Processor):
 
 
 class StateChangingProcessor(esper.Processor):
-    def process(self, **_):
+    def process(self, started=None, **_):
         for entity, states_comp in self.world.get_component(States):
             states = set()
 
@@ -107,6 +109,11 @@ class StateChangingProcessor(esper.Processor):
                     states.add(StateType.Dead)
                     states.add(StateType.Stands)
                     health.value = 0
+                    if self.world.has_component(entity, PlayerMarker):
+                        started[0] = False
+                        # for ent, (_, id) in self.world.get_components(Menu, Id):
+                        #     if id.id == "main_menu":
+                        #         self.world.delete_entity(ent)
 
             if (
                 (equip := self.world.try_component(entity, Equipment))

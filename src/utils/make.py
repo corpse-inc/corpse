@@ -31,6 +31,25 @@ def main_menu_theme(settings) -> pygame_menu.Theme:
     return theme
 
 
+def main_menu_dead_theme(settings) -> pygame_menu.Theme:
+    theme = pygame_menu.Theme()
+
+    background = pygame_menu.baseimage.BaseImage(
+        image_path=ResourcePath.get(
+            f"ui/main_menu_dead_background/main_menu_dead_background.jpg"
+        ),
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+    )
+    theme.background_color = background
+
+    theme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
+    theme.selection_color = pygame.Color(0, 0, 0)
+    theme.widget_margin = (-30, 0)
+    theme.widget_offset = (0.35, 0.01)
+
+    return theme
+
+
 def settings_menu_theme(settings) -> pygame_menu.Theme:
     theme = pygame_menu.Theme()
     res = "x".join(map(str, settings["resolution"]))
