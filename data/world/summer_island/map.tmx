@@ -11,7 +11,6 @@
  <tileset firstgid="1682" source="tilesets/boats.tsx"/>
  <tileset firstgid="1784" source="tilesets/ground.tsx"/>
  <tileset firstgid="1801" source="tilesets/house_floor.tsx"/>
- <tileset firstgid="3241" source="tilesets/item.tsx"/>
  <layer id="1" name="ground" width="90" height="90">
   <data encoding="csv">
 236,191,191,191,191,191,191,237,237,236,236,236,237,236,237,236,191,192,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,191,192,237,237,191,236,236,237,191,191,191,191,191,191,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,237,236,
@@ -141,7 +140,7 @@
   <object id="1016" gid="1495" x="1993.95" y="2872.06" width="23.6419" height="22.8539"/>
   <object id="1017" gid="1495" x="853.769" y="2102.04" width="23.6419" height="22.8539"/>
   <object id="1020" gid="1497" x="2030.84" y="2874.34" width="23.1647" height="23.1647"/>
-  <object id="1021" gid="1496" x="2598.67" y="236.501" width="18.2008" height="18.2008"/>
+  <object id="1021" gid="1496" x="2609.95" y="257.45" width="18.2008" height="18.2008"/>
   <object id="1023" gid="1498" x="121.607" y="2563.98" width="14.8916" height="14.8916"/>
  </objectgroup>
  <objectgroup id="4" name="creatures">
@@ -795,7 +794,7 @@
   <object id="993" gid="1511" x="2281.14" y="2384.8" width="41" height="39"/>
   <object id="994" gid="1511" x="2444.04" y="2288.54" width="41" height="39"/>
  </objectgroup>
- <objectgroup id="3" name="roofs">
+ <objectgroup id="3" name="roofs" visible="0">
   <object id="710" gid="1669" x="1505.4" y="636.155" width="461.817" height="216.726" rotation="180.1"/>
   <object id="711" gid="1676" x="1453.48" y="1006.73" width="234.478" height="239.912"/>
   <object id="712" gid="1673" x="519.84" y="997.961" width="557" height="299"/>

@@ -158,186 +158,369 @@
   <image width="327" height="633" source="../../../assets/winter/interior/Tiles/PNG/Walls/walls_0051_Layer-0.png"/>
  </tile>
  <tile id="52">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="613" height="286" source="../../../assets/winter/interior/Objects/PNG/objects_house_0000_Layer-1.png"/>
  </tile>
  <tile id="53">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="613" height="286" source="../../../assets/winter/interior/Objects/PNG/objects_house_0001_Layer-2.png"/>
  </tile>
  <tile id="54">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="612" height="286" source="../../../assets/winter/interior/Objects/PNG/objects_house_0002_Layer-3.png"/>
  </tile>
  <tile id="55">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="612" height="286" source="../../../assets/winter/interior/Objects/PNG/objects_house_0003_Layer-4.png"/>
  </tile>
  <tile id="56">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="612" height="286" source="../../../assets/winter/interior/Objects/PNG/objects_house_0004_Layer-5.png"/>
  </tile>
  <tile id="57">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="612" height="286" source="../../../assets/winter/interior/Objects/PNG/objects_house_0005_Layer-6.png"/>
  </tile>
  <tile id="58">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="612" height="287" source="../../../assets/winter/interior/Objects/PNG/objects_house_0006_Layer-7.png"/>
  </tile>
  <tile id="59">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="319" height="283" source="../../../assets/winter/interior/Objects/PNG/objects_house_0007_Layer-8.png"/>
  </tile>
  <tile id="60">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="319" height="283" source="../../../assets/winter/interior/Objects/PNG/objects_house_0008_Layer-9.png"/>
  </tile>
  <tile id="61">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="320" height="283" source="../../../assets/winter/interior/Objects/PNG/objects_house_0009_Layer-10.png"/>
  </tile>
  <tile id="62">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="319" height="283" source="../../../assets/winter/interior/Objects/PNG/objects_house_0010_Layer-11.png"/>
  </tile>
  <tile id="63">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="319" height="283" source="../../../assets/winter/interior/Objects/PNG/objects_house_0011_Layer-12.png"/>
  </tile>
  <tile id="64">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="319" height="283" source="../../../assets/winter/interior/Objects/PNG/objects_house_0012_Layer-13.png"/>
  </tile>
  <tile id="65">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="319" height="283" source="../../../assets/winter/interior/Objects/PNG/objects_house_0013_Layer-14.png"/>
  </tile>
  <tile id="66">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="197" height="215" source="../../../assets/winter/interior/Objects/PNG/objects_house_0014_Layer-15.png"/>
  </tile>
  <tile id="67">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="197" height="215" source="../../../assets/winter/interior/Objects/PNG/objects_house_0015_Layer-16.png"/>
  </tile>
  <tile id="68">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="197" height="214" source="../../../assets/winter/interior/Objects/PNG/objects_house_0016_Layer-17.png"/>
  </tile>
  <tile id="69">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="250" height="173" source="../../../assets/winter/interior/Objects/PNG/objects_house_0017_Layer-18.png"/>
  </tile>
  <tile id="70">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="250" height="173" source="../../../assets/winter/interior/Objects/PNG/objects_house_0018_Layer-19.png"/>
  </tile>
  <tile id="71">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="250" height="173" source="../../../assets/winter/interior/Objects/PNG/objects_house_0019_Layer-20.png"/>
  </tile>
  <tile id="72">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="256" height="206" source="../../../assets/winter/interior/Objects/PNG/objects_house_0020_Layer-21.png"/>
  </tile>
  <tile id="73">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="256" height="206" source="../../../assets/winter/interior/Objects/PNG/objects_house_0021_Layer-22.png"/>
  </tile>
  <tile id="74">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="256" height="206" source="../../../assets/winter/interior/Objects/PNG/objects_house_0022_Layer-23.png"/>
  </tile>
  <tile id="75">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="212" height="218" source="../../../assets/winter/interior/Objects/PNG/objects_house_0023_Layer-24.png"/>
  </tile>
  <tile id="76">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="212" height="218" source="../../../assets/winter/interior/Objects/PNG/objects_house_0024_Layer-25.png"/>
  </tile>
  <tile id="77">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="212" height="218" source="../../../assets/winter/interior/Objects/PNG/objects_house_0025_Layer-26.png"/>
  </tile>
  <tile id="78">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="211" height="218" source="../../../assets/winter/interior/Objects/PNG/objects_house_0026_Layer-27.png"/>
  </tile>
  <tile id="79">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="212" height="218" source="../../../assets/winter/interior/Objects/PNG/objects_house_0027_Layer-28.png"/>
  </tile>
  <tile id="80">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="217" height="219" source="../../../assets/winter/interior/Objects/PNG/objects_house_0028_Layer-29.png"/>
  </tile>
  <tile id="81">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="218" height="219" source="../../../assets/winter/interior/Objects/PNG/objects_house_0029_Layer-30.png"/>
  </tile>
  <tile id="82">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="218" height="219" source="../../../assets/winter/interior/Objects/PNG/objects_house_0030_Layer-31.png"/>
  </tile>
  <tile id="83">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="218" height="219" source="../../../assets/winter/interior/Objects/PNG/objects_house_0031_Layer-32.png"/>
  </tile>
  <tile id="84">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="218" height="219" source="../../../assets/winter/interior/Objects/PNG/objects_house_0032_Layer-33.png"/>
  </tile>
  <tile id="85">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="630" height="918" source="../../../assets/winter/interior/Objects/PNG/objects_house_0033_Layer-34.png"/>
  </tile>
  <tile id="86">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="630" height="919" source="../../../assets/winter/interior/Objects/PNG/objects_house_0034_Layer-35.png"/>
  </tile>
  <tile id="87">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="631" height="918" source="../../../assets/winter/interior/Objects/PNG/objects_house_0035_Layer-36.png"/>
  </tile>
  <tile id="88">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="325" height="920" source="../../../assets/winter/interior/Objects/PNG/objects_house_0036_Layer-37.png"/>
  </tile>
  <tile id="89">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="324" height="920" source="../../../assets/winter/interior/Objects/PNG/objects_house_0037_Layer-38.png"/>
  </tile>
  <tile id="90">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="325" height="920" source="../../../assets/winter/interior/Objects/PNG/objects_house_0038_Layer-39.png"/>
  </tile>
  <tile id="91">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="781" height="272" source="../../../assets/winter/interior/Objects/PNG/objects_house_0039_Layer-40.png"/>
  </tile>
  <tile id="92">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="780" height="272" source="../../../assets/winter/interior/Objects/PNG/objects_house_0040_Layer-41.png"/>
  </tile>
  <tile id="93">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="780" height="272" source="../../../assets/winter/interior/Objects/PNG/objects_house_0041_Layer-42.png"/>
  </tile>
  <tile id="94">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="796" height="404" source="../../../assets/winter/interior/Objects/PNG/objects_house_0042_Layer-43.png"/>
  </tile>
  <tile id="95">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="796" height="404" source="../../../assets/winter/interior/Objects/PNG/objects_house_0043_Layer-44.png"/>
  </tile>
  <tile id="96">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="796" height="403" source="../../../assets/winter/interior/Objects/PNG/objects_house_0044_Layer-45.png"/>
  </tile>
  <tile id="97">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="917" height="537" source="../../../assets/winter/interior/Objects/PNG/objects_house_0045_Layer-46.png"/>
  </tile>
  <tile id="98">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="918" height="537" source="../../../assets/winter/interior/Objects/PNG/objects_house_0046_Layer-47.png"/>
  </tile>
  <tile id="99">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="918" height="537" source="../../../assets/winter/interior/Objects/PNG/objects_house_0047_Layer-48.png"/>
  </tile>
  <tile id="100">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="519" height="430" source="../../../assets/winter/interior/Objects/PNG/objects_house_0048_Layer-49.png"/>
  </tile>
  <tile id="101">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="519" height="431" source="../../../assets/winter/interior/Objects/PNG/objects_house_0049_Layer-50.png"/>
  </tile>
  <tile id="102">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="519" height="431" source="../../../assets/winter/interior/Objects/PNG/objects_house_0050_Layer-51.png"/>
  </tile>
  <tile id="103">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="316" height="314" source="../../../assets/winter/interior/Objects/PNG/objects_house_0051_Layer-52.png"/>
  </tile>
  <tile id="104">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="316" height="314" source="../../../assets/winter/interior/Objects/PNG/objects_house_0052_Layer-53.png"/>
  </tile>
  <tile id="105">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="315" height="314" source="../../../assets/winter/interior/Objects/PNG/objects_house_0053_Layer-54.png"/>
  </tile>
  <tile id="106">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="423" height="408" source="../../../assets/winter/interior/Objects/PNG/objects_house_0054_Layer-55.png"/>
  </tile>
  <tile id="107">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="423" height="408" source="../../../assets/winter/interior/Objects/PNG/objects_house_0055_Layer-56.png"/>
  </tile>
  <tile id="108">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="440" height="472" source="../../../assets/winter/interior/Objects/PNG/objects_house_0056_Layer-57.png"/>
  </tile>
  <tile id="109">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="440" height="473" source="../../../assets/winter/interior/Objects/PNG/objects_house_0057_Layer-58.png"/>
  </tile>
  <tile id="110">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="1057" height="290" source="../../../assets/winter/interior/Objects/PNG/objects_house_0058_Layer-59.png"/>
  </tile>
  <tile id="111">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="1057" height="290" source="../../../assets/winter/interior/Objects/PNG/objects_house_0059_Layer-60.png"/>
  </tile>
  <tile id="112">
+  <properties>
+   <property name="soft" value="true"/>
+  </properties>
   <image width="1057" height="290" source="../../../assets/winter/interior/Objects/PNG/objects_house_0060_Layer-0.png"/>
  </tile>
 </tileset>
