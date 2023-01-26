@@ -19,6 +19,7 @@ class Layer(IntEnum):
     # Порядок имеет значение!
     Ground = auto()
     Items = auto()
+    UnderObjects = auto()
     Creatures = auto()
     Objects = auto()
     Roofs = auto()
@@ -76,7 +77,7 @@ class InitLocationProcessor(esper.Processor):
         image = object.image.convert_alpha() if object.image else None
 
         match layer:
-            case Layer.Items | Layer.Objects | Layer.Roofs:
+            case Layer.Items | Layer.UnderObjects | Layer.Objects | Layer.Roofs:
                 entity = self.world.create_entity(
                     position,
                     size,
