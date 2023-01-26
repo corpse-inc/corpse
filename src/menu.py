@@ -6,17 +6,31 @@ import pygame_menu
 from pygame_menu import Menu
 
 from meta import Id
-from creature import DeadMarker
+from creature import DeadMarker, PlayerMarker
 
 
 class MenuCreationProcessor(esper.Processor):
-    def process(self, current_menu=None, settings=None, started=None, paused=None, **_):
+    def process(
+        self,
+        world=None,
+        current_menu=None,
+        settings=None,
+        started=None,
+        paused=None,
+        **_,
+    ):
+        dead = len(world.get_components(PlayerMarker, DeadMarker)) > 0
+
         if (
-            utils.get.menu(self, "main_menu")
+            not dead
+            and utils.get.menu(self, "main_menu")
             and utils.get.menu(self, "pause_menu")
             and utils.get.menu(self, "settings_menu")
         ):
             return
+
+        for ent, _ in self.world.get_component(Menu):
+            self.world.delete_entity(ent)
 
         def open_main_menu():
             started[0] = False
@@ -44,7 +58,7 @@ class MenuCreationProcessor(esper.Processor):
             onreturn=change_resolution,
         )
 
-        if dead := utils.get.player(self, DeadMarker):
+        if dead:
             main_menu = Menu(
                 "Мёртв",
                 *settings["resolution"],
@@ -69,8 +83,8 @@ class MenuCreationProcessor(esper.Processor):
 
         if not dead:
             main_menu.add.button("Играть", play)
+            main_menu.add.button("Настройки", open_settings)
 
-        main_menu.add.button("Настройки", open_settings)
         main_menu.add.button("Выйти", pygame_menu.events.EXIT)
 
         pause_menu = Menu(

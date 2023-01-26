@@ -188,6 +188,7 @@ if __name__ == "__main__":
             events=events,
             paused=paused,
             started=started,
+            world=world,
         )
 
         if not started[0] or paused[0]:
