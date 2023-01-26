@@ -221,13 +221,14 @@
         "winter_island/map.tmx": {
             "expandedObjectLayers": [
                 4,
+                2,
                 3
             ],
-            "scale": 0.4245,
-            "selectedLayer": 1,
+            "scale": 0.125,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1075.3828032979975,
-                "y": 1939.929328621908
+                "x": 3212,
+                "y": 2760
             }
         },
         "winter_island/map.tmx#Ground_as_tiles": {
@@ -236,6 +237,17 @@
             "scaleInEditor": 1
         },
         "winter_island/map.tmx#autumn_trees.tsx": {
+            "scaleInDock": 1
+        },
+        "winter_island/map_big1.tmx": {
+            "scale": 0.2212,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 5201.175406871609,
+                "y": 845.3887884267631
+            }
+        },
+        "winter_island/map_big1.tmx#Ground_as_tiles": {
             "scaleInDock": 1
         },
         "winter_island/tilesets/autumn_ground.tsx": {
@@ -277,9 +289,11 @@
             "scaleInDock": 1
         },
         "winter_island/tilesets/items.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "winter_island/tilesets/machine.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -320,18 +334,18 @@
     "project": "corpse.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "winter_island/map.tmx",
-        "summer_island/map_bog.tmx",
-        "summer_island/tilesets/trees.tsx",
-        "summer_island/tilesets/roof.tsx",
-        "summer_island/tilesets/objects.tsx",
-        "summer_island/tilesets/machine.tsx",
-        "summer_island/tilesets/items.tsx",
-        "summer_island/tilesets/interior.tsx",
-        "summer_island/tilesets/house_floor.tsx",
-        "summer_island/tilesets/ground_as_tiles.tsx",
-        "summer_island/tilesets/ground.tsx",
-        "summer_island/tilesets/creatures.tsx"
+        "winter_island/tilesets/winter_graund.tsx",
+        "winter_island/tilesets/trees.tsx",
+        "winter_island/tilesets/tileset.tsx",
+        "winter_island/tilesets/roof.tsx",
+        "winter_island/tilesets/objects.tsx",
+        "winter_island/tilesets/machine.tsx",
+        "winter_island/tilesets/items.tsx",
+        "winter_island/tilesets/interior.tsx",
+        "winter_island/tilesets/creatures.tsx",
+        "winter_island/tilesets/boats.tsx",
+        "winter_island/tilesets/autumn_trees.tsx",
+        "winter_island/tilesets/autumn_ground.tsx"
     ],
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)"
 }
