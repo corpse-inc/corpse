@@ -1,10 +1,5 @@
 ![image](https://user-images.githubusercontent.com/104511335/214185748-a3026176-3d4d-4bbd-bf38-dabc50aae0c1.png)
 
-Corpse - это RPG игра , которая погружает игрока в постапокалиптический мир. Основные действующие лиц в игре это сам игрок и зомби, пытающиеся его сожрать. Задача игрока выжить и покинуть локацию. В игре, на данный момент, присутствует 2 уровня: лето и зима. В игре присутствуют следоющие игровые механики:
-1. Стрельба из огнестрельного оружия
-2. Инвентарь
-3. Смена дня и ночи
-# Сюжет
-Давным давно была Corpse Inc., которая занималась благотворительностью, но втайне разрабатывала вирус CORPSE22, чтобы уничтожить всех людей на планете, оставив только узкий круг самых влиятельных людей мира. Суть вируса заключалась в том, чтобы после заражения человек уже через 24 часа был мертв. Но в геноме вируса появилась ошибка, из-за которой зараженные люди мутировали и превращались в зомби. После запуска вируса весь мир стремительно захлестнул зомби-апокалипсис, все страны мира заполонили зомби. Но у студента из Финляндии по имени Арне оказался иммунитет к вирусу. Теперь целью его жизни стало выживание, поиск укрытия и других выживших.
-* * * * 
-Подробнее можно почитать в [техническое задание](https://docs.google.com/document/d/1PwGzoQ_e0NwaBTHyU9uFU6Jky1s0FMk5j8wNWRybG7k/edit?usp=sharing). [Презентация проекта](https://docs.google.com/presentation/d/148oVsO8c8t7XzRB8hlobZuU7D6gx6yTD/edit?usp=sharing&ouid=107346431721864330065&rtpof=true&sd=true)
+Formerly, corpse was a try to create a TDS RPG game in the post-apocalyptic genre called as *the Corpse Inc*. For now, corpse is just raw useless game engine, which's planned to be rewritten in Rust sometime. Corpse's corpsed.
+
+A team-making of the own game engine on top of pygame, esper and tiled was an amazing experience, which showed us that gamedev sucks. Thank Yandex Lyceum for making us trying so.
