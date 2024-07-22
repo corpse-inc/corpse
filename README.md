@@ -4,7 +4,7 @@ Formerly, corpse was a try to create a TDS RPG game in the post-apocalyptic genr
 
 A team-making of the own game engine on top of pygame, esper and tiled was an amazing experience, which showed us that gamedev sucks. Thanks Yandex Lyceum for making us trying so.
 
-# Corpse capabilities
+## Corpse capabilities
 
 Corpse uses entity-component-system as an underlying pattern to work with game objects. Thus, the completed game made on top of it is just a bunch of sequence of processors (or systems if you will), which are pipelined to process game components. The thing is that corpse already has the big amount of the needed systems and components implemented, so one can construct their own game with them.
 
@@ -31,7 +31,7 @@ See the root directory of the package source code for available modules. Here's 
 - **ui** (logic related to placing and drawing game-related ui components on the screen, like inventory, tips and so on)
 - **utils** (a bunch of utility functions to development easier; constants, math, filesystems, creature-making functions and so on)
 
-# Running game engine in sandbox mode
+## Running game engine in sandbox mode
 
 If you want to test engine capabilities, you may edit `./data/world/sandbox/map.tmx` file via [Tiled](https://www.mapeditor.org/) (not essential) and run sandbox world with these commands:
 
@@ -40,6 +40,6 @@ poetry install
 poetry run python corpse/sandbox.py
 ```
 
-# Creating own game on top of the corpse engine
+## Creating own game on top of the corpse engine
 
 Fork the repo and go ahead! See related [sandbox world](./corpse/sandbox.py) file for the reference.
