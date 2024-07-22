@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="1055">
+ <tileset firstgid="1" source="tilesets/ground_as_tiles.tsx"/>
+ <tileset firstgid="1441" source="tilesets/objects.tsx"/>
+ <tileset firstgid="1456" source="tilesets/machine.tsx"/>
+ <tileset firstgid="1490" source="tilesets/items.tsx"/>
+ <tileset firstgid="1510" source="tilesets/creatures.tsx"/>
+ <tileset firstgid="1534" source="tilesets/interior.tsx"/>
+ <tileset firstgid="1647" source="tilesets/trees.tsx"/>
+ <tileset firstgid="1657" source="tilesets/roof.tsx"/>
+ <tileset firstgid="1682" source="tilesets/boats.tsx"/>
+ <tileset firstgid="1784" source="tilesets/ground.tsx"/>
+ <tileset firstgid="1801" source="tilesets/house_floor.tsx"/>
+ <layer id="1" name="ground" width="20" height="20">
+  <data encoding="csv">
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,
+236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236
+</data>
+ </layer>
+ <objectgroup id="6" name="items">
+  <object id="1044" gid="1509" x="50.493" y="213.652" width="60.7628" height="21.2097" rotation="332.39"/>
+  <object id="1045" gid="1495" x="77.8966" y="281.062" width="19.2882" height="18.6453" rotation="342.587"/>
+  <object id="1046" gid="1495" x="100.856" y="225.177" width="19.2882" height="18.6453" rotation="342.587"/>
+  <object id="1047" gid="1495" x="59.8559" y="247.677" width="19.2882" height="18.6453" rotation="342.587"/>
+  <object id="1048" gid="1495" x="125.356" y="257.677" width="19.2882" height="18.6453" rotation="342.587"/>
+  <object id="1049" gid="1495" x="154.856" y="226.177" width="19.2882" height="18.6453" rotation="342.587"/>
+ </objectgroup>
+ <objectgroup id="8" name="under_objects"/>
+ <objectgroup id="4" name="creatures">
+  <object id="1039" name="player" x="160" y="160">
+   <point/>
+  </object>
+  <object id="1040" gid="1511" x="241.937" y="290.759" width="41" height="39" rotation="-30"/>
+ </objectgroup>
+ <objectgroup id="2" name="objects">
+  <object id="1041" gid="1441" x="154.443" y="289.997" width="30" height="31"/>
+  <object id="1042" gid="1441" x="183.192" y="253.893" width="30" height="31"/>
+  <object id="1043" gid="1441" x="221.301" y="221.132" width="30" height="31"/>
+  <object id="1050" gid="1441" x="156.333" y="333.833" width="30" height="31"/>
+  <object id="1051" gid="1441" x="225.667" y="348.5" width="30" height="31"/>
+  <object id="1052" gid="1441" x="310.333" y="331.167" width="30" height="31"/>
+  <object id="1053" gid="1441" x="281" y="232.5" width="30" height="31"/>
+  <object id="1054" gid="1441" x="331" y="275.833" width="30" height="31"/>
+ </objectgroup>
+ <objectgroup id="3" name="roofs"/>
+</map>

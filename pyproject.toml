@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "corpse"
+version = "0.1.0"
+description = "An attempt of creating a fully-featured modular ECS survival TDS game engine"
+authors = ["Mark Meliksetyan <markmelix@gmail.com>", "Anton Grishin <anton.ingrish@gmail.com>"]
+license = "GPL"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pygame = "2.6.0"
+esper = "2.4.1"
+pyscroll = "2.29"
+pytmx = "3.31"
+pygame-gui = "0.6.6"
+pygame-menu = "4.3.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
