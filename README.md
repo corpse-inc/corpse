@@ -1,12 +1,20 @@
 ![image](https://user-images.githubusercontent.com/104511335/214185748-a3026176-3d4d-4bbd-bf38-dabc50aae0c1.png)
 
-Formerly, corpse was a try to create a TDS RPG game in the post-apocalyptic genre called *the Corpse Inc*. For now, corpse is just raw useless game engine, which's planned to be rewritten in Rust sometime. Corpse's corpsed.
+## What's corpse and why corpse when there're Unity, Unreal, GameMaker, Godot and other guys?
 
-A team-making of the own game engine on top of pygame, esper and tiled was an amazing experience, which showed us that gamedev sucks. Thanks Yandex Lyceum for making us trying so.
+- Corpse's a game engine driven on top of the **ECS pattern** totally, which's one of the most efficient game architecture patterns for smooth development experience. ECS driven engine makes game architecturing process as pleasant as possible. Corpse uses [esper](https://github.com/benmoran56/esper), a lightweight ECS module for Python, with a focus on performance.
+- **Modularity**. It's extremely easy to append new functionality to the game being developed as everything one needs to do is just create a separate Python file with needed components and systems and register them in the executor one. ECS on top of Python makes modular development pretty straightforward.
+- **Cross-platform**. Corpse-made games can run on any Python-supporting operating systems such as Windows and *nix ones. In the some of multiverses' future it's planned to append mobile platforms support.
+- **Convenient GUI level-editing** via [Tiled](https://www.mapeditor.org/) built-in support. _«Tiled is a free and open source, easy to use, and flexible level editor»_.
+- **Perfomance**. You didn't hear wrong. Yeah, the engine's written in Python, a slow programming language, on top of esper, which uses just loops and raw caching mechanism underline. Therefore, corpse provides its own perfomant so-called _chunk-system_ to optimize ECS-component pipeline **heavily**. The presence of this system softens perfomance disadvantages of the selected stack, we repeat, **heavily**.
+- **Simplicity**. Almost everyone out there knows Python, seriously. An evening, and one'll've already known of the ECS principles. Another evening appends Tiled to the stack and... That's it! Really! Anyone can start prototyping their own games with corpse almost from scratch in short periods of time without need of a complex tech background.
+- **Simplicity, again**. Again, _C#_ and _Unity_ **do take time to start**; _C++_ and _Unreal Engine_ **do take time to start**; _GDScript_ and _Godot_ **do take time to start**. At least a somewhat heavy game engine **do take time to start**. **Corpse doesn't**—this's its one of the heaviest advantage, which completes this fancy seven-point list.
+
+We hope, this list clearly shows how the corpse stands out from the rest of the engines and why you should try it out.
 
 ## Corpse capabilities
 
-Corpse uses entity-component-system as an underlying pattern to work with game objects. Thus, the completed game made on top of it is just a bunch of sequence of processors (or systems if you will), which are pipelined to process game components. The thing is that corpse already has the big amount of the needed systems and components implemented, so one can construct their own game with them.
+As said before, corpse uses entity-component-system as an underlying pattern to work with game objects. Thus, the completed game made on top of it is just a bunch of sequence of processors (or systems if you will), which are pipelined to process game components. The thing is that corpse already has the big amount of the needed systems and components implemented, so one can construct their own game with them.
 
 See the root directory of the package source code for available modules. Here's list of them with short description:
 - **ai** (enemy route-making module)
@@ -43,3 +51,21 @@ poetry run python corpse/sandbox.py
 ## Creating own game on top of the corpse engine
 
 Fork the repo and go ahead! See related [sandbox world](./corpse/sandbox.py) file for the reference.
+
+## Corpse's corpsed?
+
+Formerly, corpse was a try to create a TDS RPG game in the post-apocalyptic genre called *the Corpse Inc*. For now, it's the engine which's planned to be rewritten in Rust sometime as esper's ECS implementation in Python is too slow despite the chunk-system and has no alternatives.
+
+To be truly honest, a team-making of the own game engine on top of pygame, esper and tiled was an amazing experience, which showed us that gamedev sucks. Thanks [Yandex Lyceum](https://lyceum.yandex.ru/) for making us trying so.
+
+## Can I contribute?
+
+Of course you can! Just [fork](https://github.com/markmelix/corpse/fork) the repo and do the thing.
+
+## Credits
+
+Mark Meliksetyan (<markmelix@gmail.com>), Anton Grishin (<anton.ingrish@gmail.com>).
+
+## License
+
+[GNU GPL v3.0](./LICENSE). Yes, at the start of the development we wanted the corpse to be truly open-source hardened.
