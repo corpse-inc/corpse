@@ -70,4 +70,4 @@ Mark Meliksetyan (<markmelix@gmail.com>), Anton Grishin (<anton.ingrish@gmail.co
 
 ## License
 
-[GNU GPL v3.0](./LICENSE). Yes, at the start of the development we wanted the corpse to be truly open-source hardened.
+[MIT](./LICENSE).
