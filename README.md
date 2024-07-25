@@ -41,6 +41,12 @@ See the root directory of the package source code for available modules. Here's 
 - **ui** (logic related to placing and drawing game-related ui components on the screen, like inventory, tips and so on)
 - **utils** (a bunch of utility functions to development easier; constants, math, filesystems, creature-making functions and so on)
 
+Demonstration of some of the engine mechanics:
+
+![player damage](https://github.com/markmelix/corpse/blob/main/data/demo/damage.gif?raw=true)
+![inventory demo](https://github.com/markmelix/corpse/blob/main/data/demo/inventory.gif?raw=true)
+![enemy kill](https://github.com/markmelix/corpse/blob/main/data/demo/kill.gif?raw=true)
+
 ## Running game engine in sandbox mode
 
 If you want to test engine capabilities, you may edit `./data/world/sandbox/map.tmx` file via [Tiled](https://www.mapeditor.org/) (not essential) and run sandbox world with these commands:
