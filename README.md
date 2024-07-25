@@ -1,6 +1,8 @@
 ![image](https://user-images.githubusercontent.com/104511335/214185748-a3026176-3d4d-4bbd-bf38-dabc50aae0c1.png)
 
-## What's corpse and why corpse when there're Unity, Unreal, GameMaker, Godot and other guys?
+**Corpse is an easy to get on with full-featured cross-platform modular TDS game engine.**
+
+## What makes corpse stand out from other game engines?
 
 - Corpse's a game engine driven on top of the **ECS pattern** totally, which's one of the most efficient game architecture patterns for smooth development experience. ECS driven engine makes game architecturing process as pleasant as possible. Corpse uses [esper](https://github.com/benmoran56/esper), a lightweight ECS module for Python, with a focus on performance.
 - **Modularity**. It's extremely easy to append new functionality to the game being developed as everything one needs to do is just create a separate Python file with needed components and systems and register them in the executor one. ECS on top of Python makes modular development pretty straightforward.
