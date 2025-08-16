@@ -64,8 +64,6 @@ Fork the repo and go ahead! See related [sandbox world](./corpse/sandbox.py) fil
 
 Formerly, corpse was a try to create a TDS RPG game in the post-apocalyptic genre called *the Corpse Inc*. For now, it's the engine which's planned to be rewritten in Rust sometime as esper's ECS implementation in Python is too slow despite the chunk-system and has no alternatives.
 
-To be truly honest, a team-making of the own game engine on top of pygame, esper and tiled was an amazing experience, which showed us that gamedev sucks. Thanks [Yandex Lyceum](https://lyceum.yandex.ru/) for making us trying so.
-
 ## Can I contribute?
 
 Of course you can! Just [fork](https://github.com/markmelix/corpse/fork) the repo and do the thing.
